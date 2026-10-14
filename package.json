@@ -1,4 +1,17 @@
 {
+  "name": "red-mind-webchunghia",
+  "version": "1.0.0",
+  "description": "Website thuyet trinh RED MIND 2.0 - Chu nghia xa hoi khoa hoc - HaUI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Build completed'",
+    "serve": "node server.js",
+    "test": "node scratch/test_academic_actions.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "devDependencies": {
     "playwright": "^1.64.0"
   }
