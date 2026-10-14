@@ -4597,10 +4597,16 @@ class AppController {
   }
 }
 
-// Start application on DOM ready
+// Start application on DOM ready (Browser) or delegate to HTTP server (Node.js)
 let app;
-document.addEventListener('DOMContentLoaded', () => {
-  app = new AppController();
-  window.app = app;
-  app.init();
-});
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    app = new AppController();
+    window.app = app;
+    app.init();
+  });
+} else if (typeof process !== 'undefined') {
+  // If Render or Node environment executes `node app.js`, start the static web server
+  require('./server.js');
+}
+
