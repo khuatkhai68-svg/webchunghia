@@ -1,0 +1,34 @@
+Bạn là Senior Frontend Engineer và QA Engineer. Hãy sửa trực tiếp bộ mã nguồn RED MIND / HaUI gồm index.html, style.css, app.js. KHÔNG viết lại dự án từ đầu, không đổi nội dung học thuật khi chưa đối chiếu nguồn. Làm theo thứ tự và có kiểm thử Chromium/Playwright sau mỗi giai đoạn.
+
+Ưu tiên P0:
+1) Sửa hoàn toàn responsive mobile 375/390px: không còn document scrollWidth > innerWidth, header không tràn, breadcrumb/toolbar không chồng; mobile mặc định dùng danh sách 1 cột dễ đọc (không thu nhỏ radial 6 node đến không đọc được). Có nút riêng chuyển sang mindmap khi cần. Desktop vẫn giữ 6 nhánh radial.
+2) Khi mở nhánh, không để panel chi tiết làm breadcrumb và các node bị ép, chồng; desktop có vùng panel rõ, mobile mở màn chi tiết toàn màn hình.
+3) Trong code không có backend AI nhưng đang tuyên bố AI live và verified: KHÔNG tự nhận đã cập nhật/kiểm chứng/tính điểm AI thật. Nếu chưa có backend hãy gắn nhãn DEMO/MÔ PHỎNG rõ ràng. Không tiếp tục dùng điểm ngẫu nhiên như nhận xét AI khách quan. Không được tự bịa dữ liệu hoặc chứng nhận.
+4) Chống HTML injection từ tên/nhận xét/luận điểm/thẻ SVG: dùng DOM textContent hoặc escape đúng; không đưa user input trực tiếp vào innerHTML.
+
+Ưu tiên P1:
+5) Nút Hướng dẫn đang gọi guideModal nhưng HTML không có id=guideModal: xây modal hợp lệ với thông tin thao tác và phím tắt, hỗ trợ Esc và focus.
+6) Sidebar Thư viện đang chỉ gọi openModal('libraryModal') nên mở 0 item: gọi openLibraryModal() và test search/filter.
+7) `startPresentTimer` còn setInterval sau khi close modal: clearInterval, reset/refine behavior mỗi lần mở.
+8) Poll hiện bắt đầu với 86 phiếu demo, cho vote lặp: phân biệt dữ liệu mẫu, không coi là phiếu thật; nếu chưa có backend thì chỉ bỏ phiếu local và ghi rõ “mô phỏng”.
+9) Reviews được seed tên giảng viên và lời “đã xác thực” không chứng cứ: nhãn dữ liệu mẫu hoặc bỏ; số sao/điểm rating chỉ dựa dữ liệu thật.
+10) 200 tài liệu đang tạo bằng vòng lặp và URL tổng quát: đừng tuyên bố đó là 200 nguồn kiểm chứng, chỉ hiển thị nguồn có tiêu đề/link đúng; cho phép chưa đủ 200.
+11) Search hiện chỉ đổi opacity node trên sơ đồ: thiết kế kết quả truy cập được ở cả sơ đồ/danh sách, hỗ trợ tiếng Việt có/không dấu.
+12) Sidebar yêu thích trỏ vào Ghi chú; các nút avatar, chuông, logo chưa có listener: triển khai có ý nghĩa hoặc gỡ khỏi UI, không để nút giả.
+13) Đổi “tiến độ hoàn thành” thành “đã xem” nếu chỉ mở node; thêm đánh dấu hoàn tất có chủ đích nếu muốn tiến độ học thực.
+
+Chuẩn UI đề xuất:
+- Desktop: header trắng 64px, sidebar rõ 220px, màu đỏ HaUI nhấn vừa phải, font Inter, nút ≥44px vùng chạm, giảm emoji và confetti. Sơ đồ/các thẻ có hệ padding, radius, kích thước thống nhất.
+- Mobile: bottom nav 3–4 mục, danh sách 1 cột, tìm kiếm dễ chạm, trình chiếu và nội dung chi tiết không tràn ngang. Không che lỗi bằng overflow-x:hidden toàn cục.
+- Tất cả các modals keyboard accessible: tab, Esc, focus, aria.
+- Giữ nguyên sơ đồ 6 nhánh, bài học chi tiết, notes, slides nếu chúng đã hoạt động.
+
+Tiêu chí nghiệm thu:
+- Chạy test ở 375x812, 390x844, 768x1024, 1024x768, 1366x768, 1536x864, 1920x1080.
+- Console errors = 0, không horizontal overflow trên trang, chế độ list/map không hiển thị đồng thời.
+- Thư viện không còn trống khi vào từ sidebar, Hướng dẫn mở được, trình chiếu không leak interval, notes lưu lại đúng.
+- Thao tác node, search, poll, reviews, AI demo không được báo sai trạng thái xác thực.
+- Xác minh JavaScript user input không được render như HTML markup.
+- Sau sửa cung cấp danh sách file thay đổi, nguyên nhân lỗi, kết quả test, ảnh trước/sau và các hạn chế chưa giải quyết.
+
+Hãy bắt đầu bằng cách kiểm tra code thực tế thay vì chỉ làm đẹp bề ngoài. Triển khai đợt 1 ổn định và sửa chức năng hỏng trước, gửi kết quả test, rồi mới tiếp tục đợt 2 dữ liệu/AI.
