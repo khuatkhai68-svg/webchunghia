@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trình Chiếu Dân Chủ Xã Hội Chủ Nghĩa — Đại Học Công Nghiệp Hà Nội</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/transitions.css">
+</head>
+<body>
+
+  <!-- Ambient Backdrop Glow -->
+  <div class="ambient-backdrop"></div>
+
+  <!-- Top Minimalist Info Bar -->
+  <header class="top-info-bar" id="topInfoBar">
+    <span class="school-tag">HaUI KHXH</span>
+    <span>•</span>
+    <span id="slideTopicBadge">1. BẢN CHẤT CỦA NỀN DÂN CHỦ XÃ HỘI CHỦ NGHĨA Ở VIỆT NAM</span>
+  </header>
+
+  <!-- Master Stage Wrapper (16:9 Aspect Ratio Container) -->
+  <main class="stage-wrapper">
+    <div class="slide-viewport" id="slideViewport">
+
+      <!-- Double Buffering Layers (Eliminates Black Flash & Flickering) -->
+      <div class="slide-layer active" id="layerA">
+        <img id="imgA" src="assets/slides/Slide_01.png" alt="Slide 1" />
+      </div>
+      <div class="slide-layer" id="layerB">
+        <img id="imgB" src="assets/slides/Slide_02.png" alt="Slide 2" />
+      </div>
+
+      <!-- Transition Overlays -->
+      <!-- A. Silk Wave Transition SVG -->
+      <div class="silk-wave-container" id="silkWavOverlay">
+        <svg viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="silkRedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7F1D1D" stop-opacity="0.95" />
+              <stop offset="35%" stop-color="#B91C2A" stop-opacity="0.98" />
+              <stop offset="70%" stop-color="#EF4444" stop-opacity="0.95" />
+              <stop offset="100%" stop-color="#991B1B" stop-opacity="0.95" />
+            </linearGradient>
+            <linearGradient id="silkGoldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#D97706" />
+              <stop offset="50%" stop-color="#FDE68A" />
+              <stop offset="100%" stop-color="#F59E0B" />
+            </linearGradient>
+          </defs>
+          <path class="silk-path" d="M-100,-50 C400,200 600,-150 1100,250 C1600,650 1700,300 2020,450 L2020,1180 L-100,1180 Z"></path>
+          <path class="silk-edge" d="M-100,-50 C400,200 600,-150 1100,250 C1600,650 1700,300 2020,450"></path>
+        </svg>
+      </div>
+
+      <!-- C. Golden Edge Light Line -->
+      <div class="golden-edge-line" id="goldenEdgeLine"></div>
+
+      <!-- E. Golden Light Sweep Overlay -->
+      <div class="golden-sweep-overlay" id="goldenSweepOverlay"></div>
+
+      <!-- F. Section Reveal Velvet Curtain -->
+      <div class="section-curtain" id="sectionCurtain"></div>
+
+      <!-- Opening Curtain (Fades out automatically in 1s) -->
+      <div class="opening-veil" id="openingVeil">
+        <div style="font-size: 26px; font-weight: 800; letter-spacing: 2px; color: #F59E0B; margin-bottom: 8px;">
+          ĐẠI HỌC CÔNG NGHIỆP HÀ NỘI
+        </div>
+        <div style="font-size: 14px; color: #E2E8F0; opacity: 0.85;">
+          Bản chất của nền dân chủ xã hội chủ nghĩa ở Việt Nam
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Floating Arrow Chevrons -->
+    <button class="nav-arrow prev" id="arrowPrev" title="Cảnh trước (← hoặc PageUp)" aria-label="Previous Slide">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="nav-arrow next" id="arrowNext" title="Cảnh tiếp (→ hoặc Space)" aria-label="Next Slide">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+
+    <!-- Bottom Minimalist HUD Controls (Auto-hiding) -->
+    <footer class="controls-hud" id="controlsHud">
+      <button class="hud-btn" id="hudBtnPrev" title="Cảnh trước">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <span class="hud-counter" id="hudCounter">01 / 16</span>
+
+      <button class="hud-btn" id="hudBtnNext" title="Cảnh tiếp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="hud-divider"></div>
+
+      <!-- FX Toggle Button -->
+      <button class="hud-switch-btn active" id="btnToggleFx" title="Bật/Tắt hiệu ứng chuyển cảnh Motion Graphics">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <span>FX: <span id="fxStateText">BẬT</span></span>
+      </button>
+
+      <!-- Preview FX Selector for testing all transitions -->
+      <select class="hud-select" id="fxSelectPreview" title="Thử nghiệm trực tiếp từng kiểu chuyển cảnh">
+        <option value="auto">Hiệu ứng: Theo kịch bản</option>
+        <option value="silk-wave">A. Silk Wave (Dải lụa đỏ)</option>
+        <option value="fade-zoom">B. Fade & Zoom (Điện ảnh)</option>
+        <option value="directional">C. Directional Reveal (Vệt vàng)</option>
+        <option value="depth">D. Layered Depth (Chiều sâu)</option>
+        <option value="golden-sweep">E. Golden Sweep (Quét sáng)</option>
+        <option value="section">F. Section Reveal (Mở màn đỏ)</option>
+      </select>
+
+      <div class="hud-divider"></div>
+
+      <!-- Fullscreen Button -->
+      <button class="hud-btn" id="btnFullscreen" title="Toàn màn hình máy chiếu (Phím F)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+      </button>
+    </footer>
+
+    <!-- Slim Gold Progress Track at screen bottom edge -->
+    <div class="progress-track">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </main>
+
+  <!-- Modular Scripts -->
+  <script src="js/slideshow.js"></script>
+  <script src="js/motion-engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -28,19 +28,18 @@ Tài liệu này ghi nhớ toàn bộ tiêu chuẩn thiết kế, bối cảnh h
 
 ---
 
-## 3. Cấu trúc chuẩn trang Hành động (Academic Minimal)
-Chỉ gồm 3 khu vực chính:
+## 3. Cấu trúc chuẩn trang Hành động (AI Student Action Assistant)
+Giao diện đơn giản, tinh gọn, hướng dẫn sinh viên hành động thiết thực trong ngày:
 1. **Khu vực 1 — Tiêu đề**:
-   - Tiêu đề: *“Từ lý luận đến thực tiễn”*
-   - Mô tả: *“Sinh viên HaUI thực hành dân chủ trong học tập và đời sống như thế nào?”*
-2. **Khu vực 2 — Ba nội dung trọng tâm**:
-   - **Nhận thức**: Hiểu quyền, nghĩa vụ và trách nhiệm sinh viên.
-   - **Tham gia**: Đóng góp ý kiến qua các kênh chính thống của Nhà trường.
-   - **Phản biện**: Phản biện văn minh, có căn cứ xây dựng.
-3. **Khu vực 3 — Một tình huống tương tác thực tế**:
-   - Tình huống: Dự kiến thay đổi lịch học và phản ứng của sinh viên.
-   - 3 lựa chọn (A, B, C chuẩn mực) + 1 nút `Xem phân tích & liên hệ bài học`.
-   - Phân tích đối chiếu trực tiếp với nguyên tắc *"Dân biết, dân bàn, dân làm, dân kiểm tra"* và kỷ luật, pháp chế XHCN.
+   - Tiêu đề: *“Hôm nay tôi nên làm gì?”*
+   - Mô tả: *“Hệ thống AI liên tục cập nhật thông tin và đề xuất 3 việc làm cụ thể trong ngày giúp sinh viên Đại học Công nghiệp Hà Nội thực hành quyền làm chủ và phát triển bản thân.”*
+2. **Khu vực 2 — Nút kích hoạt trung tâm**:
+   - Nút chính: `✨ Hôm nay tôi nên làm gì?` (`#btnAskAiToday`).
+   - Nút phụ: `🔄 Đổi 3 gợi ý khác` (`#btnRefreshAiToday`).
+   - Trạng thái quét AI thời gian thực (`#aiScanningState`).
+3. **Khu vực 3 — 3 thẻ gợi ý việc làm trong ngày**:
+   - Hiển thị 3 thẻ động từ ngân hàng hành động sinh viên HaUI (Cổng đào tạo, An toàn xưởng máy, Đạo đức không gian mạng, Đối thoại sinh viên, Thư viện số, v.v.).
+   - Mỗi thẻ có số thứ tự (01, 02, 03), nhãn phân loại, tiêu đề, hướng dẫn chi tiết, thời lượng dự kiến và nút `✓ Đánh dấu đã làm`.
    - Thông điệp kết thúc: *“Hiểu đúng · Tham gia có trách nhiệm · Phản biện có căn cứ”*.
 
 ---

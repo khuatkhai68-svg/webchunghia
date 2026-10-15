@@ -1,0 +1,328 @@
+:root {
+  --primary-red: #B91C2A;
+  --red-deep: #7F1D1D;
+  --red-bg: #0C0406;
+  --gold: #F59E0B;
+  --gold-light: #FDE68A;
+  --gold-gradient: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #D97706 100%);
+  --text-light: #F8FAFC;
+  --text-muted: #94A3B8;
+  --transition-timing: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--red-bg);
+  color: var(--text-light);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Ambient Background Glow */
+.ambient-backdrop {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 40%, rgba(185, 28, 42, 0.22) 0%, transparent 65%),
+    radial-gradient(circle at 15% 85%, rgba(127, 29, 29, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
+    #0A0305;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Master Stage Container (16:9 Fit without distortion) */
+.stage-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  padding: 12px;
+}
+
+.slide-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 1920px;
+  max-height: 1080px;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(245, 158, 11, 0.15);
+  background: #000000;
+}
+
+/* Dual Slide Layers for 60fps Zero-Black Flashing Transitions */
+.slide-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide-layer.active {
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.slide-layer.incoming {
+  z-index: 3;
+}
+
+.slide-layer.outgoing {
+  z-index: 1;
+}
+
+.slide-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+/* Floating Navigation Arrows */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(18, 18, 24, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stage-wrapper:hover .nav-arrow {
+  opacity: 0.8;
+  pointer-events: auto;
+}
+
+.nav-arrow:hover {
+  opacity: 1 !important;
+  transform: translateY(-50%) scale(1.1);
+  background: rgba(185, 28, 42, 0.85);
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 4px 20px rgba(185, 28, 42, 0.4);
+}
+
+.nav-arrow.prev { left: 24px; }
+.nav-arrow.next { right: 24px; }
+
+/* Minimalist Auto-Hiding Controls HUD */
+.controls-hud {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(40px);
+  background: rgba(15, 15, 20, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 999px;
+  padding: 8px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.controls-hud.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.hud-btn {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.hud-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--gold);
+}
+
+.hud-counter {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--gold-light);
+  min-width: 54px;
+  text-align: center;
+}
+
+.hud-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hud-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  white-space: nowrap;
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hud-switch-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-light);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.hud-switch-btn.active {
+  background: rgba(185, 28, 42, 0.4);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: var(--gold-light);
+}
+
+.hud-select {
+  background: rgba(20, 20, 26, 0.8);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--text-light);
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Minimal Top Info Bar */
+.top-info-bar {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-30px);
+  background: rgba(15, 15, 20, 0.65);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.top-info-bar.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.school-tag {
+  color: #EF4444;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Slim Gold Progress Bar at bottom */
+.progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 25;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 6.25%;
+  background: var(--gold-gradient);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stage-wrapper {
+    padding: 0;
+  }
+  .slide-viewport {
+    border-radius: 0;
+    max-height: 100vh;
+  }
+  .controls-hud {
+    bottom: 12px;
+    padding: 6px 12px;
+    gap: 8px;
+    width: 90%;
+    justify-content: space-between;
+  }
+  .hud-tag, .hud-select {
+    display: none;
+  }
+  .nav-arrow {
+    display: none;
+  }
+}

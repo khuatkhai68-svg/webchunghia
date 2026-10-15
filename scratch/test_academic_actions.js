@@ -4,11 +4,12 @@ const TEST_VIEWPORTS = [
     { name: 'Desktop FHD', width: 1920, height: 1080 },
     { name: 'Laptop', width: 1366, height: 768 },
     { name: 'Tablet', width: 768, height: 1024 },
-    { name: 'Mobile', width: 390, height: 844 }
+    { name: 'Mobile 390', width: 390, height: 844 },
+    { name: 'Mobile 375', width: 375, height: 812 }
 ];
 
 async function runAcademicActionsTest() {
-    console.log('=== STARTING AUTOMATED QA TEST: ACADEMIC MINIMAL ACTIONS VIEW ===\n');
+    console.log('=== STARTING AUTOMATED TEST: TODAY AI ACTIONS (HÀNH ĐỘNG AI HaUI) ===\n');
 
     let browser;
     try {
@@ -46,12 +47,13 @@ async function runAcademicActionsTest() {
             const bodyWidth = document.body.scrollWidth;
             const winWidth = window.innerWidth;
             const hasHScroll = docWidth > winWidth || bodyWidth > winWidth;
-            const container = document.querySelector('.act-academic-container');
-            const cHeight = container ? container.getBoundingClientRect().height : 0;
-            return { docWidth, winWidth, hasHScroll, cHeight };
+            return { docWidth, winWidth, hasHScroll };
         });
 
-        console.log(`[${vp.name} ${vp.width}x${vp.height}] docWidth=${check.docWidth}, winWidth=${check.winWidth} -> Overflow: ${check.hasHScroll ? 'FAIL ❌' : 'PASS ✅'} | Content Height: ${Math.round(check.cHeight)}px`);
+        console.log(`[${vp.name} ${vp.width}x${vp.height}] docWidth=${check.docWidth}, winWidth=${check.winWidth} -> Overflow: ${check.hasHScroll ? 'FAIL ❌' : 'PASS ✅'}`);
+        if (check.hasHScroll) {
+            throw new Error(`Horizontal scroll detected at ${vp.name}!`);
+        }
     }
 
     // Set desktop 1920x1080 for deep check
@@ -61,75 +63,39 @@ async function runAcademicActionsTest() {
     await page.evaluate(() => window.app.switchView('actions'));
     await page.waitForTimeout(300);
 
-    // 2. TEST KHU VỰC 1: TIÊU ĐỀ
-    console.log('\n--- 2. Testing Khu vực 1: Tiêu đề ---');
+    // 2. TEST TIÊU ĐỀ
+    console.log('\n--- 2. Testing Tiêu đề ---');
     const headerData = await page.evaluate(() => {
-        const title = document.querySelector('.act-main-title')?.textContent.trim();
-        const desc = document.querySelector('.act-main-desc')?.textContent.trim();
-        const badge = document.querySelector('.act-academic-badge')?.textContent.trim();
+        const title = document.querySelector('.act-today-title')?.textContent.trim();
+        const desc = document.querySelector('.act-today-subtitle')?.textContent.trim();
+        const badge = document.querySelector('.act-today-badge')?.textContent.trim();
         return { title, desc, badge };
     });
-    console.log(`Tiêu đề: "${headerData.title}" -> ${headerData.title === 'Từ lý luận đến thực tiễn' ? 'PASS ✅' : 'FAIL ❌'}`);
-    console.log(`Mô tả: "${headerData.desc}" -> ${headerData.desc.includes('Sinh viên HaUI thực hành dân chủ') ? 'PASS ✅' : 'FAIL ❌'}`);
+    console.log(`Tiêu đề: "${headerData.title}" -> ${headerData.title === 'Hôm nay tôi nên làm gì?' ? 'PASS ✅' : 'FAIL ❌'}`);
+    console.log(`Mô tả: "${headerData.desc}" -> ${headerData.desc.includes('Hệ thống AI liên tục cập nhật') ? 'PASS ✅' : 'FAIL ❌'}`);
 
-    // 3. TEST KHU VỰC 2: BA NỘI DUNG TRỌNG TÂM
-    console.log('\n--- 3. Testing Khu vực 2: Ba nội dung trọng tâm ---');
-    const pillars = await page.evaluate(() => {
-        const cards = document.querySelectorAll('.act-pillar-card');
-        const res = [];
-        cards.forEach(c => {
-            const t = c.querySelector('.act-pillar-title')?.textContent.trim();
-            const d = c.querySelector('.act-pillar-desc')?.textContent.trim();
-            res.push({ title: t, desc: d });
-        });
-        return res;
-    });
-    console.log(`Tổng số thẻ trọng tâm: ${pillars.length} -> ${pillars.length === 3 ? 'PASS ✅' : 'FAIL ❌'}`);
-    pillars.forEach((p, i) => {
-        console.log(`  [Thẻ ${i+1}] ${p.title} - ${p.desc}`);
-    });
+    // 3. TEST NÚT BẤM "HÔM NAY TÔI NÊN LÀM GÌ?"
+    console.log('\n--- 3. Testing Nút Kích hoạt Hôm nay tôi nên làm gì? ---');
+    const btnText = await page.evaluate(() => document.getElementById('btnAskAiToday')?.textContent.trim());
+    console.log(`Nút bấm chính: "${btnText}" -> ${btnText.includes('Hôm nay tôi nên làm gì?') ? 'PASS ✅' : 'FAIL ❌'}`);
 
-    // 4. TEST KHU VỰC 3: MỘT TÌNH HUỐNG TƯƠNG TÁC
-    console.log('\n--- 4. Testing Khu vực 3: Một tình huống tương tác ---');
-    const scenarioQuestion = await page.evaluate(() => {
-        return document.getElementById('scenarioTitle')?.textContent.trim();
+    // 4. TEST 3 THẺ GỢI Ý
+    console.log('\n--- 4. Testing 3 Thẻ Gợi Ý Việc Làm ---');
+    let cards = await page.evaluate(() => {
+        const els = document.querySelectorAll('#todaySuggestionsGrid .today-suggestion-card');
+        return Array.from(els).map(el => ({
+            step: el.querySelector('.card-step-num')?.textContent.trim(),
+            badge: el.querySelector('.card-cat-badge')?.textContent.trim(),
+            title: el.querySelector('.card-action-title')?.textContent.trim()
+        }));
     });
-    console.log(`Tình huống tiêu đề: "${scenarioQuestion}" -> ${scenarioQuestion === 'Bạn sẽ làm gì?' ? 'PASS ✅' : 'FAIL ❌'}`);
+    console.log(`Tổng số thẻ gợi ý: ${cards.length} -> ${cards.length === 3 ? 'PASS ✅' : 'FAIL ❌'}`);
 
-    // Test default option (Option C)
-    const optCResult = await page.evaluate(() => {
-        const badge = document.getElementById('scenarioResultBadge')?.textContent.trim();
-        const analysis = document.getElementById('scenarioResultAnalysis')?.textContent.trim();
-        const theory = document.getElementById('scenarioTheoryLink')?.textContent.trim();
-        return { badge, analysis, theory };
-    });
-    console.log(`Mặc định (Phương án C): Badge="${optCResult.badge}" -> ${optCResult.badge.includes('chuẩn mực') ? 'PASS ✅' : 'FAIL ❌'}`);
-
-    // Test click Option A
-    await page.click('label[for="scenarioOptA"]');
-    await page.click('#btnSubmitScenario');
-    await page.waitForTimeout(300);
-    const optAResult = await page.evaluate(() => {
-        const badge = document.getElementById('scenarioResultBadge')?.textContent.trim();
-        const analysis = document.getElementById('scenarioResultAnalysis')?.textContent.trim();
-        return { badge, analysis };
-    });
-    console.log(`Chọn Phương án A: Badge="${optAResult.badge}" -> ${optAResult.badge.includes('Chưa chuẩn mực') ? 'PASS ✅' : 'FAIL ❌'}`);
-
-    // Test click Option B
-    await page.click('label[for="scenarioOptB"]');
-    await page.click('#btnSubmitScenario');
-    await page.waitForTimeout(300);
-    const optBResult = await page.evaluate(() => {
-        const badge = document.getElementById('scenarioResultBadge')?.textContent.trim();
-        return { badge };
-    });
-    console.log(`Chọn Phương án B: Badge="${optBResult.badge}" -> ${optBResult.badge.includes('Thụ động') ? 'PASS ✅' : 'FAIL ❌'}`);
-
-    // Switch back to C
-    await page.click('label[for="scenarioOptC"]');
-    await page.click('#btnSubmitScenario');
-    await page.waitForTimeout(300);
+    // Test click re-roll
+    await page.click('#btnAskAiToday');
+    await page.waitForTimeout(450);
+    const countAfterClick = await page.evaluate(() => document.querySelectorAll('#todaySuggestionsGrid .today-suggestion-card').length);
+    console.log(`Số thẻ sau khi bấm hỏi AI: ${countAfterClick} -> ${countAfterClick === 3 ? 'PASS ✅' : 'FAIL ❌'}`);
 
     // 5. TEST THÔNG ĐIỆP CUỐI TRANG
     console.log('\n--- 5. Testing Thông điệp kết luận cuối trang ---');
@@ -143,11 +109,12 @@ async function runAcademicActionsTest() {
     console.log(`Total console errors: ${consoleErrors.length}`);
     if (consoleErrors.length > 0) {
         consoleErrors.forEach((e, i) => console.log(`  [${i+1}] ${e}`));
+        throw new Error('Console errors encountered!');
     } else {
         console.log('Console is 100% clean! 0 errors ✅');
     }
 
-    console.log('\n=== ALL ACADEMIC ACTIONS TESTS PASSED SUCCESSFULLY ===');
+    console.log('\n=== ALL TESTS PASSED SUCCESSFULLY ===');
     await browser.close();
 }
 

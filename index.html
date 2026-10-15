@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <script>
+    try {
+      localStorage.removeItem('REDMIND_CUSTOM_SLIDES_V2');
+      localStorage.removeItem('REDMIND_CUSTOM_SLIDES');
+      localStorage.removeItem('REDMIND_CUSTOM_SCENARIOS_V2');
+      localStorage.removeItem('REDMIND_CUSTOM_SCENARIOS');
+    } catch(e) {}
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RED MIND / HaUI - Sơ đồ tư duy sống • 2026</title>
@@ -15,7 +23,7 @@
   <!-- Canvas Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261014_academic_minimal">
+  <link rel="stylesheet" href="style.css?v=20261015_arena_wide_v2">
   
 </head>
 <body>
@@ -91,13 +99,28 @@
   <!-- ================= MAIN APP WRAPPER ================= -->
   <div class="app-container">
 
-    <!-- ===== LEFT SIDEBAR ===== -->
-    <aside class="left-sidebar" id="leftSidebar">
-      <!-- Sidebar Top Header with Desktop Collapse Toggle -->
+    <!-- Peek Tab at left edge for effortless hover & click (Desktop) -->
+    <div class="sidebar-peek-tab" id="sidebarPeekTab" title="Rê chuột để mở Menu điều hướng HaUI" role="button" tabindex="0">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <span class="peek-tab-text">Menu</span>
+    </div>
+
+    <!-- ===== LEFT SIDEBAR (AUTO-HIDE ON HOVER) ===== -->
+    <aside class="left-sidebar" id="leftSidebar" aria-label="Thanh điều hướng HaUI">
+
+      <!-- Sidebar Top Header with Desktop Pin / Auto-Hide Toggle -->
       <div class="sidebar-top-bar">
         <span class="sidebar-app-badge">HaUI KHXH</span>
-        <button class="sidebar-toggle-btn" id="btnToggleSidebar" title="Thu gọn / Mở rộng thanh điều hướng">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        <button class="sidebar-toggle-btn" id="btnToggleSidebar" title="Tự động ẩn khi di chuột. Bấm để ghim cố định">
+          <svg class="icon-pin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="17" x2="12" y2="22"></line>
+            <path d="M5 17h14v-2l-2-3V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7l-2 3v2z"></path>
+          </svg>
+          <span class="btn-pin-label">Tự ẩn</span>
         </button>
       </div>
 
@@ -448,117 +471,53 @@
         </div>
       </div> <!-- /#viewOverview -->
 
-    <!-- ================= VIEW 2: HÀNH ĐỘNG & TRỢ LÝ AI (DEDICATED ACTION & AI VIEW) ================= -->
-    <!-- ================= VIEW 2: HÀNH ĐỘNG & TRỢ LÝ AI (DEDICATED ACTION & AI VIEW) ================= -->
-    <!-- ================= VIEW 2: HÀNH ĐỘNG - TỪ LÝ LUẬN ĐẾN THỰC TIỄN ================= -->
+    <!-- ================= VIEW 2: HÀNH ĐỘNG - AI GỢI Ý HÔM NAY ================= -->
     <div class="view-panel hidden" id="viewActions">
-      <div class="actions-view-scrollable act-academic-page">
-        <div class="act-academic-container">
+      <div class="actions-view-scrollable act-today-page">
+        <div class="act-today-container">
 
-          <!-- KHU VỰC 1: TIÊU ĐỀ -->
-          <header class="act-section-header">
-            <span class="act-academic-badge">VẬN DỤNG THỰC TIỄN • BÀI THUYẾT TRÌNH CNXHKH</span>
-            <h2 class="act-main-title">Từ lý luận đến thực tiễn</h2>
-            <p class="act-main-desc">Sinh viên HaUI thực hành dân chủ trong học tập và đời sống như thế nào?</p>
+          <!-- KHU VỰC 1: TIÊU ĐỀ TRANG -->
+          <header class="act-today-header">
+            <span class="act-today-badge">✨ TRỢ LÝ HÀNH ĐỘNG AI • HaUI 2026</span>
+            <h2 class="act-today-title">Hôm nay tôi nên làm gì?</h2>
+            <p class="act-today-subtitle">
+              Hệ thống AI liên tục cập nhật thông tin và đề xuất 3 việc làm cụ thể trong ngày giúp sinh viên Đại học Công nghiệp Hà Nội thực hành quyền làm chủ và phát triển bản thân.
+            </p>
           </header>
 
-          <!-- KHU VỰC 2: BA NỘI DUNG TRỌNG TÂM -->
-          <section class="act-pillars-section" aria-label="Ba nội dung trọng tâm">
-            <div class="act-pillars-grid">
-              <!-- Thẻ 1: Nhận thức -->
-              <div class="act-pillar-card">
-                <div class="act-pillar-header">
-                  <div class="act-pillar-icon icon-awareness">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                  </div>
-                  <h3 class="act-pillar-title">1. Nhận thức</h3>
-                </div>
-                <p class="act-pillar-desc">Hiểu quyền, nghĩa vụ và trách nhiệm của sinh viên; tôn trọng kỷ cương học đường và pháp luật.</p>
-              </div>
+          <!-- KHU VỰC 2: NÚT KÍCH HOẠT HỎI AI HÔM NAY -->
+          <div class="act-today-controls">
+            <button type="button" class="btn-today-ai-ask" id="btnAskAiToday">
+              <span class="btn-ai-icon">✨</span> Hôm nay tôi nên làm gì?
+            </button>
+            <button type="button" class="btn-today-ai-refresh" id="btnRefreshAiToday">
+              🔄 Đổi 3 gợi ý khác
+            </button>
+          </div>
 
-              <!-- Thẻ 2: Tham gia -->
-              <div class="act-pillar-card">
-                <div class="act-pillar-header">
-                  <div class="act-pillar-icon icon-participate">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                  </div>
-                  <h3 class="act-pillar-title">2. Tham gia</h3>
-                </div>
-                <p class="act-pillar-desc">Đóng góp ý kiến, tham gia hoạt động tập thể và sử dụng các kênh phản hồi phù hợp.</p>
-              </div>
+          <!-- TRẠNG THÁI AI ĐANG PHÂN TÍCH -->
+          <div class="ai-scanning-state hidden" id="aiScanningState">
+            <div class="scanning-spinner"></div>
+            <span>🤖 AI đang quét dữ liệu cổng đào tạo & hoạt động học đường HaUI để gợi ý 3 việc phù hợp nhất hôm nay...</span>
+          </div>
 
-              <!-- Thẻ 3: Phản biện -->
-              <div class="act-pillar-card">
-                <div class="act-pillar-header">
-                  <div class="act-pillar-icon icon-critique">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                  </div>
-                  <h3 class="act-pillar-title">3. Phản biện</h3>
-                </div>
-                <p class="act-pillar-desc">Đánh giá thông tin, trao đổi văn minh và kiến nghị có căn cứ.</p>
+          <!-- KHU VỰC 3: KẾT QUẢ 3 GỢI Ý VIỆC LÀM TRONG HÔM NAY -->
+          <div class="today-results-wrapper" id="todayResultsWrapper">
+            <div class="today-suggestions-header">
+              <div class="suggestions-count-tag">
+                <span class="pulse-dot"></span>
+                <strong>3 việc sinh viên có thể làm trong hôm nay:</strong>
               </div>
+              <small class="suggestions-live-note">⚡ AI cập nhật theo thời gian thực từ bối cảnh giảng đường HaUI</small>
             </div>
-          </section>
 
-          <!-- KHU VỰC 3: MỘT TÌNH HUỐNG TƯƠNG TÁC -->
-          <section class="act-scenario-section" aria-labelledby="scenarioTitle">
-            <div class="act-scenario-card">
-              <div class="act-scenario-meta">
-                <span class="scenario-mini-badge">TÌNH HUỐNG GIẢNG ĐƯỜNG</span>
-                <h3 id="scenarioTitle" class="scenario-question">Bạn sẽ làm gì?</h3>
-                <p class="scenario-context">“Nếu nhà trường dự kiến thay đổi lịch học và sinh viên có nhiều ý kiến khác nhau, bạn sẽ xử lý như thế nào?”</p>
-              </div>
-
-              <!-- Ba phương án trả lời -->
-              <div class="scenario-options-group" role="radiogroup" aria-label="Phương án xử lý tình huống">
-                <label class="scenario-option" for="scenarioOptA">
-                  <input type="radio" name="presentationScenario" id="scenarioOptA" value="A">
-                  <span class="scenario-radio-circle"></span>
-                  <div class="scenario-option-text">
-                    <strong>Phương án A:</strong> Đăng bài ẩn danh lên mạng xã hội để bức xúc và phản đối mà chưa tìm hiểu lý do cụ thể.
-                  </div>
-                </label>
-
-                <label class="scenario-option" for="scenarioOptB">
-                  <input type="radio" name="presentationScenario" id="scenarioOptB" value="B">
-                  <span class="scenario-radio-circle"></span>
-                  <div class="scenario-option-text">
-                    <strong>Phương án B:</strong> Thờ ơ, mặc kệ vì nghĩ ý kiến cá nhân không thay đổi được gì, ai làm sao mình theo vậy.
-                  </div>
-                </label>
-
-                <label class="scenario-option active" for="scenarioOptC">
-                  <input type="radio" name="presentationScenario" id="scenarioOptC" value="C" checked>
-                  <span class="scenario-radio-circle"></span>
-                  <div class="scenario-option-text">
-                    <strong>Phương án C:</strong> Tìm hiểu kỹ thông báo gốc, tổng hợp ý kiến lớp/khoa và gửi kiến nghị có căn cứ qua Cố vấn học tập hoặc Cổng e-HaUI.
-                  </div>
-                </label>
-              </div>
-
-              <div class="scenario-submit-wrap">
-                <button type="button" class="btn-scenario-action" id="btnSubmitScenario">
-                  Xem phân tích &amp; liên hệ bài học
-                </button>
-              </div>
-
-              <!-- VÙNG PHẢN HỒI KHÁCH QUAN & LIÊN HỆ BÀI THUYẾT TRÌNH -->
-              <div class="scenario-result-box" id="scenarioResultBox">
-                <div class="scenario-result-badge" id="scenarioResultBadge">Lựa chọn chuẩn mực • Phát huy dân chủ cơ sở</div>
-                <p class="scenario-result-analysis" id="scenarioResultAnalysis">
-                  Rất chuẩn xác! Tiếp cận văn bản gốc giúp nắm rõ căn cứ; cùng tập thể tổng hợp kiến nghị và gửi qua kênh chính thức (Cố vấn học tập, Cổng e-HaUI, Đối thoại sinh viên) là phương pháp đấu tranh xây dựng, văn minh và hiệu quả nhất.
-                </p>
-                <div class="scenario-theory-link">
-                  <strong>⚖️ Liên hệ bản chất Dân chủ Xã hội chủ nghĩa:</strong>
-                  <p id="scenarioTheoryLink">
-                    Đây là biểu hiện sinh động của việc thực hành phương châm “Dân biết, dân bàn, dân làm, dân kiểm tra” ở cơ sở giáo dục đại học. Sinh viên vừa thực hiện quyền làm chủ của mình, vừa giữ vững kỷ cương học đường và thượng tôn pháp luật.
-                  </p>
-                </div>
-              </div>
+            <!-- Grid 3 Thẻ Gợi Ý -->
+            <div class="today-suggestions-grid" id="todaySuggestionsGrid">
+              <!-- Rendered dynamically by JS -->
             </div>
-          </section>
+          </div>
 
-          <!-- THÔNG ĐIỆP CUỐI TRANG -->
+          <!-- THÔNG ĐIỆP KẾT THÚC -->
           <footer class="act-bottom-message">
             <div class="act-message-pill">
               <span class="msg-part">Hiểu đúng</span>
@@ -745,24 +704,32 @@
               
               <div class="metrics-progress-bars">
                 <div class="m-prog-row">
-                  <span class="m-prog-label">1. Chuẩn xác lý luận (Bộ GD&ĐT)</span>
+                  <div class="m-prog-header">
+                    <span class="m-prog-label">1. Chuẩn xác lý luận (Bộ GD&ĐT)</span>
+                    <span class="m-prog-val">4.9 / 5.0</span>
+                  </div>
                   <div class="m-bar-wrap"><div class="m-bar-fill" style="width: 98%; background: #e11d48;"></div></div>
-                  <span class="m-prog-val">4.9 / 5.0</span>
                 </div>
                 <div class="m-prog-row">
-                  <span class="m-prog-label">2. Sơ đồ tư duy & Đồ họa tương tác</span>
+                  <div class="m-prog-header">
+                    <span class="m-prog-label">2. Sơ đồ tư duy & Đồ họa tương tác</span>
+                    <span class="m-prog-val">5.0 / 5.0</span>
+                  </div>
                   <div class="m-bar-wrap"><div class="m-bar-fill" style="width: 100%; background: #d97706;"></div></div>
-                  <span class="m-prog-val">5.0 / 5.0</span>
                 </div>
                 <div class="m-prog-row">
-                  <span class="m-prog-label">3. Thực tiễn giảng đường & SV HaUI</span>
+                  <div class="m-prog-header">
+                    <span class="m-prog-label">3. Thực tiễn giảng đường & SV HaUI</span>
+                    <span class="m-prog-val">4.9 / 5.0</span>
+                  </div>
                   <div class="m-bar-wrap"><div class="m-bar-fill" style="width: 98%; background: #0284c7;"></div></div>
-                  <span class="m-prog-val">4.9 / 5.0</span>
                 </div>
                 <div class="m-prog-row">
-                  <span class="m-prog-label">4. Ứng dụng Trợ lý AI & Phản biện</span>
+                  <div class="m-prog-header">
+                    <span class="m-prog-label">4. Ứng dụng Trợ lý AI & Phản biện</span>
+                    <span class="m-prog-val">4.8 / 5.0</span>
+                  </div>
                   <div class="m-bar-wrap"><div class="m-bar-fill" style="width: 96%; background: #059669;"></div></div>
-                  <span class="m-prog-val">4.8 / 5.0</span>
                 </div>
               </div>
             </div>
@@ -789,16 +756,25 @@
 
     </main>
 
-    <!-- ===== RIGHT DRAWER: PHẢN BIỆN CÓ CHIỀU SÂU ===== -->
-    <aside class="right-drawer closed" id="rightDrawer">
+    <!-- Backdrop Overlay for Centered Idea Modal -->
+    <div class="drawer-backdrop hidden" id="drawerBackdrop"></div>
+
+    <!-- ===== RIGHT DRAWER / CENTERED POPUP: LUẬN ĐIỂM & NỘI DUNG ===== -->
+    <aside class="right-drawer closed" id="rightDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
       
       <!-- Drawer Header -->
       <div class="drawer-header">
         <div class="drawer-title-group">
-          <span class="drawer-icon">💬</span>
-          <h2 class="drawer-heading" id="drawerTitle">Phản biện có chiều sâu</h2>
+          <span class="drawer-icon">💡</span>
+          <h2 class="drawer-heading" id="drawerTitle">Luận điểm & Nội dung học thuật</h2>
         </div>
-        <button class="drawer-close-btn" id="btnCloseDrawer" title="Đóng bảng phản biện">&times;</button>
+        <div class="drawer-header-actions" style="display: flex; align-items: center; gap: 10px;">
+          <button class="btn btn-outline btn-mastery-action" id="btnMarkBranchMastered" title="Đánh dấu đã hiểu rõ và nắm vững nhánh kiến thức này" style="padding: 4px 10px; font-size: 12px; border-radius: 999px;">
+            <span class="mastery-icon">🎯</span>
+            <span class="mastery-text" id="branchMasteryStatusText">Đánh dấu đã nắm vững</span>
+          </button>
+          <button class="drawer-close-btn" id="btnCloseDrawer" title="Đóng bảng luận điểm (Esc)">&times;</button>
+        </div>
       </div>
 
       <!-- Main Central Question -->
@@ -848,73 +824,6 @@
               <p>Để quyền dân chủ thực sự hiệu quả, cần sự vào cuộc đồng bộ của Nhà nước, xã hội và mỗi công dân, đặc biệt là thế hệ trẻ.</p>
             </div>
           </div>
-
-          <!-- Deep-dive Specialized Module Action Buttons -->
-          <div class="drawer-deep-dive-buttons" id="drawerDeepActions">
-            <button class="btn btn-outline btn-sm btn-deep-action" id="btnOpenMatrixModal">
-              📐 Ma Trận 3 Bản Chất & Đối Chiếu Tư Sản
-            </button>
-            <button class="btn btn-outline btn-sm btn-deep-action" id="btnOpenBottlenecksModal">
-              🚧 4 Điểm Nghẽn Thực Tiễn & Thể Chế Hóa
-            </button>
-            <button class="btn btn-outline btn-sm btn-deep-action" id="btnOpenSituationsModal">
-              🏫 5 Tình Huống Quyết Định Sinh Viên HaUI
-            </button>
-            <div class="deep-actions-duo">
-              <button class="btn btn-outline btn-xs" id="btnOpenCommitmentModal">
-                📜 Xuất Thẻ Cam Kết (SVG)
-              </button>
-              <button class="btn btn-outline btn-xs" id="btnOpenPulsePollModal">
-                📊 Khảo Sát Pulse Poll
-              </button>
-            </div>
-          </div>
-
-          <!-- Drawer Action Group: Phản biện, Trình chiếu, Ghi chú & Đánh dấu Nắm vững -->
-          <div class="drawer-learning-actions">
-            <button class="btn btn-outline btn-mastery-action" id="btnMarkBranchMastered" title="Đánh dấu đã hiểu rõ và nắm vững nhánh kiến thức này">
-              <span class="mastery-icon">🎯</span>
-              <span class="mastery-text" id="branchMasteryStatusText">Đánh dấu đã nắm vững</span>
-            </button>
-            <button class="btn btn-debate-cta" id="btnGoToDebateModal">
-              🔥 Đấu trường phản biện nhánh này
-            </button>
-            <div class="drawer-action-pair">
-              <button class="btn btn-outline btn-deep-action" id="btnPresentCurrentBranch">
-                🎬 Trình chiếu slide nhánh này
-              </button>
-              <button class="btn btn-outline btn-deep-action" id="btnSaveBranchToNotes">
-                📝 Lưu vào sổ ghi chú
-              </button>
-            </div>
-          </div>
-
-          <!-- Related Suggestions List -->
-          <div class="related-suggestions-section">
-            <div class="suggestions-header">
-              <span class="sugg-title">Gợi ý liên quan</span>
-              <button class="see-more-link" id="btnSeeMoreLib">Xem thêm &rarr;</button>
-            </div>
-            <div class="suggestions-list" id="suggestionsList">
-              <a href="#" class="sugg-item" data-ref="001">
-                <span class="file-icon">📄</span>
-                <span class="sugg-name">Quyền dân chủ trong Hiến pháp 2013</span>
-              </a>
-              <a href="#" class="sugg-item" data-ref="003">
-                <span class="file-icon">📄</span>
-                <span class="sugg-name">Thực tiễn thực hiện dân chủ ở Việt Nam</span>
-              </a>
-              <a href="#" class="sugg-item" data-ref="051">
-                <span class="file-icon">📄</span>
-                <span class="sugg-name">Vai trò giám sát của nhân dân</span>
-              </a>
-              <a href="#" class="sugg-item" data-ref="081">
-                <span class="file-icon">📄</span>
-                <span class="sugg-name">Sinh viên và trách nhiệm công dân</span>
-              </a>
-            </div>
-          </div>
-
         </div>
 
         <!-- TAB 2: DẪN CHỨNG (Evidence) -->
@@ -987,7 +896,11 @@
           <span class="present-stage-topic" id="slideTitle">1. BẢN CHẤT CỦA NỀN DÂN CHỦ XÃ HỘI CHỦ NGHĨA Ở VIỆT NAM</span>
         </div>
         <div class="present-stage-actions">
-          <span class="present-scene-counter" id="slideIndicator">01 / 07</span>
+          <span class="present-scene-counter" id="slideIndicator">01 / 16</span>
+          <a href="presentation/index.html" target="_blank" class="btn-stage-icon" title="Mở Trình Chiếu Điện Ảnh Toàn Màn Hình (Chế độ Motion Graphics)" style="width: auto; padding: 0 10px; gap: 5px; color: #FDE68A; text-decoration: none; font-size: 12px; font-weight: 700; border-color: rgba(245, 158, 11, 0.4);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span>Điện ảnh</span>
+          </a>
           <button class="btn-stage-icon" id="btnToggleFullscreen" title="Toàn màn hình">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
           </button>
@@ -1029,174 +942,131 @@
     </div>
   </div>
 
-  <!-- ================= MODAL: BIÊN TẬP NỘI DUNG THUYẾT TRÌNH & TRÒ CHƠI ================= -->
-  <div class="modal-backdrop hidden" id="contentEditorModal">
-    <div class="editor-card">
-      <div class="editor-header">
-        <div class="editor-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-          <span>HỆ THỐNG BIÊN TẬP NỘI DUNG (GIẢNG VIÊN & DIỄN GIẢ)</span>
-        </div>
-        <button class="btn-stage-icon btn-stage-close" id="btnCloseContentEditor">&times;</button>
-      </div>
-
-      <div class="editor-tabs">
-        <button class="editor-tab-btn active" id="tabEditSlides" data-editor-tab="slides">1. Slide Trình Chiếu (7 Cảnh)</button>
-        <button class="editor-tab-btn" id="tabEditScenarios" data-editor-tab="scenarios">2. Tình Huống Trò Chơi (5 Câu Hỏi)</button>
-        <button class="editor-tab-btn" id="tabEditRawJson" data-editor-tab="rawjson">3. Nhập / Xuất File JSON</button>
-      </div>
-
-      <div class="editor-body" id="editorBody">
-        <!-- Rendered dynamically by bindContentEditor() -->
-      </div>
-
-      <div class="editor-footer">
-        <div class="editor-actions-left">
-          <button type="button" class="btn-editor-secondary" id="btnEditorResetDefaults">🔄 Khôi phục mặc định</button>
-          <button type="button" class="btn-editor-secondary" id="btnEditorExportJson">📥 Xuất file JSON</button>
-        </div>
-        <div class="editor-actions-right">
-          <button type="button" class="btn-editor-secondary" id="btnEditorPreview">👁️ Xem trước cảnh này</button>
-          <button type="button" class="btn-editor-primary" id="btnEditorSave">💾 Lưu & Áp dụng</button>
-        </div>
-      </div>
-    </div>
+  <!-- Legacy Content Editor Removed -->
   </div>
 
-  <!-- ================= MODAL: ĐẤU TRƯỜNG PHẢN BIỆN NHÓM CÙNG AI ================= -->
+  <!-- ================= MODAL: ĐẤU TRƯỜNG PHẢN BIỆN NHÓM ================= -->
   <div class="modal-backdrop hidden" id="debateModal">
-    <div class="modal-card modal-xl">
+    <div class="modal-card modal-xl debate-card-minimal">
       <div class="modal-header">
         <div class="header-tag-group">
           <span class="badge-flag">🔥 ĐẤU TRƯỜNG TRANH BIỆN NHÓM</span>
-          <h3>PHẢN BIỆN LÝ LUẬN CÙNG TRỌNG TÀI AI (HaUI 2026)</h3>
+          <h3>PHẢN BIỆN LÝ LUẬN THEO CHỦ ĐỀ THUYẾT TRÌNH</h3>
         </div>
         <button class="btn-close" id="btnCloseDebateModal">&times;</button>
       </div>
 
       <div class="modal-body debate-arena-grid">
-        <!-- Left: Topic & Timer & Form -->
+        <!-- Cột trái: Chọn nhóm, Đồng hồ đếm ngược, Câu hỏi, Dòng trả lời, Nút Nộp & Xem nhóm khác -->
         <div class="arena-left-pane">
-          <!-- Topic Selector Bar -->
-          <div class="arena-topic-picker-bar">
-            <div class="topic-picker-header">
-              <label for="modalSelectTopic">🎯 <strong>CHỦ ĐỀ TRANH BIỆN (SÁT 6 NHÁNH BÀI HỌC):</strong></label>
-              <button type="button" class="btn btn-xs btn-outline" id="btnModalRandomTopic" title="Bốc thăm ngẫu nhiên một trong 6 chủ đề bài học">🎲 Bốc Thăm Ngẫu Nhiên</button>
+          <!-- 1. Thanh điều khiển: Chọn nhóm (Nhóm 1-10) & Thời gian đếm ngược -->
+          <div class="arena-minimal-meta-bar">
+            <div class="meta-team-group">
+              <label for="modalSelectTeam">👥 <strong>Chọn nhóm:</strong></label>
+              <select id="modalSelectTeam" class="minimal-team-select">
+                <option value="Nhóm 1">Nhóm 1</option>
+                <option value="Nhóm 2">Nhóm 2</option>
+                <option value="Nhóm 3">Nhóm 3</option>
+                <option value="Nhóm 4">Nhóm 4</option>
+                <option value="Nhóm 5">Nhóm 5</option>
+                <option value="Nhóm 6">Nhóm 6</option>
+                <option value="Nhóm 7">Nhóm 7</option>
+                <option value="Nhóm 8">Nhóm 8</option>
+                <option value="Nhóm 9">Nhóm 9</option>
+                <option value="Nhóm 10">Nhóm 10</option>
+              </select>
             </div>
-            <select id="modalSelectTopic" class="topic-dropdown">
-              <option value="0">Nhánh 1: Bản chất Giai cấp & Dân chủ XHCN vs Dân chủ Tư sản</option>
-              <option value="1">Nhánh 2: Dân chủ & Kỷ cương Pháp quyền XHCN (Hiến pháp 2013)</option>
-              <option value="2">Nhánh 3: Cơ chế 6 chữ Dân & Vế 'Dân thụ hưởng' (Đại hội XIII)</option>
-              <option value="3" selected>Nhánh 4: Thực tiễn Tự chủ HaUI & Quy chế 31/NQ-HĐT</option>
-              <option value="4">Nhánh 5: 4 Điểm nghẽn Thể chế & Trách nhiệm giải trình SLA</option>
-              <option value="5">Nhánh 6: Sứ mệnh & Đạo đức Kỹ sư 4.0 'Vừa Hồng Vừa Chuyên'</option>
-            </select>
-          </div>
-
-          <div class="arena-challenge-box">
-            <div class="challenge-header-meta">
-              <span class="ai-label">🤖 LUẬN ĐIỂM AI THÁCH THỨC CẢ LỚP:</span>
-              <span class="topic-badge" id="modalTopicBadge">Nhánh 4 • HaUI & Quy chế 31</span>
-            </div>
-            <p class="challenge-quote" id="modalProvocationText">
-              "Có ý kiến cho rằng: Sinh viên kỹ thuật HaUI chỉ cần tập trung học giỏi chuyên môn để kiếm việc làm, việc thực hiện dân chủ học đường và tìm hiểu Quy chế 31/NQ-HĐT là việc của Ban Giám hiệu và Ban cán sự, không liên quan đến cá nhân mình."
-            </p>
-            <div class="challenge-hints-card" id="modalChallengeHints">
-              <div class="hint-item"><span class="hint-tag">🎯 Trọng tâm bẻ gãy:</span> <span id="modalTargetText">Bẻ gãy luận điểm thờ ơ vô cảm; khẳng định sinh viên là chủ thể trung tâm của tự chủ đại học.</span></div>
-              <div class="hint-item"><span class="hint-tag">📜 Căn cứ lý luận & pháp lý:</span> <span id="modalLegalHints">Quy chế 31/NQ-HĐT HaUI, Cổng sv.haui.edu.vn, Luật Thực hiện dân chủ ở cơ sở 2022.</span></div>
-            </div>
-          </div>
-
-          <div class="countdown-strip">
-            <div class="countdown-label-group">
-              <span>⏱️ THỜI GIAN THẢO LUẬN NHÓM:</span>
+            <div class="meta-timer-group">
+              <span class="timer-tag">⏱️ THỜI GIAN ĐẾM NGƯỢC:</span>
               <span class="countdown-clock" id="modalTimer">05:00</span>
             </div>
-            <div class="countdown-btn-group">
-              <button class="btn btn-xs btn-primary" id="btnModalStartTimer">Bắt Đầu</button>
-              <button class="btn btn-xs btn-outline" id="btnModalResetTimer" title="Đặt lại đồng hồ về 5 phút (05:00)">🔄 Đặt lại (05:00)</button>
+          </div>
+
+          <!-- 2. Khung câu hỏi (đặt ngẫu nhiên theo chủ đề thuyết trình, đã bỏ nhãn ghi nhánh) -->
+          <div class="arena-minimal-question-box">
+            <div class="question-body">
+              <strong class="question-heading">❓ Câu hỏi phản biện:</strong>
+              <p class="challenge-quote" id="modalProvocationText">
+                "Nhiều người cho rằng: Nước ta chỉ có một Đảng cầm quyền thì làm sao có dân chủ thật sự?..."
+              </p>
             </div>
           </div>
 
-          <div class="arena-form">
-            <div class="form-cols">
-              <div>
-                <label>Nhóm dự thi:</label>
-                <select id="modalSelectTeam">
-                  <option value="Nhóm 1 - Khoa CNTT">Nhóm 1 - Khoa Công nghệ Thông tin</option>
-                  <option value="Nhóm 2 - Khoa Cơ khí">Nhóm 2 - Khoa Cơ khí</option>
-                  <option value="Nhóm 3 - Khoa Điện">Nhóm 3 - Khoa Điện</option>
-                  <option value="Nhóm 4 - Khoa Quản lý Kinh doanh">Nhóm 4 - Khoa Quản lý Kinh doanh</option>
-                  <option value="Nhóm 5 - Khoa Ô tô">Nhóm 5 - Khoa Công nghệ Ô tô</option>
-                </select>
-              </div>
-              <div>
-                <label>Nhóm trưởng:</label>
-                <input type="text" id="modalLeaderName" value="Trần Minh Quân (NT)">
-              </div>
-            </div>
-
-            <label style="margin-top:10px; display:block;">✍️ Câu phản biện của nhóm:</label>
-            <textarea id="modalArgumentText" rows="4" placeholder="Nhập câu phản biện bẻ gãy luận điểm ngụy biện của AI tại đây..."></textarea>
-
-            <div class="arena-form-actions">
-              <button class="btn btn-outline btn-xs" id="btnModalSample">💡 Nạp Bài Mẫu Sắc Bén</button>
-              <button class="btn btn-primary btn-sm btn-glow" id="btnModalSubmit">⚡ NỘP BÀI • AI CHẤM ĐIỂM</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: AI Evaluation & Ranking -->
-        <div class="arena-right-pane">
-          <div class="verdict-display-box" id="modalVerdictBox">
-            <div class="verdict-banner">
-              <div>
-                <h4 id="verdictTeamName">Nhóm 1 - Khoa CNTT</h4>
-                <small id="verdictLeader">Nhóm trưởng: Trần Minh Quân</small>
-              </div>
-              <div class="verdict-score" id="verdictTotal">94/100đ</div>
-            </div>
-            
-            <div class="verdict-progress-bars">
-              <div class="bar-row">
-                <span>Bẻ gãy ngụy biện: <strong id="vCrit1">38/40đ</strong></span>
-                <div class="p-bar"><div class="p-fill" id="vBar1" style="width: 95%"></div></div>
-              </div>
-              <div class="bar-row">
-                <span>Căn cứ Pháp lý & HaUI: <strong id="vCrit2">33/35đ</strong></span>
-                <div class="p-bar"><div class="p-fill" id="vBar2" style="width: 94%"></div></div>
-              </div>
-              <div class="bar-row">
-                <span>Thuyết phục & Văn minh: <strong id="vCrit3">23/25đ</strong></span>
-                <div class="p-bar"><div class="p-fill" id="vBar3" style="width: 92%"></div></div>
-              </div>
-            </div>
-
-            <div class="ai-comment-bubble">
-              <strong>🤖 Nhận xét của AI:</strong>
-              <p id="vAiComment">Lập luận rất đanh thép, phản bác trúng tim đen của tư tưởng vô cảm học đường. Viện dẫn xuất sắc Quy chế 31/NQ-HĐT của HaUI!</p>
-            </div>
+          <!-- 3. Dòng trả lời của nhóm (rộng rãi, không giới hạn độ dài) -->
+          <div class="arena-answer-box">
+            <label for="modalArgumentText" class="answer-label">✍️ <strong>Dòng trả lời của nhóm (không giới hạn):</strong></label>
+            <textarea id="modalArgumentText" rows="7" class="minimal-textarea" placeholder="Nhập đầy đủ câu trả lời, luận cứ, dẫn chứng thực tiễn phản biện của nhóm vào đây..."></textarea>
           </div>
 
-          <div class="mini-ranking-table">
-            <h4>🏆 BẢNG XẾP HẠNG THỨ BẬC CÁC NHÓM</h4>
-            <table class="table-ranking">
-              <thead>
-                <tr><th>Hạng</th><th>Nhóm</th><th>Điểm</th></tr>
-              </thead>
-              <tbody id="modalRankingTbody">
-                <!-- JS populated -->
-              </tbody>
-            </table>
-          </div>
-
-          <div class="modal-dossier-btn-wrap">
-            <button class="btn btn-secondary btn-sm" id="btnOpenTeacherDossier">
-              📋 Xem Báo Cáo Tổng Hợp Nộp Cô
+          <!-- 4. Hàng nút hành động: Nộp bài & Xem câu trả lời nhóm khác -->
+          <div class="arena-minimal-actions">
+            <button type="button" class="btn btn-primary btn-submit-answer" id="btnModalSubmit">
+              🚀 Nộp bài tranh biện
+            </button>
+            <button type="button" class="btn btn-outline btn-view-others" id="btnViewOtherTeamsAnswers">
+              👥 Xem câu trả lời của nhóm khác
             </button>
           </div>
         </div>
 
+        <!-- Cột phải: Bảng xếp hạng ở bên cạnh (hiện lên sau khi trả lời xong) -->
+        <div class="arena-right-pane" id="debateLeaderboardPane">
+          <!-- Trạng thái chờ trước khi trả lời xong -->
+          <div class="leaderboard-placeholder" id="leaderboardPlaceholder">
+            <div class="placeholder-icon">🏆</div>
+            <h4>BẢNG XẾP HẠNG THỨ BẬC CÁC NHÓM</h4>
+            <p>Bảng xếp hạng sẽ tự động hiển thị ở đây ngay sau khi nhóm bạn hoàn thành và bấm <strong>Nộp bài</strong>.</p>
+            <div class="placeholder-status-tag">⏳ Đang đợi nhóm nộp câu trả lời...</div>
+          </div>
+
+          <!-- Bảng xếp hạng kích hoạt sau khi bấm Nộp bài -->
+          <div class="leaderboard-active-content hidden" id="leaderboardActiveContent">
+            <!-- Thẻ điểm vừa nộp -->
+            <div class="verdict-banner-card" id="modalVerdictBox">
+              <div class="verdict-header">
+                <div>
+                  <span class="verdict-tag">✨ KẾT QUẢ ĐÃ CHẤM</span>
+                  <h4 id="verdictTeamName">Nhóm 1 - Khoa CNTT</h4>
+                </div>
+                <div class="verdict-score" id="verdictTotal">94/100đ</div>
+              </div>
+              <p class="verdict-ai-summary" id="vAiComment">
+                Lập luận sắc bén, luận cứ rõ ràng và phản biện rất thuyết phục!
+              </p>
+            </div>
+
+            <!-- Bảng xếp hạng thứ bậc -->
+            <div class="mini-ranking-table">
+              <div class="ranking-header">
+                <h4>🏆 BẢNG XẾP HẠNG THỨ BẬC CÁC NHÓM</h4>
+              </div>
+              <table class="table-ranking">
+                <thead>
+                  <tr><th>Hạng</th><th>Nhóm</th><th>Điểm</th></tr>
+                </thead>
+                <tbody id="modalRankingTbody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CÂU TRẢ LỜI CỦA CÁC NHÓM KHÁC ================= -->
+  <div class="modal-backdrop hidden" id="otherAnswersModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div class="header-tag-group">
+          <span class="badge-flag">👥 THƯ VIỆN BÀI LÀM</span>
+          <h3>CÂU TRẢ LỜI CỦA CÁC NHÓM KHÁC</h3>
+        </div>
+        <button class="btn-close" id="btnCloseOtherAnswersModal">&times;</button>
+      </div>
+      <div class="modal-body other-answers-container" id="otherAnswersList">
+        <!-- Rendered by JS -->
       </div>
     </div>
   </div>
@@ -1886,6 +1756,6 @@
   </div>
 
   <!-- SCRIPT -->
-  <script src="app.js"></script>
+  <script src="app.js?v=20261015_arena_wide_v2"></script>
 </body>
 </html>

@@ -1,0 +1,329 @@
+/* ==========================================================================
+   CINEMATIC MOTION ENGINE TRANSITIONS (RED & GOLD PATRIOTIC THEME)
+   ========================================================================== */
+
+/* B. Cinematic Fade & Zoom (Standard Easing) */
+.anim-fade-zoom-in {
+  animation: fadeZoomIn 0.65s var(--transition-timing) forwards;
+}
+
+.anim-fade-zoom-out {
+  animation: fadeZoomOut 0.65s var(--transition-timing) forwards;
+}
+
+@keyframes fadeZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.025);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeZoomOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.975);
+  }
+}
+
+/* C. Directional Reveal with Golden Edge */
+.directional-reveal-in {
+  animation: dirRevealIn 0.65s var(--transition-timing) forwards;
+}
+
+.directional-reveal-in-rev {
+  animation: dirRevealInRev 0.65s var(--transition-timing) forwards;
+}
+
+@keyframes dirRevealIn {
+  0% {
+    opacity: 1;
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes dirRevealInRev {
+  0% {
+    opacity: 1;
+    clip-path: inset(0 0 0 100%);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Golden Edge Light Beam */
+.golden-edge-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #FFFBEB;
+  box-shadow: 
+    0 0 20px 4px rgba(245, 158, 11, 0.9),
+    0 0 40px 10px rgba(239, 68, 68, 0.6);
+  z-index: 6;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.golden-edge-line.active {
+  animation: sweepEdgeLine 0.65s var(--transition-timing) forwards;
+}
+
+.golden-edge-line.active-rev {
+  animation: sweepEdgeLineRev 0.65s var(--transition-timing) forwards;
+}
+
+@keyframes sweepEdgeLine {
+  0% {
+    left: 0%;
+    opacity: 1;
+  }
+  95% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes sweepEdgeLineRev {
+  0% {
+    right: 0%;
+    opacity: 1;
+  }
+  95% {
+    right: 100%;
+    opacity: 1;
+  }
+  100% {
+    right: 100%;
+    opacity: 0;
+  }
+}
+
+/* D. Layered Depth Transition (Physical & Subtly 3D) */
+.layered-depth-in {
+  animation: depthIn 0.7s var(--transition-timing) forwards;
+}
+
+.layered-depth-out {
+  animation: depthOut 0.7s var(--transition-timing) forwards;
+}
+
+@keyframes depthIn {
+  0% {
+    opacity: 0;
+    transform: translateX(40px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes depthOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-40px) scale(1.04);
+  }
+}
+
+/* E. Golden Light Sweep */
+.golden-sweep-overlay {
+  position: absolute;
+  inset: -50% -100%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(245, 158, 11, 0.1) 40%,
+    rgba(254, 240, 138, 0.45) 50%,
+    rgba(185, 28, 42, 0.25) 55%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+}
+
+.golden-sweep-overlay.active {
+  animation: goldenSweepAnim 0.7s var(--transition-timing) forwards;
+}
+
+@keyframes goldenSweepAnim {
+  0% {
+    opacity: 0;
+    transform: translateX(-60%);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(60%);
+  }
+}
+
+/* A. Silk Wave Transition (Red Silk Ribbon with Gold Trim) */
+.silk-wave-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 7;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.silk-wave-container.animating {
+  opacity: 1;
+  animation: silkPass 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.silk-wave-container.animating-rev {
+  opacity: 1;
+  animation: silkPassRev 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes silkPass {
+  0% {
+    transform: translateX(110%) skewX(-15deg);
+  }
+  50% {
+    transform: translateX(0%) skewX(0deg);
+  }
+  100% {
+    transform: translateX(-110%) skewX(15deg);
+  }
+}
+
+@keyframes silkPassRev {
+  0% {
+    transform: translateX(-110%) skewX(15deg);
+  }
+  50% {
+    transform: translateX(0%) skewX(0deg);
+  }
+  100% {
+    transform: translateX(110%) skewX(-15deg);
+  }
+}
+
+.silk-path {
+  fill: url(#silkRedGradient);
+  filter: drop-shadow(0 0 16px rgba(185, 28, 42, 0.8));
+}
+
+.silk-edge {
+  fill: none;
+  stroke: url(#silkGoldGradient);
+  stroke-width: 5;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.9));
+}
+
+/* F. Section Reveal (Velvet Crimson Curtain) */
+.section-curtain {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #991B1B 0%, #450A0A 100%);
+  transform: scaleY(0);
+  transform-origin: center;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.section-curtain.active {
+  animation: curtainReveal 0.75s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes curtainReveal {
+  0% {
+    transform: scaleY(0);
+    opacity: 0.95;
+  }
+  35% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  65% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
+
+/* Opening Screen Curtain */
+.opening-veil {
+  position: absolute;
+  inset: 0;
+  background: #0C0406;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: veilFadeOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+@keyframes veilFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Reduced Motion Fallback */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+  .anim-fade-zoom-in,
+  .anim-fade-zoom-out,
+  .directional-reveal-in,
+  .directional-reveal-in-rev,
+  .layered-depth-in,
+  .layered-depth-out {
+    animation: simpleFade 0.2s ease forwards !important;
+    clip-path: none !important;
+    transform: none !important;
+  }
+  .silk-wave-container,
+  .golden-edge-line,
+  .golden-sweep-overlay,
+  .section-curtain {
+    display: none !important;
+  }
+}
+
+@keyframes simpleFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

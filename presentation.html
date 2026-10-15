@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trình Chiếu Dân Chủ Xã Hội Chủ Nghĩa — HaUI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #B91C2A;
+      --red-deep: #7F1D1D;
+      --red-bg: #0C0406;
+      --gold: #F59E0B;
+      --gold-light: #FDE68A;
+      --gold-gradient: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #D97706 100%);
+      --text-light: #F8FAFC;
+      --text-muted: #94A3B8;
+      --transition-timing: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--red-bg);
+      color: var(--text-light);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* Ambient Background Glow */
+    .ambient-backdrop {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 50% 40%, rgba(185, 28, 42, 0.22) 0%, transparent 65%),
+        radial-gradient(circle at 15% 85%, rgba(127, 29, 29, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 85% 15%, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
+        #0A0305;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Master Stage Container (16:9 Fit) */
+    .stage-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      padding: 12px;
+    }
+
+    .slide-viewport {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 1920px;
+      max-height: 1080px;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(245, 158, 11, 0.15);
+      background: #000000;
+    }
+
+    /* Dual Slide Layers for 60fps Zero-Black Flashing Transitions */
+    .slide-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      will-change: transform, opacity;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    .slide-layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+    }
+
+    .slide-layer.active {
+      z-index: 10;
+      opacity: 1;
+      transform: scale(1) translate3d(0, 0, 0);
+    }
+
+    .slide-layer.incoming {
+      z-index: 15;
+    }
+
+    .slide-layer.outgoing {
+      z-index: 8;
+    }
+
+    /* ==========================================================================
+       CINEMATIC MOTION GRAPHICS TRANSITION PRESETS
+       ========================================================================== */
+
+    /* Transition A: Silk Wave Overlay */
+    .silk-wave-container {
+      position: absolute;
+      inset: -5% -10%;
+      width: 120%;
+      height: 110%;
+      z-index: 40;
+      pointer-events: none;
+      display: none;
+    }
+
+    .silk-wave-container.animating {
+      display: block;
+      animation: silkWaveFlow 0.75s var(--transition-timing) forwards;
+    }
+
+    .silk-wave-container.animating-rev {
+      display: block;
+      animation: silkWaveFlowRev 0.75s var(--transition-timing) forwards;
+    }
+
+    @keyframes silkWaveFlow {
+      0% {
+        transform: translateX(100%) skewX(-14deg);
+        opacity: 0.95;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(-120%) skewX(-14deg);
+        opacity: 0.95;
+      }
+    }
+
+    @keyframes silkWaveFlowRev {
+      0% {
+        transform: translateX(-120%) skewX(14deg);
+        opacity: 0.95;
+      }
+      100% {
+        transform: translateX(100%) skewX(14deg);
+        opacity: 0.95;
+      }
+    }
+
+    /* Transition B: Cinematic Fade & Zoom */
+    .anim-fade-zoom-in {
+      animation: fadeZoomIn 0.75s var(--transition-timing) forwards;
+    }
+    .anim-fade-zoom-out {
+      animation: fadeZoomOut 0.75s var(--transition-timing) forwards;
+    }
+    @keyframes fadeZoomIn {
+      0% { opacity: 0; transform: scale(1.025); }
+      100% { opacity: 1; transform: scale(1.0); }
+    }
+    @keyframes fadeZoomOut {
+      0% { opacity: 1; transform: scale(1.0); }
+      100% { opacity: 0; transform: scale(0.975); }
+    }
+
+    /* Transition C: Directional Reveal with Golden Edge */
+    .directional-reveal-in {
+      animation: dirRevealIn 0.7s var(--transition-timing) forwards;
+    }
+    .directional-reveal-in-rev {
+      animation: dirRevealInRev 0.7s var(--transition-timing) forwards;
+    }
+    @keyframes dirRevealIn {
+      0% {
+        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+      }
+      100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+    @keyframes dirRevealInRev {
+      0% {
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+      }
+      100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+
+    .golden-edge-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #FDE68A 0%, #F59E0B 50%, #D97706 100%);
+      box-shadow: 0 0 24px rgba(245, 158, 11, 0.9), 0 0 10px rgba(255, 255, 255, 0.8);
+      z-index: 30;
+      display: none;
+      pointer-events: none;
+    }
+    .golden-edge-line.active {
+      display: block;
+      animation: goldenEdgeSweep 0.7s var(--transition-timing) forwards;
+    }
+    .golden-edge-line.active-rev {
+      display: block;
+      animation: goldenEdgeSweepRev 0.7s var(--transition-timing) forwards;
+    }
+    @keyframes goldenEdgeSweep {
+      0% { left: 0%; opacity: 1; }
+      100% { left: 100%; opacity: 0; }
+    }
+    @keyframes goldenEdgeSweepRev {
+      0% { left: 100%; opacity: 1; }
+      100% { left: 0%; opacity: 0; }
+    }
+
+    /* Transition D: Layered Depth Transition */
+    .layered-depth-in {
+      animation: layeredDepthIn 0.8s var(--transition-timing) forwards;
+    }
+    .layered-depth-out {
+      animation: layeredDepthOut 0.8s var(--transition-timing) forwards;
+    }
+    @keyframes layeredDepthIn {
+      0% {
+        opacity: 0;
+        transform: perspective(1200px) translate3d(4%, 0, 40px);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1200px) translate3d(0, 0, 0);
+      }
+    }
+    @keyframes layeredDepthOut {
+      0% {
+        opacity: 1;
+        transform: perspective(1200px) translate3d(0, 0, 0);
+      }
+      100% {
+        opacity: 0;
+        transform: perspective(1200px) translate3d(-4%, 0, -60px);
+      }
+    }
+
+    /* Transition E: Golden Light Sweep */
+    .golden-sweep-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(245, 158, 11, 0.2) 48%,
+        rgba(254, 240, 138, 0.65) 50%,
+        rgba(245, 158, 11, 0.2) 52%,
+        transparent 65%
+      );
+      z-index: 35;
+      pointer-events: none;
+      display: none;
+    }
+    .golden-sweep-overlay.active {
+      display: block;
+      animation: goldenSweepRun 0.75s var(--transition-timing) forwards;
+    }
+    @keyframes goldenSweepRun {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Transition F: Section Reveal */
+    .section-curtain {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, #991B1B 0%, #450A0A 100%);
+      z-index: 32;
+      pointer-events: none;
+      display: none;
+    }
+    .section-curtain.active {
+      display: block;
+      animation: sectionCurtainReveal 0.9s var(--transition-timing) forwards;
+    }
+    @keyframes sectionCurtainReveal {
+      0% {
+        clip-path: circle(0% at 50% 50%);
+        opacity: 1;
+      }
+      65% {
+        clip-path: circle(80% at 50% 50%);
+        opacity: 0.95;
+      }
+      100% {
+        clip-path: circle(120% at 50% 50%);
+        opacity: 0;
+      }
+    }
+
+    /* Opening Cinematic Transition for Slide 1 */
+    .opening-veil {
+      position: absolute;
+      inset: 0;
+      background: #0A0305;
+      z-index: 50;
+      pointer-events: none;
+      animation: openingVeilLift 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes openingVeilLift {
+      0% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    /* ==========================================================================
+       MINIMALIST AUTO-HIDE CONTROLS BAR (CHUYÊN NGHIỆP MÁY CHIẾU)
+       ========================================================================== */
+    .controls-hud {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 18px;
+      background: rgba(15, 6, 9, 0.82);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 9999px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .controls-hud.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hud-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .hud-btn:hover {
+      background: var(--primary-red);
+      border-color: var(--gold);
+      color: #ffffff;
+      transform: scale(1.08);
+    }
+
+    .hud-btn:active {
+      transform: scale(0.96);
+    }
+
+    .hud-counter {
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--gold-light);
+      padding: 0 8px;
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hud-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .hud-toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .hud-toggle-pill.active {
+      background: rgba(185, 28, 42, 0.45);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #FDE68A;
+    }
+
+    /* Top Brand & Title Bar (Auto-hide on hover) */
+    .top-info-bar {
+      position: absolute;
+      top: 18px;
+      left: 28px;
+      right: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .top-info-bar.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .brand-tag .haui-red {
+      color: #EF4444;
+    }
+
+    .current-slide-topic {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Slim Golden Progress Track */
+    .progress-track {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3.5px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 110;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 6.25%;
+      background: linear-gradient(90deg, #B91C2A 0%, #F59E0B 75%, #FDE68A 100%);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+      transition: width 0.35s ease;
+    }
+
+    /* Floating Arrow Touch Navigators */
+    .stage-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(15, 6, 9, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 90;
+      opacity: 0;
+      transition: all 0.25s ease;
+    }
+
+    .stage-arrow:hover {
+      background: var(--primary-red);
+      border-color: var(--gold);
+      transform: translateY(-50%) scale(1.1);
+      opacity: 1 !important;
+    }
+
+    .stage-arrow.prev { left: 18px; }
+    .stage-arrow.next { right: 18px; }
+
+    .stage-wrapper:hover .stage-arrow {
+      opacity: 0.55;
+    }
+
+    /* Dropdown preview menu for transitions testing */
+    .fx-select-menu {
+      background: #1e090e;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #FDE68A;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Return to mindmap button */
+    .btn-return-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .btn-return-home:hover {
+      background: #B91C2A;
+      color: #ffffff;
+      border-color: var(--gold);
+    }
+
+    /* Accessibility Reduced Motion Fallback */
+    @media (prefers-reduced-motion: reduce) {
+      .silk-wave-container,
+      .golden-edge-line,
+      .golden-sweep-overlay,
+      .section-curtain {
+        display: none !important;
+        animation: none !important;
+      }
+      .slide-layer {
+        transition: opacity 0.3s ease !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Backdrop Glow -->
+  <div class="ambient-backdrop"></div>
+
+  <!-- Opening Curtain Veil for Slide 1 -->
+  <div class="opening-veil" id="openingVeil"></div>
+
+  <!-- Master Stage -->
+  <main class="stage-wrapper" id="stageWrapper">
+
+    <!-- Top Info Bar (Auto-hides) -->
+    <header class="top-info-bar" id="topInfoBar">
+      <div class="brand-tag">
+        <span class="haui-red">HaUI</span> KHXH • 2026
+      </div>
+      <div class="current-slide-topic" id="slideTopicBadge">
+        Bản chất nền dân chủ XHCN ở Việt Nam
+      </div>
+      <a href="index.html" class="btn-return-home" title="Trở về Trang Sơ đồ tư duy">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+        <span>Sơ đồ tư duy</span>
+      </a>
+    </header>
+
+    <!-- Floating Arrow Controls -->
+    <button class="stage-arrow prev" id="arrowPrev" aria-label="Slide trước (←)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="stage-arrow next" id="arrowNext" aria-label="Slide tiếp theo (→)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+
+    <!-- 16:9 Slide Viewport -->
+    <div class="slide-viewport" id="slideViewport">
+      
+      <!-- Layer A: Front Active -->
+      <div class="slide-layer active" id="layerA">
+        <img id="imgA" src="assets/slides/Slide_01.png" alt="Slide 01">
+      </div>
+
+      <!-- Layer B: Rear Incoming -->
+      <div class="slide-layer" id="layerB">
+        <img id="imgB" src="" alt="Slide Next">
+      </div>
+
+      <!-- Special Effects Overlays -->
+      <!-- Effect A: Silk Wave SVG Overlay -->
+      <div class="silk-wave-container" id="silkWavOverlay">
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+          <defs>
+            <linearGradient id="silkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7F1D1D" stop-opacity="0.95" />
+              <stop offset="35%" stop-color="#B91C2A" stop-opacity="0.98" />
+              <stop offset="50%" stop-color="#F59E0B" stop-opacity="1" />
+              <stop offset="65%" stop-color="#991B1B" stop-opacity="0.98" />
+              <stop offset="100%" stop-color="#450A0A" stop-opacity="0.95" />
+            </linearGradient>
+          </defs>
+          <path d="M0,0 C320,180 460,-80 840,120 C1180,300 1320,80 1440,0 L1440,900 C1280,780 1100,940 760,820 C420,700 240,880 0,900 Z" fill="url(#silkGrad)"/>
+        </svg>
+      </div>
+
+      <!-- Effect C: Golden Edge Laser Line -->
+      <div class="golden-edge-line" id="goldenEdgeLine"></div>
+
+      <!-- Effect E: Golden Light Sweep -->
+      <div class="golden-sweep-overlay" id="goldenSweepOverlay"></div>
+
+      <!-- Effect F: Section Reveal Velvet Curtain -->
+      <div class="section-curtain" id="sectionCurtain"></div>
+
+    </div>
+
+    <!-- Minimalist HUD Controls (Auto-hide on idle) -->
+    <nav class="controls-hud" id="controlsHud" aria-label="Điều khiển trình chiếu">
+      <button class="hud-btn" id="hudBtnPrev" title="Slide trước (Mũi tên trái / PageUp)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <span class="hud-counter" id="hudCounter">01 / 16</span>
+
+      <button class="hud-btn" id="hudBtnNext" title="Slide tiếp theo (Mũi tên phải / Space)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="hud-divider"></div>
+
+      <!-- Effects On/Off Switch -->
+      <button class="hud-toggle-pill active" id="btnToggleFx" title="Bật/Tắt hiệu ứng điện ảnh chuyển cảnh">
+        <span>✨ Hiệu ứng:</span>
+        <strong id="fxStateText">BẬT</strong>
+      </button>
+
+      <!-- Fast Preview Mode Picker -->
+      <select class="fx-select-menu" id="fxSelectPreview" title="Thử nghiệm từng loại hiệu ứng chuyển cảnh">
+        <option value="auto">🎬 Theo nội dung chuẩn</option>
+        <option value="silk-wave">Silk Wave (Lụa đỏ ánh vàng)</option>
+        <option value="fade-zoom">Cinematic Fade & Zoom</option>
+        <option value="directional">Directional Reveal</option>
+        <option value="depth">Layered Depth</option>
+        <option value="golden-sweep">Golden Light Sweep</option>
+        <option value="section">Section Reveal (Phần mới)</option>
+      </select>
+
+      <button class="hud-btn" id="btnFullscreen" title="Toàn màn hình (Phím F)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+      </button>
+    </nav>
+
+    <!-- Bottom Progress Track -->
+    <div class="progress-track">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+  </main>
+
+  <script>
+    /**
+     * ==========================================================================
+     * CINEMATIC MOTION ENGINE (16 SLIDES — HaUI 2026)
+     * ==========================================================================
+     */
+    const SLIDES = [
+      { id: 1, title: "1. BẢN CHẤT CỦA NỀN DÂN CHỦ XÃ HỘI CHỦ NGHĨA Ở VIỆT NAM", src: "assets/slides/Slide_01.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_01.png", transition: "opening" },
+      { id: 2, title: "2. MỤC TIÊU & CƠ CẤU NỘI DUNG THUYẾT TRÌNH", src: "assets/slides/Slide_02.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_02.png", transition: "directional" },
+      { id: 3, title: "3. NGUỒN GỐC & BẢN CHẤT DÂN CHỦ XÃ HỘI CHỦ NGHĨA", src: "assets/slides/Slide_03.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_03.png", transition: "fade-zoom" },
+      { id: 4, title: "4. BẢN CHẤT CHÍNH TRỊ CỦA NỀN DÂN CHỦ XHCN", src: "assets/slides/Slide_04.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_04.png", transition: "depth" },
+      { id: 5, title: "5. BẢN CHẤT KINH TẾ — SỞ HỮU TOÀN DÂN VỀ TLSX", src: "assets/slides/Slide_05.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_05.png", transition: "section" },
+      { id: 6, title: "6. BẢN CHẤT TƯ TƯỞNG, VĂN HÓA & XÃ HỘI", src: "assets/slides/Slide_06.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_06.png", transition: "directional" },
+      { id: 7, title: "7. NHÀ NƯỚC PHÁP QUYỀN XHCN CỦA DÂN, DO DÂN, VÌ DÂN", src: "assets/slides/Slide_07.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_07.png", transition: "golden-sweep" },
+      { id: 8, title: "8. MỐI QUAN HỆ ĐẢNG LÃNH ĐẠO - NHÀ NƯỚC QUẢN LÝ - NHÂN DÂN LÀM CHỦ", src: "assets/slides/Slide_08.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_08.png", transition: "fade-zoom" },
+      { id: 9, title: "9. HÌNH THỨC DÂN CHỦ TRỰC TIẾP & DÂN CHỦ ĐẠI DIỆN", src: "assets/slides/Slide_09.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_09.png", transition: "depth" },
+      { id: 10, title: "10. CƠ CHẾ 'DÂN BIẾT, DÂN BÀN, DÂN LÀM, KIỂM TRA, GIÁM SÁT, THỤ HƯỞNG'", src: "assets/slides/Slide_10.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_10.png", transition: "silk-wave" },
+      { id: 11, title: "11. PHẦN II: THỰC TIỄN & TRÁCH NHIỆM SINH VIÊN HaUI", src: "assets/slides/Slide_11.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_11.png", transition: "section" },
+      { id: 12, title: "12. THỰC HÀNH DÂN CHỦ TRONG MÔI TRƯỜNG ĐẠI HỌC CÔNG NGHIỆP HÀ NỘI", src: "assets/slides/Slide_12.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_12.png", transition: "directional" },
+      { id: 13, title: "13. NÂNG CAO NHẬN THỨC VÀ ĐÓNG GÓP Ý KIẾN XÂY DỰNG NHÀ TRƯỜNG", src: "assets/slides/Slide_13.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_13.png", transition: "golden-sweep" },
+      { id: 14, title: "14. PHẢN BIỆN VĂN MINH — ĐẤU TRANH PHẢN BÁC QUAN ĐIỂM SAI TRÁI", src: "assets/slides/Slide_14.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_14.png", transition: "depth" },
+      { id: 15, title: "15. HÀNH ĐỘNG CỤ THỂ CỦA SINH VIÊN KỸ THUẬT & CÔNG NGHỆ HaUI", src: "assets/slides/Slide_15.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_15.png", transition: "fade-zoom" },
+      { id: 16, title: "16. THÔNG ĐIỆP KẾT LUẬN — TRI THỨC • HÀNH ĐỘNG • SÁNG TẠO", src: "assets/slides/Slide_16.png", fallback: "16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_16.png", transition: "final" }
+    ];
+
+    class CinematicPresentationApp {
+      constructor() {
+        this.currentIndex = 0;
+        this.isTransitioning = false;
+        this.effectsEnabled = true;
+        this.activeLayerId = 'A'; // 'A' or 'B'
+        this.idleTimer = null;
+        this.previewOverride = 'auto';
+
+        // Preloaded images cache
+        this.imageCache = new Map();
+
+        this.init();
+      }
+
+      init() {
+        this.cacheDom();
+        this.bindEvents();
+        this.preloadInitialSlides();
+        this.updateHUD();
+        this.startIdleDetector();
+
+        // Dismiss opening curtain on first click / key
+        const veil = document.getElementById('openingVeil');
+        if (veil) {
+          setTimeout(() => { if (veil.parentNode) veil.remove(); }, 1200);
+        }
+      }
+
+      cacheDom() {
+        this.layerA = document.getElementById('layerA');
+        this.layerB = document.getElementById('layerB');
+        this.imgA = document.getElementById('imgA');
+        this.imgB = document.getElementById('imgB');
+        this.hud = document.getElementById('controlsHud');
+        this.topBar = document.getElementById('topInfoBar');
+        this.counter = document.getElementById('hudCounter');
+        this.topicBadge = document.getElementById('slideTopicBadge');
+        this.progressBar = document.getElementById('progressBar');
+        this.silkWavOverlay = document.getElementById('silkWavOverlay');
+        this.goldenEdgeLine = document.getElementById('goldenEdgeLine');
+        this.goldenSweepOverlay = document.getElementById('goldenSweepOverlay');
+        this.sectionCurtain = document.getElementById('sectionCurtain');
+      }
+
+      bindEvents() {
+        // Keyboard Controls
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter') {
+            e.preventDefault();
+            this.next();
+          } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
+            e.preventDefault();
+            this.prev();
+          } else if (e.key === 'Home') {
+            e.preventDefault();
+            this.goTo(0);
+          } else if (e.key === 'End') {
+            e.preventDefault();
+            this.goTo(SLIDES.length - 1);
+          } else if (e.key === 'f' || e.key === 'F') {
+            e.preventDefault();
+            this.toggleFullscreen();
+          }
+        });
+
+        // Touch & Swipe Controls
+        let touchStartX = 0;
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+          const deltaX = e.changedTouches[0].clientX - touchStartX;
+          const deltaY = e.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX < 0) this.next();
+            else this.prev();
+          }
+        }, { passive: true });
+
+        // HUD Buttons
+        document.getElementById('hudBtnNext').addEventListener('click', () => this.next());
+        document.getElementById('hudBtnPrev').addEventListener('click', () => this.prev());
+        document.getElementById('arrowNext').addEventListener('click', () => this.next());
+        document.getElementById('arrowPrev').addEventListener('click', () => this.prev());
+        document.getElementById('btnFullscreen').addEventListener('click', () => this.toggleFullscreen());
+
+        // Toggle FX button
+        const btnFx = document.getElementById('btnToggleFx');
+        const fxText = document.getElementById('fxStateText');
+        btnFx.addEventListener('click', () => {
+          this.effectsEnabled = !this.effectsEnabled;
+          btnFx.classList.toggle('active', this.effectsEnabled);
+          fxText.textContent = this.effectsEnabled ? 'BẬT' : 'TẮT';
+        });
+
+        // Preview FX selection dropdown
+        const fxSelect = document.getElementById('fxSelectPreview');
+        fxSelect.addEventListener('change', (e) => {
+          this.previewOverride = e.target.value;
+        });
+
+        // Mouse activity reveals HUD
+        window.addEventListener('mousemove', () => this.onUserActivity());
+        window.addEventListener('click', () => this.onUserActivity());
+      }
+
+      onUserActivity() {
+        this.hud.classList.add('visible');
+        this.topBar.classList.add('visible');
+        clearTimeout(this.idleTimer);
+        this.idleTimer = setTimeout(() => {
+          this.hud.classList.remove('visible');
+          this.topBar.classList.remove('visible');
+        }, 3200);
+      }
+
+      startIdleDetector() {
+        this.onUserActivity();
+      }
+
+      preloadInitialSlides() {
+        [0, 1, 2].forEach(idx => this.preloadImage(idx));
+      }
+
+      preloadImage(index) {
+        if (index < 0 || index >= SLIDES.length) return;
+        const slide = SLIDES[index];
+        if (this.imageCache.has(slide.src)) return;
+
+        const img = new Image();
+        img.src = slide.src;
+        img.onerror = () => {
+          img.src = slide.fallback;
+        };
+        this.imageCache.set(slide.src, img);
+      }
+
+      next() {
+        const base = this.isTransitioning ? this.targetIndex : this.currentIndex;
+        if (base < SLIDES.length - 1) {
+          this.goTo(base + 1, 'next');
+        }
+      }
+
+      prev() {
+        const base = this.isTransitioning ? this.targetIndex : this.currentIndex;
+        if (base > 0) {
+          this.goTo(base - 1, 'prev');
+        }
+      }
+
+      goTo(targetIndex, direction = 'next') {
+        if (targetIndex < 0) targetIndex = 0;
+        if (targetIndex >= SLIDES.length) targetIndex = SLIDES.length - 1;
+        if (targetIndex === this.currentIndex && !this.isTransitioning) return;
+
+        this.targetIndex = targetIndex;
+        if (this.isTransitioning) {
+          this.pendingRequest = { targetIndex, direction };
+          return;
+        }
+        this.isTransitioning = true;
+
+        const targetSlide = SLIDES[targetIndex];
+        const currentLayer = this.activeLayerId === 'A' ? this.layerA : this.layerB;
+        const nextLayer = this.activeLayerId === 'A' ? this.layerB : this.layerA;
+        const nextImg = this.activeLayerId === 'A' ? this.imgB : this.imgA;
+
+        // Smart background preloading of adjacent slides
+        this.preloadImage(targetIndex + 1);
+        this.preloadImage(targetIndex + 2);
+        this.preloadImage(targetIndex - 1);
+
+        // Determine transition effect
+        let fx = targetSlide.transition;
+        if (this.previewOverride !== 'auto') {
+          fx = this.previewOverride;
+        }
+        if (!this.effectsEnabled || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          fx = 'fade-simple';
+        }
+
+        // Set image source with fallback
+        nextImg.src = targetSlide.src;
+        nextImg.onerror = () => { nextImg.src = targetSlide.fallback; };
+
+        // Execute Motion Graphic Transition
+        this.executeTransition(fx, currentLayer, nextLayer, direction, () => {
+          this.currentIndex = targetIndex;
+          this.targetIndex = targetIndex;
+          this.activeLayerId = this.activeLayerId === 'A' ? 'B' : 'A';
+          this.isTransitioning = false;
+          this.updateHUD();
+
+          if (this.pendingRequest) {
+            const req = this.pendingRequest;
+            this.pendingRequest = null;
+            this.goTo(req.targetIndex, req.direction);
+          }
+        });
+      }
+
+      executeTransition(fx, currentLayer, nextLayer, direction, onComplete) {
+        const isRev = direction === 'prev';
+        const duration = (fx === 'section' || fx === 'opening') ? 720 : 620;
+
+        // Reset styling on layers
+        currentLayer.className = 'slide-layer active outgoing';
+        nextLayer.className = 'slide-layer incoming';
+        nextLayer.style.clipPath = '';
+        currentLayer.style.clipPath = '';
+
+        if (fx === 'silk-wave') {
+          // A. Silk Wave Transition
+          this.silkWavOverlay.className = isRev ? 'silk-wave-container animating-rev' : 'silk-wave-container animating';
+          setTimeout(() => {
+            nextLayer.className = 'slide-layer active';
+          }, 260);
+
+          setTimeout(() => {
+            this.silkWavOverlay.className = 'silk-wave-container';
+            currentLayer.className = 'slide-layer';
+            onComplete();
+          }, 640);
+
+        } else if (fx === 'directional') {
+          // C. Directional Reveal with Golden Edge Sweep
+          nextLayer.className = `slide-layer active ${isRev ? 'directional-reveal-in-rev' : 'directional-reveal-in'}`;
+          this.goldenEdgeLine.className = `golden-edge-line ${isRev ? 'active-rev' : 'active'}`;
+
+          setTimeout(() => {
+            this.goldenEdgeLine.className = 'golden-edge-line';
+            currentLayer.className = 'slide-layer';
+            nextLayer.className = 'slide-layer active';
+            nextLayer.style.clipPath = '';
+            onComplete();
+          }, 620);
+
+        } else if (fx === 'depth') {
+          // D. Layered Depth Transition
+          currentLayer.className = 'slide-layer outgoing layered-depth-out';
+          nextLayer.className = 'slide-layer active layered-depth-in';
+
+          setTimeout(() => {
+            currentLayer.className = 'slide-layer';
+            nextLayer.className = 'slide-layer active';
+            onComplete();
+          }, 650);
+
+        } else if (fx === 'golden-sweep') {
+          // E. Golden Light Sweep
+          this.goldenSweepOverlay.className = 'golden-sweep-overlay active';
+          setTimeout(() => {
+            currentLayer.className = 'slide-layer outgoing anim-fade-zoom-out';
+            nextLayer.className = 'slide-layer active anim-fade-zoom-in';
+          }, 150);
+
+          setTimeout(() => {
+            this.goldenSweepOverlay.className = 'golden-sweep-overlay';
+            currentLayer.className = 'slide-layer';
+            nextLayer.className = 'slide-layer active';
+            onComplete();
+          }, 640);
+
+        } else if (fx === 'section') {
+          // F. Section Reveal Velvet Curtain
+          this.sectionCurtain.className = 'section-curtain active';
+          setTimeout(() => {
+            nextLayer.className = 'slide-layer active anim-fade-zoom-in';
+          }, 240);
+
+          setTimeout(() => {
+            this.sectionCurtain.className = 'section-curtain';
+            currentLayer.className = 'slide-layer';
+            nextLayer.className = 'slide-layer active';
+            onComplete();
+          }, 720);
+
+        } else {
+          // B. Cinematic Fade & Zoom (Default & Fallback)
+          currentLayer.className = 'slide-layer outgoing anim-fade-zoom-out';
+          nextLayer.className = 'slide-layer active anim-fade-zoom-in';
+
+          setTimeout(() => {
+            currentLayer.className = 'slide-layer';
+            nextLayer.className = 'slide-layer active';
+            onComplete();
+          }, duration);
+        }
+      }
+
+      updateHUD() {
+        const slide = SLIDES[this.currentIndex];
+        const numStr = String(this.currentIndex + 1).padStart(2, '0');
+        const totalStr = String(SLIDES.length).padStart(2, '0');
+
+        this.counter.textContent = `${numStr} / ${totalStr}`;
+        this.topicBadge.textContent = slide.title;
+        this.progressBar.style.width = `${((this.currentIndex + 1) / SLIDES.length) * 100}%`;
+
+        // Update arrow states
+        document.getElementById('hudBtnPrev').style.opacity = this.currentIndex === 0 ? '0.35' : '1';
+        document.getElementById('hudBtnNext').style.opacity = this.currentIndex === SLIDES.length - 1 ? '0.35' : '1';
+        document.getElementById('arrowPrev').style.visibility = this.currentIndex === 0 ? 'hidden' : 'visible';
+        document.getElementById('arrowNext').style.visibility = this.currentIndex === SLIDES.length - 1 ? 'hidden' : 'visible';
+      }
+
+      toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    }
+
+    // Launch Application
+    window.addEventListener('DOMContentLoaded', () => {
+      window.presentationApp = new CinematicPresentationApp();
+    });
+  </script>
+</body>
+</html>

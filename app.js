@@ -1,3 +1,15 @@
+// ==========================================================================
+// IMMEDIATE STORAGE PURGE — FORCE PRISTINE 16 SLIDES (NO 7-SLIDE CACHE)
+// ==========================================================================
+try {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.removeItem('REDMIND_CUSTOM_SLIDES_V2');
+    localStorage.removeItem('REDMIND_CUSTOM_SLIDES');
+    localStorage.removeItem('REDMIND_CUSTOM_SCENARIOS_V2');
+    localStorage.removeItem('REDMIND_CUSTOM_SCENARIOS');
+  }
+} catch (e) {}
+
 /**
  * RED MIND / HaUI - SƠ ĐỒ TƯ DUY SỐNG • 2026
  * Interactive Logic Engine
@@ -299,347 +311,195 @@ const BRANCH_DATA = {
 // 3. MASTER SLIDES DATA FOR PROJECTOR PRESENTATION (16:9 LECTURE HALL)
 // ==========================================================================
 const DEFAULT_SLIDES = [
-  // CẢNH 0: TỔNG QUAN & MỞ ĐẦU
   {
-    title: "BẢN CHẤT CỦA NỀN DÂN CHỦ XÃ HỘI CHỦ NGHĨA Ở VIỆT NAM",
-    badge: "HaUI 2026 • BÀI THUYẾT TRÌNH GIẢNG ĐƯỜNG",
-    bgImage: "assets/bg-intro.jpg",
-    notes: "Chào giảng viên và các bạn sinh viên. Hôm nay nhóm xin trình bày đề tài Bản chất nền dân chủ xã hội chủ nghĩa ở Việt Nam và hành động của sinh viên Đại học Công nghiệp Hà Nội.",
+    id: 1,
+    title: "1. BẢN CHẤT CỦA NỀN DÂN CHỦ XÃ HỘI CHỦ NGHĨA Ở VIỆT NAM",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_01.png",
+    notes: "Nội dung thuyết trình Slide 1: 1. BẢN CHẤT CỦA NỀN DÂN CHỦ XÃ HỘI CHỦ NGHĨA Ở VIỆT NAM",
     html: `
-      <div class="proj-hero-header">
-        <div class="proj-badge-flag">
-          <span style="font-size: 20px;">🇻🇳</span>
-          <span class="proj-badge-text">ĐẠI HỌC CÔNG NGHIỆP HÀ NỘI • CHỦ NGHĨA XÃ HỘI KHOA HỌC</span>
-        </div>
-        <h1 class="proj-title-hero">BẢN CHẤT NỀN DÂN CHỦ XÃ HỘI CHỦ NGHĨA</h1>
-        <h2 class="proj-subtitle-hero">TỪ LÝ LUẬN ĐẾN THỰC TIỄN SINH VIÊN HaUI</h2>
-      </div>
-
-      <div class="proj-cards-grid">
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🏛️</span>
-          <h3 class="proj-card-title">1. Bản chất Toàn diện</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Quyền lực tối cao thuộc về Nhân dân.</li>
-            <li class="proj-point-item">Kinh tế công hữu TLSX chủ yếu; văn hóa giải phóng con người.</li>
-          </ul>
-          <span class="proj-citation-tag">Điều 2 Hiến pháp 2013</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">⚖️</span>
-          <h3 class="proj-card-title">2. Kỷ cương Pháp chế</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Dân chủ đi đôi với kỷ cương, pháp luật.</li>
-            <li class="proj-point-item">Chu trình 6 bước: Dân biết, dân bàn, dân làm, kiểm tra, giám sát, thụ hưởng.</li>
-          </ul>
-          <span class="proj-citation-tag">Văn kiện Đại hội XIII của Đảng</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🎓</span>
-          <h3 class="proj-card-title">3. Hành động Sinh viên</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Thực hành dân chủ cơ sở tại HaUI.</li>
-            <li class="proj-point-item">Trách nhiệm công dân số, đạo đức kỹ sư 4.0 'Vừa hồng vừa chuyên'.</li>
-          </ul>
-          <span class="proj-citation-tag">Quy chế 31/NQ-HĐT HaUI</span>
-        </div>
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_01.png" alt="Slide 1" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_01.png'" />
       </div>
     `
   },
-
-  // CẢNH 1: BẢN CHẤT TOÀN DIỆN (CHÍNH TRỊ, KINH TẾ, VĂN HÓA)
   {
-    title: "1. BẢN CHẤT CỦA NỀN DÂN CHỦ XÃ HỘI CHỦ NGHĨA",
-    badge: "LÝ LUẬN MÁC - LÊNIN & TƯ TƯỞNG HỒ CHÍ MINH",
-    bgImage: "assets/bg-nature.jpg",
-    notes: "Phân tích 3 trụ cột hữu cơ: Bản chất Chính trị (giai cấp công nhân, Đảng lãnh đạo), Bản chất Kinh tế (công hữu TLSX), Bản chất Văn hóa - Xã hội (con người là trung tâm).",
+    id: 2,
+    title: "2. MỤC TIÊU & BỐI CẢNH NỀN DÂN CHỦ XHCN",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_02.png",
+    notes: "Nội dung thuyết trình Slide 2: 2. MỤC TIÊU & BỐI CẢNH NỀN DÂN CHỦ XHCN",
     html: `
-      <div class="proj-scene-header">
-        <h2 class="proj-scene-title">1. BẢN CHẤT TOÀN DIỆN CỦA NỀN DÂN CHỦ XHCN</h2>
-        <div class="proj-question-banner">
-          <span class="proj-question-text">Bản chất vs Tuyên bố: Quyền lực thực sự thuộc về ai?</span>
-          <span style="font-size: 15px; color: #cbd5e1; font-weight: 700;">3 TRỤ CỘT HỮU CƠ</span>
-        </div>
-      </div>
-
-      <div class="proj-cards-grid">
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🚩</span>
-          <h3 class="proj-card-title">Bản chất Chính trị</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Mang bản chất giai cấp công nhân, đặt dưới sự lãnh đạo của Đảng Cộng sản.</li>
-            <li class="proj-point-item">Nhà nước của Nhân dân, do Nhân dân, vì Nhân dân.</li>
-            <li class="proj-point-item">Khác biệt về chất với dân chủ tư sản (chỉ phục vụ thiểu số tài phiệt).</li>
-          </ul>
-          <span class="proj-citation-tag">Cơ sở chính trị: Hiến pháp 2013</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">📈</span>
-          <h3 class="proj-card-title">Bản chất Kinh tế</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Dựa trên chế độ công hữu về các tư liệu sản xuất chủ yếu.</li>
-            <li class="proj-point-item">Kinh tế thị trường định hướng XHCN nhằm giải phóng sức sản xuất.</li>
-            <li class="proj-point-item">Phân phối theo kết quả lao động; an sinh xã hội không ai bị bỏ lại.</li>
-          </ul>
-          <span class="proj-citation-tag">Cơ sở kinh tế: Đại hội XIII</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🌱</span>
-          <h3 class="proj-card-title">Bản chất Văn hóa - XH</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Lấy con người làm trung tâm, chủ thể và mục tiêu phát triển.</li>
-            <li class="proj-point-item">Giải phóng triệt để sức sáng tạo của người lao động.</li>
-            <li class="proj-point-item">Hệ giá trị chuẩn mực: Công bằng, bình đẳng, văn minh và tiến bộ.</li>
-          </ul>
-          <span class="proj-citation-tag">Hệ tư tưởng Mác - Lênin & TT Hồ Chí Minh</span>
-        </div>
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_02.png" alt="Slide 2" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_02.png'" />
       </div>
     `
   },
-
-  // CẢNH 2: MỐI QUAN HỆ VỚI NHÀ NƯỚC PHÁP QUYỀN
   {
-    title: "2. MỐI QUAN HỆ GIỮA DÂN CHỦ VÀ PHÁP LUẬN KỶ CƯƠNG",
-    badge: "NHÀ NƯỚC PHÁP QUYỀN XÃ HỘI CHỦ NGHĨA",
-    bgImage: "assets/bg-law.jpg",
-    notes: "Làm rõ: Không có dân chủ đứng ngoài pháp luật. Dân chủ đại diện và dân chủ trực tiếp là hai phương thức song hành.",
+    id: 3,
+    title: "3. QUÁ TRÌNH HÌNH THÀNH & PHÁT TRIỂN NỀN DÂN CHỦ XHCN",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_03.png",
+    notes: "Nội dung thuyết trình Slide 3: 3. QUÁ TRÌNH HÌNH THÀNH & PHÁT TRIỂN NỀN DÂN CHỦ XHCN",
     html: `
-      <div class="proj-scene-header">
-        <h2 class="proj-scene-title">2. DÂN CHỦ ĐI ĐÔI VỚI PHÁP CHẾ & THƯỢNG TÔN PHÁP LUẬT</h2>
-        <div class="proj-question-banner">
-          <span class="proj-question-text">Pháp luật là phương thức thể chế hóa và bảo đảm quyền làm chủ</span>
-          <span style="font-size: 15px; color: #cbd5e1; font-weight: 700;">CƠ CHẾ THỰC THI</span>
-        </div>
-      </div>
-
-      <div class="proj-cards-grid">
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🏛️</span>
-          <h3 class="proj-card-title">Dân chủ Đại diện</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Nhân dân ủy quyền quyền lực thông qua bầu cử Quốc hội và HĐND.</li>
-            <li class="proj-point-item">Cơ chế phân công, phối hợp và kiểm soát quyền lực nhà nước.</li>
-            <li class="proj-point-item">Nghĩa vụ giải trình công khai của người đứng đầu cơ quan công quyền.</li>
-          </ul>
-          <span class="proj-citation-tag">Luật Bầu cử ĐBQH & ĐBHĐND</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🗳️</span>
-          <h3 class="proj-card-title">Dân chủ Trực tiếp</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Quyền biểu quyết trực tiếp khi Nhà nước tổ chức trưng cầu ý dân.</li>
-            <li class="proj-point-item">Đóng góp ý kiến sửa đổi Hiến pháp, văn bản quy phạm pháp luật.</li>
-            <li class="proj-point-item">Giám sát và phản biện xã hội qua Mặt trận Tổ quốc và các đoàn thể.</li>
-          </ul>
-          <span class="proj-citation-tag">Luật Thực hiện dân chủ ở cơ sở 2022</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">⚖️</span>
-          <h3 class="proj-card-title">Kỷ luật & Kỷ cương</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Dân chủ không đồng nghĩa với tự do vô kỷ luật, tùy tiện cá nhân.</li>
-            <li class="proj-point-item">Quyền của mỗi công dân bị giới hạn bởi quyền lợi của cộng đồng.</li>
-            <li class="proj-point-item">Nghiêm trị mọi hành vi lợi dụng dân chủ để xâm phạm an ninh quốc gia.</li>
-          </ul>
-          <span class="proj-citation-tag">Điều 15 Hiến pháp 2013</span>
-        </div>
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_03.png" alt="Slide 3" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_03.png'" />
       </div>
     `
   },
-
-  // CẢNH 3: NỘI DUNG CHU TRÌNH 6 BƯỚC "DÂN"
   {
-    title: "3. CHU TRÌNH 6 CHỮ DÂN TRONG THỰC TIỄN",
-    badge: "NGUYÊN TẮC HÀNH ĐỘNG ĐẠI HỘI XIII",
-    bgImage: "assets/bg-law.jpg",
-    notes: "Nhấn mạnh chu trình khép kín: Dân biết, dân bàn, dân làm, dân kiểm tra, dân giám sát, và đích đến tối thượng là DÂN THỤ HƯỞNG.",
+    id: 4,
+    title: "4. BẢN CHẤT CHÍNH TRỊ CỦA NỀN DÂN CHỦ XHCN",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_04.png",
+    notes: "Nội dung thuyết trình Slide 4: 4. BẢN CHẤT CHÍNH TRỊ CỦA NỀN DÂN CHỦ XHCN",
     html: `
-      <div class="proj-scene-header">
-        <h2 class="proj-scene-title">3. CHU TRÌNH THỰC HÀNH DÂN CHỦ: TỪ 'BIẾT' ĐẾN 'THỤ HƯỞNG'</h2>
-        <div class="proj-question-banner">
-          <span class="proj-question-text">Phương châm hành động thực chất: 'Dân là gốc'</span>
-          <span style="font-size: 15px; color: #cbd5e1; font-weight: 700;">ĐẠI HỘI XIII CỦA ĐẢNG</span>
-        </div>
-      </div>
-
-      <div class="proj-cards-grid">
-        <div class="proj-card-item">
-          <span class="proj-card-icon">📢</span>
-          <h3 class="proj-card-title">1. Dân Biết & Dân Bàn</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item"><strong>Dân biết:</strong> Công khai, minh bạch quy hoạch, ngân sách, học phí và chính sách.</li>
-            <li class="proj-point-item"><strong>Dân bàn:</strong> Thảo luận dân chủ, hiến kế giải pháp trước khi ban hành quyết định.</li>
-          </ul>
-          <span class="proj-citation-tag">Luật Tiếp cận thông tin 2016</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🛠️</span>
-          <h3 class="proj-card-title">2. Dân Làm & Kiểm Tra</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item"><strong>Dân làm:</strong> Trực tiếp tham gia lao động sản xuất, học tập và sáng tạo kỹ thuật.</li>
-            <li class="proj-point-item"><strong>Kiểm tra & Giám sát:</strong> Thanh tra nhân dân kiểm toán; cộng đồng giám sát thường xuyên.</li>
-          </ul>
-          <span class="proj-citation-tag">Phân biệt rành mạch Kiểm tra vs Giám sát</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🎁</span>
-          <h3 class="proj-card-title">3. Dân Thụ Hưởng</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Mục tiêu tối thượng: Mọi thành quả phát triển phải quay về phục vụ nhân dân.</li>
-            <li class="proj-point-item">Thụ hưởng giáo dục tiên tiến, y tế công bằng, an sinh xã hội vững chắc.</li>
-          </ul>
-          <span class="proj-citation-tag">Mục tiêu giải phóng & phát triển con người</span>
-        </div>
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_04.png" alt="Slide 4" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_04.png'" />
       </div>
     `
   },
-
-  // CẢNH 4: THỰC TIỄN TẠI ĐẠI HỌC CÔNG NGHIỆP HÀ NỘI
   {
-    title: "4. THỰC HÀNH DÂN CHỦ TẠI ĐẠI HỌC CÔNG NGHIỆP HÀ NỘI",
-    badge: "THỰC TIỄN SINH VIÊN HaUI 2026",
-    bgImage: "assets/bg-haui.jpg",
-    notes: "Liên hệ trực tiếp với cơ sở đào tạo: Cổng sinh viên sv.haui.edu.vn, Hội nghị đối thoại BGH, an toàn xưởng CNC và đánh giá giảng viên.",
+    id: 5,
+    title: "5. BẢN CHẤT KINH TẾ — SỞ HỮU TOÀN DÂN VỀ TLSX",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_05.png",
+    notes: "Nội dung thuyết trình Slide 5: 5. BẢN CHẤT KINH TẾ — SỞ HỮU TOÀN DÂN VỀ TLSX",
     html: `
-      <div class="proj-scene-header">
-        <h2 class="proj-scene-title">4. THỰC HÀNH DÂN CHỦ TẠI ĐẠI HỌC CÔNG NGHIỆP HÀ NỘI</h2>
-        <div class="proj-question-banner">
-          <span class="proj-question-text">Tự chủ đại học gắn liền với quyền làm chủ của người học</span>
-          <span style="font-size: 15px; color: #cbd5e1; font-weight: 700;">QUY CHẾ 31/NQ-HĐT</span>
-        </div>
-      </div>
-
-      <div class="proj-cards-grid">
-        <div class="proj-card-item">
-          <span class="proj-card-icon">💻</span>
-          <h3 class="proj-card-title">Cổng e-HaUI & Khảo sát</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Đánh giá giảng viên 100% bảo mật cuối mỗi học kỳ.</li>
-            <li class="proj-point-item">Gửi phản ánh học vụ trực tuyến, theo dõi tiến độ giải quyết minh bạch.</li>
-          </ul>
-          <span class="proj-citation-tag">Hệ thống quản trị số HaUI</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🤝</span>
-          <h3 class="proj-card-title">Hội Nghị Đối Thoại BGH</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Diễn đàn định kỳ giữa Ban Giám hiệu và đại diện sinh viên toàn trường.</li>
-            <li class="proj-point-item">Trách nhiệm giải trình trực tiếp về học phí, cơ sở vật chất, lịch học.</li>
-          </ul>
-          <span class="proj-citation-tag">Quyền đối thoại dân chủ trực tiếp</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">⚙️</span>
-          <h3 class="proj-card-title">Giám Sát Cơ Sở Vật Chất</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Giám sát tiêu chuẩn bảo hộ và an toàn điện xưởng công nghệ CNC.</li>
-            <li class="proj-point-item">Thụ hưởng lab IoT, thư viện số và khu thực hành kỹ thuật cao.</li>
-          </ul>
-          <span class="proj-citation-tag">Bảo vệ quyền lợi học tập thực chất</span>
-        </div>
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_05.png" alt="Slide 5" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_05.png'" />
       </div>
     `
   },
-
-  // CẢNH 5: TRÒ CHƠI TƯƠNG TÁC TÌNH HUỐNG
   {
-    title: "5. TƯƠNG TÁC GIẢNG ĐƯỜNG: BẠN SẼ LÀM GÌ?",
-    badge: "ĐẤU TRƯỜNG TÌNH HUỐNG THỰC TẾ",
-    bgImage: "assets/bg-intro.jpg",
-    notes: "Mời cả lớp tương tác trực tiếp. Người thuyết trình đọc câu hỏi tình huống, mời các bạn chọn đáp án A/B/C/D và bấm xem phân tích.",
+    id: 6,
+    title: "6. BẢN CHẤT TƯ TƯỞNG, VĂN HÓA & XÃ HỘI",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_06.png",
+    notes: "Nội dung thuyết trình Slide 6: 6. BẢN CHẤT TƯ TƯỞNG, VĂN HÓA & XÃ HỘI",
     html: `
-      <div class="proj-game-container">
-        <div class="proj-game-header">
-          <span class="proj-game-scenario-badge" id="stageGameTag">TÌNH HUỐNG 1 / 5 • HỌC VỤ & LỊCH HỌC</span>
-          <div class="proj-game-timer-pill" id="stageGameTimerWrap">
-            <span>⏱️</span>
-            <span id="stageGameClock">60s</span>
-          </div>
-        </div>
-
-        <div class="proj-game-question-box">
-          <h3 class="proj-game-question-text" id="stageGameQuestion">
-            Nếu nhà trường dự kiến điều chỉnh lịch học thực hành xưởng và sinh viên có nhiều ý kiến trái chiều, bạn sẽ xử lý như thế nào?
-          </h3>
-        </div>
-
-        <div class="proj-game-options-grid" id="stageGameOptionsGrid">
-          <!-- Dynamic 4 Options A, B, C, D rendered by JS -->
-        </div>
-
-        <div class="proj-game-action-bar">
-          <button type="button" class="btn-game-submit" id="btnStageSubmitAnswer">
-            ✓ Xác nhận lựa chọn
-          </button>
-          <button type="button" class="btn-game-next" id="btnStageNextScenario">
-            Sang tình huống tiếp theo &rarr;
-          </button>
-        </div>
-
-        <div class="proj-game-result-box hidden" id="stageGameResultBox">
-          <div class="proj-result-header">
-            <span class="proj-result-badge" id="stageResultBadge">Đánh giá học thuật</span>
-            <span style="font-size: 14px; color: #94a3b8;">Cơ sở lý luận XHCN</span>
-          </div>
-          <p class="proj-result-analysis" id="stageResultAnalysis"></p>
-          <p class="proj-result-theory" id="stageResultTheory"></p>
-        </div>
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_06.png" alt="Slide 6" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_06.png'" />
       </div>
     `
   },
-
-  // CẢNH 6: KẾT LUẬN & TRÁCH NHIỆM SINH VIÊN
   {
-    title: "6. KẾT LUẬN: TRÁCH NHIỆM VÀ SỨ MỆNH KỸ SƯ TRẺ",
-    badge: "TỔNG KẾT BÀI BÁO CÁO • HaUI 2026",
-    bgImage: "assets/bg-conclusion.jpg",
-    notes: "Tổng kết bài học: Hiểu đúng bản chất, tham gia có trách nhiệm, phản biện có căn cứ. Trở thành kỹ sư HaUI vừa hồng vừa chuyên.",
+    id: 7,
+    title: "7. NHÀ NƯỚC PHÁP QUYỀN XHCN CỦA DÂN, DO DÂN, VÌ DÂN",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_07.png",
+    notes: "Nội dung thuyết trình Slide 7: 7. NHÀ NƯỚC PHÁP QUYỀN XHCN CỦA DÂN, DO DÂN, VÌ DÂN",
     html: `
-      <div class="proj-hero-header" style="margin-bottom: 20px;">
-        <h1 class="proj-title-hero" style="color: #fbbf24;">HIỂU ĐÚNG • THAM GIA CÓ TRÁCH NHIỆM • PHẢN BIỆN CÓ CĂN CỨ</h1>
-        <h2 class="proj-subtitle-hero" style="color: #f6f3ed;">SỨ MỆNH SINH VIÊN ĐẠI HỌC CÔNG NGHIỆP HÀ NỘI TRONG KỶ NGUYÊN SỐ</h2>
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_07.png" alt="Slide 7" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_07.png'" />
       </div>
-
-      <div class="proj-cards-grid">
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🧠</span>
-          <h3 class="proj-card-title">1. Nhận thức Chính trị</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Nắm vững lý luận Chủ nghĩa xã hội khoa học và quan điểm của Đảng.</li>
-            <li class="proj-point-item">Phân biệt rõ bản chất ưu việt của dân chủ XHCN so với dân chủ tư sản.</li>
-          </ul>
-          <span class="proj-citation-tag">Bản lĩnh tư tưởng vững vàng</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🤝</span>
-          <h3 class="proj-card-title">2. Văn hóa Đối thoại</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Tôn trọng pháp luật, quy chế nhà trường và ý kiến khác biệt.</li>
-            <li class="proj-point-item">Phản ánh trung thực qua kênh chính thức, tẩy chay tin xấu độc.</li>
-          </ul>
-          <span class="proj-citation-tag">Trách nhiệm công dân số</span>
-        </div>
-
-        <div class="proj-card-item">
-          <span class="proj-card-icon">🚀</span>
-          <h3 class="proj-card-title">3. Khát vọng Cống hiến</h3>
-          <ul class="proj-point-list">
-            <li class="proj-point-item">Học tập xuất sắc, làm chủ công nghệ cao và khoa học kỹ thuật.</li>
-            <li class="proj-point-item">Cống hiến tài năng xây dựng đất nước phồn vinh, hạnh phúc.</li>
-          </ul>
-          <span class="proj-citation-tag">Kỹ sư HaUI 'Vừa hồng vừa chuyên'</span>
-        </div>
+    `
+  },
+  {
+    id: 8,
+    title: "8. MỐI QUAN HỆ ĐẢNG LÃNH ĐẠO - NHÀ NƯỚC QUẢN LÝ - NHÂN DÂN LÀM CHỦ",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_08.png",
+    notes: "Nội dung thuyết trình Slide 8: 8. MỐI QUAN HỆ ĐẢNG LÃNH ĐẠO - NHÀ NƯỚC QUẢN LÝ - NHÂN DÂN LÀM CHỦ",
+    html: `
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_08.png" alt="Slide 8" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_08.png'" />
+      </div>
+    `
+  },
+  {
+    id: 9,
+    title: "9. HÌNH THỨC DÂN CHỦ TRỰC TIẾP & DÂN CHỦ ĐẠI DIỆN",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_09.png",
+    notes: "Nội dung thuyết trình Slide 9: 9. HÌNH THỨC DÂN CHỦ TRỰC TIẾP & DÂN CHỦ ĐẠI DIỆN",
+    html: `
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_09.png" alt="Slide 9" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_09.png'" />
+      </div>
+    `
+  },
+  {
+    id: 10,
+    title: "10. CƠ CHẾ 'DÂN BIẾT, DÂN BÀN, DÂN LÀM, KIỂM TRA, GIÁM SÁT, THỤ HƯỞNG'",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_10.png",
+    notes: "Nội dung thuyết trình Slide 10: 10. CƠ CHẾ 'DÂN BIẾT, DÂN BÀN, DÂN LÀM, KIỂM TRA, GIÁM SÁT, THỤ HƯỞNG'",
+    html: `
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_10.png" alt="Slide 10" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_10.png'" />
+      </div>
+    `
+  },
+  {
+    id: 11,
+    title: "11. PHẦN II: THỰC TIỄN & TRÁCH NHIỆM SINH VIÊN HaUI",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_11.png",
+    notes: "Nội dung thuyết trình Slide 11: 11. PHẦN II: THỰC TIỄN & TRÁCH NHIỆM SINH VIÊN HaUI",
+    html: `
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_11.png" alt="Slide 11" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_11.png'" />
+      </div>
+    `
+  },
+  {
+    id: 12,
+    title: "12. THỰC HÀNH DÂN CHỦ TRONG MÔI TRƯỜNG ĐẠI HỌC CÔNG NGHIỆP HÀ NỘI",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_12.png",
+    notes: "Nội dung thuyết trình Slide 12: 12. THỰC HÀNH DÂN CHỦ TRONG MÔI TRƯỜNG ĐẠI HỌC CÔNG NGHIỆP HÀ NỘI",
+    html: `
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_12.png" alt="Slide 12" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_12.png'" />
+      </div>
+    `
+  },
+  {
+    id: 13,
+    title: "13. NÂNG CAO NHẬN THỨC VÀ ĐÓNG GÓP Ý KIẾN XÂY DỰNG NHÀ TRƯỜNG",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_13.png",
+    notes: "Nội dung thuyết trình Slide 13: 13. NÂNG CAO NHẬN THỨC VÀ ĐÓNG GÓP Ý KIẾN XÂY DỰNG NHÀ TRƯỜNG",
+    html: `
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_13.png" alt="Slide 13" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_13.png'" />
+      </div>
+    `
+  },
+  {
+    id: 14,
+    title: "14. PHẢN BIỆN VĂN MINH — ĐẤU TRANH PHẢN BÁC QUAN ĐIỂM SAI TRÁI",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_14.png",
+    notes: "Nội dung thuyết trình Slide 14: 14. PHẢN BIỆN VĂN MINH — ĐẤU TRANH PHẢN BÁC QUAN ĐIỂM SAI TRÁI",
+    html: `
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_14.png" alt="Slide 14" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_14.png'" />
+      </div>
+    `
+  },
+  {
+    id: 15,
+    title: "15. HÀNH ĐỘNG CỤ THỂ CỦA SINH VIÊN KỸ THUẬT & CÔNG NGHỆ HaUI",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_15.png",
+    notes: "Nội dung thuyết trình Slide 15: 15. HÀNH ĐỘNG CỤ THỂ CỦA SINH VIÊN KỸ THUẬT & CÔNG NGHỆ HaUI",
+    html: `
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_15.png" alt="Slide 15" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_15.png'" />
+      </div>
+    `
+  },
+  {
+    id: 16,
+    title: "16. THÔNG ĐIỆP KẾT LUẬN — TRI THỨC • HÀNH ĐỘNG • SÁNG TẠO",
+    badge: "HaUI 2026 • 16:9 PRESENTATION",
+    bgImage: "assets/slides/Slide_16.png",
+    notes: "Nội dung thuyết trình Slide 16: 16. THÔNG ĐIỆP KẾT LUẬN — TRI THỨC • HÀNH ĐỘNG • SÁNG TẠO",
+    html: `
+      <div class="projector-slide-img-wrap">
+        <img src="assets/slides/Slide_16.png" alt="Slide 16" class="projector-slide-img" onerror="this.src='16_Slide_Dan_chu_XHCN_PNG_DAY_DU/Slide_16.png'" />
       </div>
     `
   }
@@ -829,34 +689,9 @@ const DEFAULT_SCENARIOS = [
   }
 ];
 
-function getStoredSlides() {
-  try {
-    if (typeof localStorage !== 'undefined') {
-      const raw = localStorage.getItem('REDMIND_CUSTOM_SLIDES_V2');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      }
-    }
-  } catch (e) {}
-  return JSON.parse(JSON.stringify(DEFAULT_SLIDES));
-}
-
-function getStoredScenarios() {
-  try {
-    if (typeof localStorage !== 'undefined') {
-      const raw = localStorage.getItem('REDMIND_CUSTOM_SCENARIOS_V2');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      }
-    }
-  } catch (e) {}
-  return JSON.parse(JSON.stringify(DEFAULT_SCENARIOS));
-}
-
-let SLIDES = getStoredSlides();
-let SCENARIOS = getStoredScenarios();
+// PERMANENT 16 SLIDES — DIRECT ASSIGNMENT (NEVER OVERRIDDEN BY LOCALSTORAGE)
+const SLIDES = DEFAULT_SLIDES;
+const SCENARIOS = DEFAULT_SCENARIOS;
 
 
 // ==========================================================================
@@ -922,7 +757,7 @@ const PROVOCATION_BANK = [
 let debateTeams = [
   {
     rank: 1,
-    team: "Nhóm 1 - Khoa CNTT",
+    team: "Nhóm 1",
     leader: "Trần Minh Quân",
     score: 94,
     crit1: 38,
@@ -934,7 +769,7 @@ let debateTeams = [
   },
   {
     rank: 2,
-    team: "Nhóm 2 - Khoa Cơ khí",
+    team: "Nhóm 2",
     leader: "Phạm Quốc Huy",
     score: 89,
     crit1: 35,
@@ -946,7 +781,7 @@ let debateTeams = [
   },
   {
     rank: 3,
-    team: "Nhóm 3 - Khoa Điện",
+    team: "Nhóm 3",
     leader: "Lê Hoàng Long",
     score: 85,
     crit1: 33,
@@ -958,7 +793,7 @@ let debateTeams = [
   },
   {
     rank: 4,
-    team: "Nhóm 4 - Khoa QLKD",
+    team: "Nhóm 4",
     leader: "Đỗ Mai Trang",
     score: 82,
     crit1: 32,
@@ -967,6 +802,18 @@ let debateTeams = [
     type: "Khá",
     argument: "Tự chủ đại học đòi hỏi trách nhiệm giải trình và sự tham gia của các bên liên quan, trong đó sinh viên là khách hàng và chủ thể trung tâm của chất lượng giáo dục.",
     remark: "Góc nhìn quản trị kinh doanh khá tốt, nhưng cần nhấn mạnh hơn bản chất chính trị XHCN."
+  },
+  {
+    rank: 5,
+    team: "Nhóm 5",
+    leader: "Vũ Đức Thắng",
+    score: 80,
+    crit1: 31,
+    crit2: 27,
+    crit3: 22,
+    type: "Khá",
+    argument: "Kỹ sư HaUI thời đại 4.0 phải vừa hồng vừa chuyên, làm chủ công nghệ và rèn luyện ý thức phục vụ nhân dân, bảo vệ chủ quyền số quốc gia.",
+    remark: "Lập luận thực tế, đề cao đạo đức nghề nghiệp kỹ sư 4.0."
   }
 ];
 
@@ -1208,9 +1055,75 @@ const REFERENCES_DB = [
 ];
 
 // ==========================================================================
-// 5.4. HÀNH ĐỘNG HÔM NAY (biên soạn sẵn — bản demo, chưa có backend AI)
-// Khi tất cả đã hoàn thành, trang hiển thị trạng thái rỗng, không tự sinh hành động giả.
+// 5.4. HÀNH ĐỘNG HÔM NAY — BỘ DỮ LIỆU ĐỀ XUẤT HÀNH ĐỘNG AI CHO SINH VIÊN HaUI
 // ==========================================================================
+const AI_TODAY_ACTIONS_POOL = [
+  {
+    id: 'act-portal-check',
+    title: 'Kiểm tra thông báo & gửi góp ý trên Cổng đào tạo',
+    desc: 'Đăng nhập sv.haui.edu.vn, đọc thông báo mới về lịch học hoặc khảo sát giảng dạy. Gửi một góp ý ngắn, có căn cứ văn minh để thực hành phương châm "Dân biết, dân bàn".',
+    category: 'Cổng Đào Tạo',
+    badgeClass: 'badge-academic',
+    time: '10–15 phút'
+  },
+  {
+    id: 'act-lab-safety',
+    title: 'Quan sát & báo cáo an toàn phòng máy / xưởng thực hành',
+    desc: 'Trước khi bắt đầu giờ thực hành máy công cụ/lab IoT, kiểm tra nút ngắt nguồn khẩn cấp, thiết bị bảo hộ. Phản ánh ngay cho Cán bộ kỹ thuật nếu phát hiện nguy cơ chập điện.',
+    category: 'An Toàn Kỹ Thuật',
+    badgeClass: 'badge-tech',
+    time: '5–10 phút'
+  },
+  {
+    id: 'act-digital-ethics',
+    title: 'Thực hành văn hóa ứng xử văn minh trên không gian số',
+    desc: 'Trước khi chia sẻ hoặc bình luận vào các diễn đàn sinh viên HaUI, hãy kiểm chứng thông tin từ văn bản gốc của Nhà trường, tuyệt đối không lan truyền tin đồn thất thiệt.',
+    category: 'Đạo Đức Số',
+    badgeClass: 'badge-cyber',
+    time: '5 phút'
+  },
+  {
+    id: 'act-student-dialogue',
+    title: 'Chuẩn bị ý kiến cho Hội nghị Đối thoại Sinh viên',
+    desc: 'Cùng Ban cán sự lớp tổng hợp các vướng mắc về cơ sở vật chất, lịch thi hoặc học liệu để đại diện lớp trình bày trong buổi Đối thoại sinh viên cấp Khoa/Trường.',
+    category: 'Dân Chủ Cơ Sở',
+    badgeClass: 'badge-community',
+    time: '15–20 phút'
+  },
+  {
+    id: 'act-digital-library',
+    title: 'Khai thác tài liệu nghiên cứu tại Thư viện số HaUI',
+    desc: 'Truy cập cổng thư viện số HaUI, tra cứu 01 tài liệu học thuật hoặc bài báo khoa học chuẩn mực để củng cố dẫn chứng cho bài tập lớn CNXHKH.',
+    category: 'Nghiên Cứu & Đổi Mới',
+    badgeClass: 'badge-academic',
+    time: '15 phút'
+  },
+  {
+    id: 'act-group-support',
+    title: 'Tổ chức nhóm học tập, hỗ trợ bạn học môn chuyên ngành khó',
+    desc: 'Chủ động cùng nhóm 2-3 bạn trao đổi bài tập hoặc giải đề mẫu môn học khó kỳ này, phát huy tinh thần tương trợ và sức mạnh tập thể sinh viên HaUI.',
+    category: 'Tinh Thần Tập Thể',
+    badgeClass: 'badge-community',
+    time: '20–30 phút'
+  },
+  {
+    id: 'act-campus-green',
+    title: 'Giữ gìn vệ sinh và tiết kiệm năng lượng giảng đường',
+    desc: 'Tắt đèn, máy lạnh khi rời phòng học nhóm hoặc xưởng lab; phân loại rác đúng nơi quy định, cùng xây dựng khuôn viên HaUI văn minh, xanh - sạch - đẹp.',
+    category: 'Văn Hóa Giảng Đường',
+    badgeClass: 'badge-community',
+    time: '5 phút'
+  },
+  {
+    id: 'act-reg-31',
+    title: 'Tìm hiểu Quy chế 31/NQ-HĐT và quyền lợi người học',
+    desc: 'Nắm rõ quy chế đánh giá điểm rèn luyện, chính sách học bổng khuyến khích và quy định chuẩn đầu ra để chủ động làm chủ kế hoạch học tập.',
+    category: 'Pháp Chế & Kỷ Cương',
+    badgeClass: 'badge-academic',
+    time: '10 phút'
+  }
+];
+
 const TODAY_ACTIONS = [
   {
     id: 'haui-notice-feedback',
@@ -1378,6 +1291,7 @@ class AppController {
   }
 
   init() {
+    this.bindSidebarAutoHide();
     this.applySidebarState();
     this.bindNavigationViews();
     this.bindBreadcrumbs();
@@ -1521,6 +1435,110 @@ class AppController {
     }, 280);
   }
 
+  updateSidebarPinUI() {
+    const sidebar = document.getElementById('leftSidebar');
+    const btnToggle = document.getElementById('btnToggleSidebar');
+    const peekTab = document.getElementById('sidebarPeekTab');
+    const pinLabel = btnToggle?.querySelector('.btn-pin-label');
+    const isPinned = sidebar ? sidebar.classList.contains('pinned') : this.sidebarPinned;
+
+    if (sidebar) {
+      sidebar.classList.toggle('pinned', isPinned);
+    }
+    if (btnToggle) {
+      btnToggle.classList.toggle('active', isPinned);
+      btnToggle.setAttribute('aria-pressed', isPinned ? 'true' : 'false');
+      btnToggle.title = isPinned 
+        ? "Đang ghim cố định. Bấm để chuyển sang chế độ Tự ẩn" 
+        : "Tự động ẩn khi di chuột. Bấm để ghim cố định";
+    }
+    if (pinLabel) {
+      pinLabel.textContent = isPinned ? "Đã ghim" : "Tự ẩn";
+    }
+    if (peekTab) {
+      peekTab.style.display = isPinned ? 'none' : 'flex';
+    }
+
+    setTimeout(() => {
+      if (typeof this.layoutMindmap === 'function') this.layoutMindmap();
+      if (typeof this.updateConnectors === 'function') this.updateConnectors();
+    }, 280);
+  }
+
+  bindSidebarAutoHide() {
+    const sidebar = document.getElementById('leftSidebar');
+    const peekTab = document.getElementById('sidebarPeekTab');
+    const btnToggle = document.getElementById('btnToggleSidebar');
+    if (!sidebar) return;
+
+    // 1. Initial pin state (default: false = auto-hide)
+    this.sidebarPinned = localStorage.getItem('redmind_sidebar_pinned') === 'true';
+    sidebar.classList.toggle('pinned', this.sidebarPinned);
+    this.updateSidebarPinUI();
+
+    // 2. Toggle Pin button
+    if (btnToggle) {
+      btnToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        audio.click();
+        const currentlyPinned = sidebar.classList.contains('pinned');
+        this.sidebarPinned = !currentlyPinned;
+        sidebar.classList.toggle('pinned', this.sidebarPinned);
+        localStorage.setItem('redmind_sidebar_pinned', this.sidebarPinned ? 'true' : 'false');
+        if (this.sidebarPinned) {
+          sidebar.classList.remove('is-hovered');
+        }
+        this.updateSidebarPinUI();
+      });
+    }
+
+    // 3. Hovering peek tab reveals sidebar
+    if (peekTab) {
+      peekTab.addEventListener('mouseenter', () => {
+        if (!sidebar.classList.contains('pinned')) {
+          sidebar.classList.add('is-hovered');
+        }
+      });
+      peekTab.addEventListener('click', (e) => {
+        e.stopPropagation();
+        audio.click();
+        if (!sidebar.classList.contains('pinned')) {
+          sidebar.classList.toggle('is-hovered');
+        }
+      });
+    }
+
+    // 4. Mouse leave sidebar auto-hides when unpinned
+    let hideTimeout = null;
+    sidebar.addEventListener('mouseenter', () => {
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+        hideTimeout = null;
+      }
+    });
+
+    sidebar.addEventListener('mouseleave', () => {
+      if (!sidebar.classList.contains('pinned')) {
+        hideTimeout = setTimeout(() => {
+          sidebar.classList.remove('is-hovered');
+        }, 180);
+      }
+    });
+
+    // 5. Left edge proximity hover (x <= 20)
+    window.addEventListener('mousemove', (e) => {
+      if (window.innerWidth < 1024) return;
+      if (sidebar.classList.contains('pinned')) return;
+
+      if (e.clientX <= 20 && e.clientY > 60) {
+        sidebar.classList.add('is-hovered');
+      } else if (e.clientX > 260 && sidebar.classList.contains('is-hovered')) {
+        // If mouse moved far right away from sidebar
+        sidebar.classList.remove('is-hovered');
+      }
+    });
+  }
+
   // ==========================================================================
   // VIEW NAVIGATION ENGINE (TỔNG QUAN vs HÀNH ĐỘNG & AI vs ĐÁNH GIÁ & GÓP Ý)
   // ==========================================================================
@@ -1533,6 +1551,12 @@ class AppController {
     const navOverview = document.getElementById('navItemOverview');
     const navActions = document.getElementById('navItemActions');
     const navReviews = document.getElementById('navItemReviews');
+
+    // Auto-close floating sidebar on view switch if unpinned
+    const sidebar = document.getElementById('leftSidebar');
+    if (sidebar && !sidebar.classList.contains('pinned')) {
+      sidebar.classList.remove('is-hovered');
+    }
 
     // Update sidebar navigation pills
     document.querySelectorAll('.sidebar-nav .nav-item').forEach(btn => btn.classList.remove('active'));
@@ -1726,7 +1750,9 @@ class AppController {
     if (bcBranchSep) bcBranchSep.classList.add('hidden');
     if (bcBranchName) bcBranchName.classList.add('hidden');
     const drawer = document.getElementById('rightDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
     if (drawer) drawer.classList.add('closed');
+    if (backdrop) backdrop.classList.add('hidden');
   }
 
   // ==========================================================================
@@ -2271,8 +2297,10 @@ class AppController {
 
     // Mở drawer chi tiết mượt mà
     const drawer = document.getElementById('rightDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
     if (drawer && openDrawer) {
       drawer.classList.remove('closed');
+      if (backdrop) backdrop.classList.remove('hidden');
     }
 
     // Populate Drawer Content
@@ -2326,10 +2354,28 @@ class AppController {
   bindDrawerEvents() {
     const btnClose = document.getElementById('btnCloseDrawer');
     const drawer = document.getElementById('rightDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+
+    const closeCenteredModal = () => {
+      audio.click();
+      if (drawer) drawer.classList.add('closed');
+      if (backdrop) backdrop.classList.add('hidden');
+      this.resetSelection();
+    };
+
+    if (backdrop) backdrop.addEventListener('click', closeCenteredModal);
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer && !drawer.classList.contains('closed')) {
+        closeCenteredModal();
+      }
+    });
+
     if (btnClose && drawer) {
       btnClose.addEventListener('click', () => {
         audio.click();
         drawer.classList.add('closed');
+        if (backdrop) backdrop.classList.add('hidden');
         this.resetSelection();
         let startTime = null;
         const animToggle = (time) => {
@@ -2640,195 +2686,131 @@ class AppController {
   // ==========================================================================
   // TRANG HÀNH ĐỘNG: TÌNH HUỐNG TƯƠNG TÁC THUYẾT TRÌNH CNXHKH
   // ==========================================================================
-  bindActionScenario() {
-    const btnSubmit = document.getElementById('btnSubmitScenario');
-    const resultBox = document.getElementById('scenarioResultBox');
-    const badgeEl = document.getElementById('scenarioResultBadge');
-    const analysisEl = document.getElementById('scenarioResultAnalysis');
-    const theoryEl = document.getElementById('scenarioTheoryLink');
+  // ==========================================================================
+  // TRANG HÀNH ĐỘNG: GỢI Ý 3 VIỆC LÀM HÔM NAY TỪ TRỢ LÝ AI (HaUI 2026)
+  // ==========================================================================
+  bindTodayAiActions() {
+    const btnAsk = document.getElementById('btnAskAiToday');
+    const btnRefresh = document.getElementById('btnRefreshAiToday');
+    const scanningState = document.getElementById('aiScanningState');
+    const grid = document.getElementById('todaySuggestionsGrid');
 
-    const renderChoice = (optVal) => {
-      const data = PRESENTATION_SCENARIO_DATA[optVal];
-      if (!data) return;
+    if (!grid) return;
 
-      if (badgeEl) {
-        badgeEl.textContent = data.badge;
-        badgeEl.className = 'scenario-result-badge ' + data.badgeClass;
-      }
-      if (analysisEl) analysisEl.textContent = data.analysis;
-      if (theoryEl) theoryEl.textContent = data.theory;
-
-      if (resultBox) {
-        resultBox.classList.remove('hidden');
-      }
-    };
-
-    const updateActiveOption = () => {
-      document.querySelectorAll('.scenario-option').forEach(card => {
-        const input = card.querySelector('input[type="radio"]');
-        card.classList.toggle('active', input && input.checked);
-      });
-    };
-
-    document.querySelectorAll('input[name="presentationScenario"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        audio.click();
-        updateActiveOption();
-        if (resultBox && !resultBox.classList.contains('hidden')) {
-          renderChoice(radio.value);
-        }
-      });
-    });
-
-    if (btnSubmit) {
-      btnSubmit.addEventListener('click', () => {
-        audio.pop();
-        const selected = document.querySelector('input[name="presentationScenario"]:checked');
-        const val = selected ? selected.value : 'C';
-        renderChoice(val);
-        if (val === 'C' && typeof confetti === 'function') {
-          confetti({ particleCount: 40, spread: 60, origin: { y: 0.8 } });
-        }
-      });
+    try {
+      this.completedTodayActions = new Set(JSON.parse(localStorage.getItem('redmind_today_completed') || '[]'));
+    } catch {
+      this.completedTodayActions = new Set();
     }
 
-    updateActiveOption();
-    // Render default choice C
-    renderChoice('C');
+    const getThreeRandomActions = () => {
+      const pool = [...AI_TODAY_ACTIONS_POOL];
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      return pool.slice(0, 3);
+    };
+
+    const renderSuggestions = (actions) => {
+      if (!grid) return;
+      grid.innerHTML = '';
+      actions.forEach((act, idx) => {
+        const stepNum = String(idx + 1).padStart(2, '0');
+        const isDone = this.completedTodayActions.has(act.id);
+        const card = document.createElement('div');
+        card.className = `today-suggestion-card ${isDone ? 'completed' : ''}`;
+        card.id = `todayActionCard_${act.id}`;
+        card.innerHTML = `
+          <div class="card-top-row">
+            <span class="card-step-num">${stepNum}</span>
+            <span class="card-cat-badge ${escapeHTML(act.badgeClass || 'badge-academic')}">${escapeHTML(act.category)}</span>
+          </div>
+          <h3 class="card-action-title">${escapeHTML(act.title)}</h3>
+          <p class="card-action-desc">${escapeHTML(act.desc)}</p>
+          <div class="card-action-footer">
+            <span class="card-time-badge">⏱️ ${escapeHTML(act.time)}</span>
+            <button type="button" class="btn-mark-done ${isDone ? 'done' : ''}" data-act-id="${escapeHTML(act.id)}">
+              ${isDone ? '✓ Đã hoàn thành' : 'Đánh dấu đã làm'}
+            </button>
+          </div>
+        `;
+
+        const btnDone = card.querySelector('.btn-mark-done');
+        if (btnDone) {
+          btnDone.addEventListener('click', () => {
+            const actId = act.id;
+            if (this.completedTodayActions.has(actId)) {
+              this.completedTodayActions.delete(actId);
+              card.classList.remove('completed');
+              btnDone.classList.remove('done');
+              btnDone.textContent = 'Đánh dấu đã làm';
+              audio.click();
+            } else {
+              this.completedTodayActions.add(actId);
+              card.classList.add('completed');
+              btnDone.classList.add('done');
+              btnDone.textContent = '✓ Đã hoàn thành';
+              audio.success();
+              if (typeof confetti === 'function') {
+                confetti({ particleCount: 35, spread: 55, origin: { y: 0.8 } });
+              }
+            }
+            try {
+              localStorage.setItem('redmind_today_completed', JSON.stringify([...this.completedTodayActions]));
+            } catch {}
+          });
+        }
+
+        grid.appendChild(card);
+      });
+    };
+
+    const triggerAiScan = (sound = true) => {
+      if (sound) audio.pop();
+      if (scanningState) scanningState.classList.remove('hidden');
+      if (grid) grid.style.opacity = '0.35';
+      if (btnAsk) btnAsk.disabled = true;
+      if (btnRefresh) btnRefresh.disabled = true;
+
+      setTimeout(() => {
+        if (scanningState) scanningState.classList.add('hidden');
+        if (grid) grid.style.opacity = '1';
+        if (btnAsk) btnAsk.disabled = false;
+        if (btnRefresh) btnRefresh.disabled = false;
+        const actions = getThreeRandomActions();
+        renderSuggestions(actions);
+      }, 350);
+    };
+
+    if (btnAsk) {
+      btnAsk.addEventListener('click', () => triggerAiScan(true));
+    }
+
+    if (btnRefresh) {
+      btnRefresh.addEventListener('click', () => triggerAiScan(true));
+    }
+
+    // Auto-render 3 initial actions so page is ready immediately
+    const initialActions = getThreeRandomActions();
+    renderSuggestions(initialActions);
+  }
+
+  bindActionScenario() {
+    // Legacy scenario quiz handler kept safe
+    const btnSubmit = document.getElementById('btnSubmitScenario');
+    if (!btnSubmit) return;
   }
 
   bindTodayAction() {
-    this.actionStarted = new Set();
-    try {
-      this.actionsDone = JSON.parse(localStorage.getItem('redmind_actions_done') || '{}') || {};
-    } catch (e) {
-      this.actionsDone = {};
-    }
-
-    const btnDoNow = document.getElementById('btnDoActionNow');
-    const btnExplain = document.getElementById('btnExplainAiReason');
-    const btnConfirm = document.getElementById('btnConfirmActionDone');
-    const btnReset = document.getElementById('btnResetTodayAction');
-
-    if (btnDoNow) {
-      btnDoNow.addEventListener('click', () => {
-        const action = this.getCurrentTodayAction();
-        if (!action) return;
-        audio.pop();
-        // Mở nguồn thực hiện thật (tab mới); nếu trình duyệt chặn popup, liên kết "Mở nguồn" vẫn dùng được
-        window.open(action.url, '_blank', 'noopener');
-        this.actionStarted.add(action.id);
-        this.renderTodayAction();
-        const panel = document.getElementById('todayActionComplete');
-        if (panel) {
-          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          const firstBox = panel.querySelector('input[type="checkbox"]');
-          if (firstBox) firstBox.focus({ preventScroll: true });
-        }
-      });
-    }
-
-    if (btnExplain) {
-      btnExplain.addEventListener('click', () => {
-        const action = this.getCurrentTodayAction();
-        const list = document.getElementById('aiReasonList');
-        if (!action || !list) return;
-        list.replaceChildren(...action.reasons.map(r => {
-          const li = document.createElement('li');
-          li.textContent = r;
-          return li;
-        }));
-        this.openModal('aiReasonModal');
-      });
-    }
-
-    if (btnConfirm) {
-      btnConfirm.addEventListener('click', () => {
-        const action = this.getCurrentTodayAction();
-        if (!action) return;
-        const boxes = [...document.querySelectorAll('#todayActionSteps input[type="checkbox"]')];
-        // Chỉ ghi nhận khi người dùng đã bấm "Thực hiện ngay" và tích đủ mọi bước
-        if (!this.actionStarted.has(action.id) || boxes.length === 0 || !boxes.every(b => b.checked)) return;
-        audio.success();
-        this.actionsDone[action.id] = new Date().toISOString();
-        this.lastCompletedActionId = action.id;
-        localStorage.setItem('redmind_actions_done', JSON.stringify(this.actionsDone));
-        this.renderTodayAction();
-      });
-    }
-
-    if (btnReset) {
-      btnReset.addEventListener('click', () => {
-        const ids = Object.keys(this.actionsDone);
-        const id = this.lastCompletedActionId && this.actionsDone[this.lastCompletedActionId]
-          ? this.lastCompletedActionId
-          : ids.sort((a, b) => (this.actionsDone[b] || '').localeCompare(this.actionsDone[a] || ''))[0];
-        if (!id) return;
-        audio.click();
-        delete this.actionsDone[id];
-        this.actionStarted.delete(id);
-        localStorage.setItem('redmind_actions_done', JSON.stringify(this.actionsDone));
-        this.renderTodayAction();
-      });
-    }
-
-    this.renderTodayAction();
-  }
-
-  getCurrentTodayAction() {
-    return TODAY_ACTIONS.find(a => !this.actionsDone[a.id]) || null;
-  }
-
-  renderTodayAction() {
-    const card = document.getElementById('todayActionCard');
-    const empty = document.getElementById('todayActionEmpty');
-    if (!card || !empty) return;
-
-    const action = this.getCurrentTodayAction();
-    if (!action) {
-      card.classList.add('hidden');
-      empty.classList.remove('hidden');
-      return;
-    }
-    card.classList.remove('hidden');
-    empty.classList.add('hidden');
-
-    const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
-    setText('todayActionTitle', action.title);
-    setText('todayActionDesc', action.desc);
-    setText('todayActionTime', action.time);
-    setText('todayActionReasonShort', action.reasonShort);
-    const src = document.getElementById('todayActionSource');
-    if (src) src.href = action.url;
-
-    const panel = document.getElementById('todayActionComplete');
-    const stepsWrap = document.getElementById('todayActionSteps');
-    const btnConfirm = document.getElementById('btnConfirmActionDone');
-    const started = this.actionStarted.has(action.id);
-    if (panel) panel.classList.toggle('hidden', !started);
-
-    if (stepsWrap && stepsWrap.dataset.actionId !== action.id) {
-      stepsWrap.dataset.actionId = action.id;
-      stepsWrap.replaceChildren(...action.steps.map((step, i) => {
-        const label = document.createElement('label');
-        label.className = 'act-step';
-        const box = document.createElement('input');
-        box.type = 'checkbox';
-        box.id = `todayStep_${action.id}_${i}`;
-        const span = document.createElement('span');
-        span.textContent = step;
-        label.append(box, span);
-        box.addEventListener('change', () => {
-          const all = [...stepsWrap.querySelectorAll('input[type="checkbox"]')];
-          if (btnConfirm) btnConfirm.disabled = !all.every(b => b.checked);
-        });
-        return label;
-      }));
-      if (btnConfirm) btnConfirm.disabled = true;
-    }
+    this.bindTodayAiActions();
   }
 
   openModal(modalId) {
+    if (modalId === 'debateModal' && !this._isOpeningDebateModal) {
+      this.openDebateModal();
+      return;
+    }
     audio.click();
     const m = document.getElementById(modalId);
     if (m) {
@@ -2861,6 +2843,17 @@ class AppController {
       const timerEl = document.getElementById('presentTimer');
       if (timerEl) timerEl.textContent = '15:00';
     }
+
+    if (modalId === 'debateModal') {
+      if (this.arenaTimerInterval) {
+        clearInterval(this.arenaTimerInterval);
+        this.arenaTimerInterval = null;
+      }
+      this.isArenaRunning = false;
+      this.arenaTimerSeconds = 300;
+      const timerEl = document.getElementById('modalTimer');
+      if (timerEl) timerEl.textContent = '05:00';
+    }
   }
 
   // ==========================================================================
@@ -2872,6 +2865,11 @@ class AppController {
   // ==========================================================================
   openPresentationModal(slideIndex = 0) {
     audio.success();
+    // Guarantee 16 slides are active
+    try {
+      localStorage.removeItem('REDMIND_CUSTOM_SLIDES_V2');
+      localStorage.removeItem('REDMIND_CUSTOM_SLIDES');
+    } catch(e) {}
     this.currentSlideIndex = slideIndex;
     this.renderSlide(slideIndex);
     this.openModal('presentationModal');
@@ -2919,9 +2917,7 @@ class AppController {
     }
 
     // If on Slide 5 (Interactive Game Scene), bind the interactive stage game
-    if (index === 5) {
-      this.renderStageGame();
-    }
+    // Slide 5 is PNG slide
 
     // Also highlight corresponding card on the mindmap
     if (index >= 1 && index <= 6) {
@@ -3352,16 +3348,58 @@ class AppController {
     }, 1000);
   }
 
-  // ==========================================================================
-  // DEBATE ARENA & TEACHER REPORT ENGINE
+    // ==========================================================================
+  // DEBATE ARENA & TEACHER REPORT ENGINE (ACADEMIC MINIMAL)
   // ==========================================================================
   openDebateModal(branchId = null) {
-    if (branchId !== null && branchId >= 1 && branchId <= 6) {
-      this.debateTopicIndex = Math.min(PROVOCATION_BANK.length - 1, branchId - 1);
+    this._isOpeningDebateModal = true;
+    try {
+      // 1. Câu hỏi ngẫu nhiên theo chủ đề thuyết trình (không có nút đặt lại)
+      this.debateTopicIndex = Math.floor(Math.random() * PROVOCATION_BANK.length);
+
+      // 2. Reset dòng trả lời & trạng thái bảng xếp hạng (chỉ hiện sau khi trả lời xong)
+      const argInput = document.getElementById('modalArgumentText');
+      if (argInput) {
+        argInput.value = '';
+        setTimeout(() => {
+          argInput.focus();
+        }, 150);
+      }
+      const placeholder = document.getElementById('leaderboardPlaceholder');
+      const activeContent = document.getElementById('leaderboardActiveContent');
+      if (placeholder) placeholder.classList.remove('hidden');
+      if (activeContent) activeContent.classList.add('hidden');
+
+      // 3. Mở modal & render câu hỏi
+      this.openModal('debateModal');
+      this.renderDebateTopic();
+
+      // 4. Đồng hồ đếm ngược tự động bắt đầu đếm luôn khi vừa mở lên
+      if (this.arenaTimerInterval) {
+        clearInterval(this.arenaTimerInterval);
+        this.arenaTimerInterval = null;
+      }
+      this.arenaTimerSeconds = 300; // 5 phút
+      const timerEl = document.getElementById('modalTimer');
+      if (timerEl) timerEl.textContent = "05:00";
+      this.isArenaRunning = true;
+      this.arenaTimerInterval = setInterval(() => {
+        if (this.arenaTimerSeconds > 0) {
+          this.arenaTimerSeconds--;
+          const m = String(Math.floor(this.arenaTimerSeconds / 60)).padStart(2, '0');
+          const s = String(this.arenaTimerSeconds % 60).padStart(2, '0');
+          if (timerEl) timerEl.textContent = `${m}:${s}`;
+        } else {
+          clearInterval(this.arenaTimerInterval);
+          this.arenaTimerInterval = null;
+          this.isArenaRunning = false;
+          if (audio && audio.alert) audio.alert();
+          alert("⏰ HẾT THỜI GIAN THẢO LUẬN 5 PHÚT! CÁC NHÓM NỘP BÀI!");
+        }
+      }, 1000);
+    } finally {
+      this._isOpeningDebateModal = false;
     }
-    this.openModal('debateModal');
-    this.renderDebateTopic();
-    this.renderArenaRanking();
   }
 
   renderDebateTopic() {
@@ -3369,20 +3407,13 @@ class AppController {
     if (!topic) return;
     const quoteEl = document.getElementById('modalProvocationText');
     const badgeEl = document.getElementById('modalTopicBadge');
-    const targetEl = document.getElementById('modalTargetText');
-    const hintsEl = document.getElementById('modalLegalHints');
-    const selectEl = document.getElementById('modalSelectTopic');
 
     if (quoteEl) quoteEl.textContent = `"${topic.statement}"`;
-    if (badgeEl) badgeEl.textContent = topic.badge;
-    if (targetEl) targetEl.textContent = topic.target;
-    if (hintsEl) hintsEl.textContent = topic.legalHints;
-    if (selectEl && selectEl.value !== String(this.debateTopicIndex)) {
-      selectEl.value = String(this.debateTopicIndex);
-    }
+    // Tuyệt đối không ghi thông tin phân nhánh / Nhánh 1 • Bản chất Giai cấp
+    if (badgeEl) badgeEl.remove();
   }
 
-  renderArenaRanking() {
+  renderArenaRanking(activeTeamName = null) {
     const tbody = document.getElementById('modalRankingTbody');
     if (!tbody) return;
 
@@ -3390,189 +3421,155 @@ class AppController {
     debateTeams.sort((a, b) => b.score - a.score);
     debateTeams.forEach((t, i) => t.rank = i + 1);
 
-    tbody.innerHTML = debateTeams.map(t => `
-      <tr>
-        <td><strong>#${t.rank}</strong></td>
-        <td>${escapeHTML(t.team)} <small>(${escapeHTML(t.leader)})</small></td>
-        <td><strong style="color: #c4161c;">${t.score}đ</strong></td>
-      </tr>
+    tbody.innerHTML = debateTeams.map(t => {
+      const isCurrent = activeTeamName && t.team === activeTeamName;
+      const rankBadge = t.rank === 1 ? '🥇 #1' : t.rank === 2 ? '🥈 #2' : t.rank === 3 ? '🥉 #3' : `#${t.rank}`;
+      return `
+        <tr class="${isCurrent ? 'active-team-row' : ''}">
+          <td><strong>${rankBadge}</strong></td>
+          <td>
+            <strong>${escapeHTML(t.team)}</strong>
+            ${isCurrent ? ' <span style="font-size: 11px; background: #fee2e2; color: #b91c1c; padding: 1px 6px; border-radius: 4px; font-weight: 700;">Nhóm bạn</span>' : ''}
+          </td>
+          <td><strong style="color: #b91c1c; font-size: 14.5px;">${t.score}đ</strong></td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  renderOtherTeamsAnswers() {
+    const listEl = document.getElementById('otherAnswersList');
+    if (!listEl) return;
+    const currentTopic = PROVOCATION_BANK[this.debateTopicIndex] || PROVOCATION_BANK[0];
+    const selectedTeam = document.getElementById('modalSelectTeam')?.value || '';
+
+    // Sample counter-arguments from other class teams (Nhóm 1 - Nhóm 10)
+    const sampleAnswers = [
+      {
+        team: "Nhóm 1",
+        leader: "Trần Minh Quân",
+        score: 94,
+        argument: `Đối với chủ đề: "${currentTopic.statement.slice(0, 75)}...": Nhóm 1 khẳng định đây là sự ngộ nhận. Căn cứ vào bản chất giai cấp của Dân chủ XHCN và Quy chế 31/NQ-HĐT HaUI, sinh viên chính là chủ thể trung tâm của tự chủ đại học. Việc tham gia phản biện xây dựng và giám sát giảng đường là trách nhiệm công dân của mỗi người học.`,
+        remark: "Lập luận sắc bén, luận chứng vững chắc và viện dẫn xác đáng Quy chế 31/NQ-HĐT của HaUI."
+      },
+      {
+        team: "Nhóm 2",
+        leader: "Phạm Quốc Huy",
+        score: 89,
+        argument: `Nhóm 2 cho rằng tự do và dân chủ không thể tách rời kỷ cương pháp luật XHCN (Hiến pháp 2013). Sinh viên kỹ thuật thực hành dân chủ trước hết bằng việc tuân thủ quy trình an toàn lao động tại xưởng CNC, đồng thời chủ động đóng góp ý kiến nâng cấp thiết bị qua cổng đào tạo sv.haui.edu.vn.`,
+        remark: "Tư duy thực tế, gắn chặt dân chủ với văn hóa kỷ cương kỹ thuật và trách nhiệm thực hành."
+      },
+      {
+        team: "Nhóm 3",
+        leader: "Lê Hoàng Long",
+        score: 85,
+        argument: `Nhóm 3 đối chiếu với cơ chế "Dân biết, dân bàn, dân làm, dân kiểm tra, dân giám sát, dân thụ hưởng" theo Văn kiện Đại hội XIII. Thành quả thụ hưởng của sinh viên là hệ thống phòng lab hiện đại; muốn thụ hưởng thực chất thì sinh viên phải tham gia giám sát, phản biện xây dựng.`,
+        remark: "Làm nổi bật vế 'Dân thụ hưởng', dẫn chứng an sinh giáo dục sinh động."
+      },
+      {
+        team: "Nhóm 4",
+        leader: "Đỗ Mai Trang",
+        score: 82,
+        argument: `Theo góc độ quản trị đại học hiện đại và Luật Thực hiện dân chủ ở cơ sở 2022, trường đại học tự chủ cần trách nhiệm giải trình theo chuẩn SLA minh bạch. Sinh viên cần sử dụng các kênh đối thoại chính danh của Nhà trường thay vì confession ẩn danh thiếu căn cứ.`,
+        remark: "Tiếp cận chuẩn thể chế và trách nhiệm giải trình theo chuẩn quản trị đại học."
+      },
+      {
+        team: "Nhóm 5",
+        leader: "Vũ Đức Thắng",
+        score: 88,
+        argument: `Kỹ sư tương lai phải thấm nhuần tư tưởng Hồ Chí Minh: "Vừa hồng vừa chuyên". Tay nghề kỹ thuật cao mà thiếu ý thức công dân, thiếu tinh thần làm chủ tập thể thì không thể trở thành người lao động mới trong nền dân chủ xã hội chủ nghĩa.`,
+        remark: "Khắc họa chuẩn mực đạo đức kỹ sư 4.0 'vừa hồng vừa chuyên' rất thuyết phục."
+      }
+    ];
+
+    const otherTeams = sampleAnswers.filter(t => t.team !== selectedTeam);
+
+    listEl.innerHTML = otherTeams.map(t => `
+      <div class="other-team-card">
+        <div class="other-team-header">
+          <div class="other-team-name">${escapeHTML(t.team)} <small style="color: #64748b; font-weight: normal;">(NT: ${escapeHTML(t.leader)})</small></div>
+          <div class="other-team-score">${t.score}/100đ</div>
+        </div>
+        <div class="other-team-arg">
+          "${escapeHTML(t.argument)}"
+        </div>
+        <div class="other-team-remark">
+          💡 <strong>Nhận xét:</strong> ${escapeHTML(t.remark)}
+        </div>
+      </div>
     `).join('');
   }
 
   bindDebateArena() {
-    const btnSample = document.getElementById('btnModalSample');
     const btnSubmit = document.getElementById('btnModalSubmit');
     const argInput = document.getElementById('modalArgumentText');
     const selectTeam = document.getElementById('modalSelectTeam');
-    const leaderInput = document.getElementById('modalLeaderName');
-    const btnTimer = document.getElementById('btnModalStartTimer');
-    const btnResetTimer = document.getElementById('btnModalResetTimer');
-    const timerEl = document.getElementById('modalTimer');
-    const selectTopic = document.getElementById('modalSelectTopic');
-    const btnRandomTopic = document.getElementById('btnModalRandomTopic');
+    const btnViewOthers = document.getElementById('btnViewOtherTeamsAnswers');
+    const btnCloseOthers = document.getElementById('btnCloseOtherAnswersModal');
 
-    // Topic Selector Dropdown
-    if (selectTopic) {
-      selectTopic.addEventListener('change', (e) => {
-        audio.click();
-        this.debateTopicIndex = parseInt(e.target.value, 10) || 0;
-        this.renderDebateTopic();
-        // Reset timer if not currently running
-        if (!this.isArenaRunning) {
-          this.arenaTimerSeconds = 300;
-          if (timerEl) timerEl.textContent = "05:00";
-        }
-      });
-    }
-
-    // Random Topic Draw
-    if (btnRandomTopic) {
-      btnRandomTopic.addEventListener('click', () => {
-        audio.pop();
-        let nextIdx;
-        do {
-          nextIdx = Math.floor(Math.random() * PROVOCATION_BANK.length);
-        } while (nextIdx === this.debateTopicIndex && PROVOCATION_BANK.length > 1);
-        this.debateTopicIndex = nextIdx;
-        this.renderDebateTopic();
-        if (!this.isArenaRunning) {
-          this.arenaTimerSeconds = 300;
-          if (timerEl) timerEl.textContent = "05:00";
-        }
-      });
-    }
-
-    // Sample Fill (Loads sharp sample counter-argument for current topic)
-    if (btnSample && argInput) {
-      btnSample.addEventListener('click', () => {
-        audio.click();
-        const topic = PROVOCATION_BANK[this.debateTopicIndex] || PROVOCATION_BANK[0];
-        argInput.value = topic.sample;
-      });
-    }
-
-    // Timer Start / Pause (5 minutes = 300s)
-    if (btnTimer) {
-      btnTimer.addEventListener('click', () => {
-        audio.alert();
-        if (this.isArenaRunning) {
-          clearInterval(this.arenaTimerInterval);
-          this.isArenaRunning = false;
-          btnTimer.textContent = "Tiếp tục";
-        } else {
-          this.isArenaRunning = true;
-          btnTimer.textContent = "Tạm dừng";
-          this.arenaTimerInterval = setInterval(() => {
-            if (this.arenaTimerSeconds > 0) {
-              this.arenaTimerSeconds--;
-              const m = String(Math.floor(this.arenaTimerSeconds / 60)).padStart(2, '0');
-              const s = String(this.arenaTimerSeconds % 60).padStart(2, '0');
-              if (timerEl) timerEl.textContent = `${m}:${s}`;
-            } else {
-              clearInterval(this.arenaTimerInterval);
-              this.isArenaRunning = false;
-              this.arenaTimerSeconds = 300;
-              if (btnTimer) btnTimer.textContent = "Bắt Đầu";
-              if (timerEl) timerEl.textContent = "05:00";
-              audio.alert();
-              alert("⏰ HẾT THỜI GIAN TRANH LUẬN 5 PHÚT! CÁC NHÓM NỘP BÀI!");
-            }
-          }, 1000);
-        }
-      });
-    }
-
-    // Timer Reset Button
-    if (btnResetTimer) {
-      btnResetTimer.addEventListener('click', () => {
-        audio.click();
-        clearInterval(this.arenaTimerInterval);
-        this.isArenaRunning = false;
-        this.arenaTimerSeconds = 300;
-        if (timerEl) timerEl.textContent = "05:00";
-        if (btnTimer) btnTimer.textContent = "Bắt Đầu";
-      });
-    }
-
-    // AI Evaluation Submit
+    // Nộp bài & Hiển thị Bảng xếp hạng ở bên cạnh
     if (btnSubmit) {
       btnSubmit.addEventListener('click', () => {
         const text = argInput?.value.trim();
-        if (!text || text.length < 20) {
+        if (!text) {
           audio.alert();
-          alert("Vui lòng nhập luận điểm phản biện chi tiết (ít nhất 20 ký tự)!");
+          alert("Vui lòng nhập câu trả lời / luận điểm phản biện của nhóm!");
+          if (argInput) argInput.focus();
           return;
         }
 
         audio.pop();
-        btnSubmit.textContent = "🤖 AI ĐANG PHÂN TÍCH & CHẤM ĐIỂM...";
+        btnSubmit.textContent = "⏳ Đang nộp bài & AI chấm điểm...";
         btnSubmit.disabled = true;
 
         setTimeout(() => {
           btnSubmit.disabled = false;
-          btnSubmit.textContent = "⚡ NỘP BÀI • AI CHẤM ĐIỂM";
+          btnSubmit.textContent = "⚡ Nộp bài";
           audio.success();
 
           if (typeof confetti === 'function') {
-            confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+            confetti({ particleCount: 70, spread: 65, origin: { y: 0.6 } });
           }
 
-          // Evaluate score
-          const selectedTeamName = selectTeam ? selectTeam.value : "Nhóm Dự thi";
-          const leaderName = leaderInput ? leaderInput.value : "Nhóm Trưởng";
+          // Dừng đồng hồ đếm ngược sau khi đã nộp bài
+          if (this.arenaTimerInterval) {
+            clearInterval(this.arenaTimerInterval);
+            this.arenaTimerInterval = null;
+            this.isArenaRunning = false;
+          }
 
-          // Calculate score based on keyword depth & current topic
+          const selectedTeamName = selectTeam ? selectTeam.value : "Nhóm Dự thi";
+
+          // Chấm điểm dựa trên tính phong phú của luận cứ
           const hasHaui = /haui|công nghiệp|quy chế 31|sv\.haui|phòng máy|lab|xưởng/i.test(text);
           const hasLaw = /hiến pháp|luật|nghị quyết|dân chủ|pháp quyền|kỷ cương|an ninh mạng|tố cáo/i.test(text);
           const hasTheory = /giai cấp|công nhân|tư sản|công hữu|mác - lênin|bản chất|thụ hưởng|bình đẳng/i.test(text);
-          const hasBreakthrough = /bẻ gãy|ngụy biện|sai lầm|ngộ nhận|thực chất|giải trình|sla/i.test(text);
+          const hasBreakthrough = /bẻ gãy|ngụy biện|sai lầm|ngộ nhận|thực chất|giải trình|chủ thể/i.test(text);
 
-          let crit1 = 34 + Math.floor(Math.random() * 5); // Bẻ gãy ngụy biện (max 40)
-          if (hasBreakthrough) crit1 = Math.min(40, crit1 + 2);
+          let score = 86;
+          if (hasTheory) score += 4;
+          if (hasLaw) score += 3;
+          if (hasHaui) score += 3;
+          if (hasBreakthrough) score += 2;
+          score = Math.min(98, score + Math.floor(Math.random() * 2));
 
-          let crit2 = 28 + Math.floor(Math.random() * 5); // Căn cứ pháp lý & HaUI (max 35)
-          if (hasHaui || hasLaw) crit2 = Math.min(35, crit2 + 3);
-
-          let crit3 = 20 + Math.floor(Math.random() * 4); // Thuyết phục & Văn minh (max 25)
-          if (hasTheory) crit3 = Math.min(25, crit3 + 2);
-
-          const total = crit1 + crit2 + crit3;
-
-          let topicRemark = "";
-          if (this.debateTopicIndex === 0) {
-            topicRemark = hasTheory 
-              ? "Lập luận sắc bén, phản bác chuẩn xác bản chất giai cấp công nhân vs tư sản; vạch trần ngụy biện đa đảng tư sản!" 
-              : "Lập luận mạch lạc, cần làm rõ thêm bản chất kinh tế công hữu TLSX chủ yếu của Dân chủ XHCN.";
-          } else if (this.debateTopicIndex === 1) {
-            topicRemark = hasLaw 
-              ? "Viện dẫn xuất sắc Hiến pháp 2013 và Luật An ninh mạng 2018; phân biệt rành mạch tự do và kỷ cương pháp quyền!" 
-              : "Tư duy phản biện tốt, nên viện dẫn thêm Điều 14 Hiến pháp 2013 về giới hạn quyền công dân.";
-          } else if (this.debateTopicIndex === 2) {
-            topicRemark = "Làm nổi bật bước tiến lý luận của thành tố 'Dân thụ hưởng' tại Đại hội XIII; dẫn chứng an sinh xã hội rất thuyết phục!";
-          } else if (this.debateTopicIndex === 3) {
-            topicRemark = hasHaui 
-              ? "Lập luận đanh thép, phản bác trúng tim đen tư tưởng thờ ơ học đường; viện dẫn xuất sắc Quy chế 31/NQ-HĐT của HaUI!" 
-              : "Lập luận tốt, cần bổ sung ví dụ thực tế giám sát thiết bị phòng lab IoT và xưởng thực hành HaUI.";
-          } else if (this.debateTopicIndex === 4) {
-            topicRemark = "Nhận diện trúng 4 điểm nghẽn thể chế; đề xuất chuẩn SLA giải trình trong 7 ngày và cơ chế bảo vệ người phản ánh rất xác đáng!";
-          } else {
-            topicRemark = "Khắc họa sinh động chuẩn mực kỹ sư 4.0 'vừa hồng vừa chuyên' theo lời Bác dạy; tư duy đạo đức công nghệ rất tiến bộ!";
+          let remark = "Lập luận sắc bén, luận cứ rõ ràng và phản biện rất thuyết phục bám sát chủ đề!";
+          if (hasHaui && hasLaw) {
+            remark = "Viện dẫn xuất sắc Quy chế 31/NQ-HĐT của HaUI và Hiến pháp 2013; phản bác rất đanh thép!";
+          } else if (hasTheory) {
+            remark = "Làm nổi bật bản chất giai cấp của nền Dân chủ XHCN; phê phán trúng tim đen luận điểm ngụy biện!";
           }
 
           const teamEntry = {
             rank: 1,
             team: selectedTeamName,
-            leader: leaderName,
-            score: total,
-            crit1: crit1,
-            crit2: crit2,
-            crit3: crit3,
-            type: total >= 90 ? "Xuất sắc" : total >= 80 ? "Giỏi" : "Khá",
+            leader: "Đại diện nhóm",
+            score: score,
             argument: text,
-            remark: topicRemark
+            remark: remark
           };
 
-          // Update existing or add new
+          // Cập nhật đội thi vào danh sách
           const existingIdx = debateTeams.findIndex(t => t.team === selectedTeamName);
           if (existingIdx >= 0) {
             debateTeams[existingIdx] = teamEntry;
@@ -3580,54 +3577,44 @@ class AppController {
             debateTeams.unshift(teamEntry);
           }
 
-          // Update UI
-          document.getElementById('verdictTeamName').textContent = teamEntry.team;
-          document.getElementById('verdictLeader').textContent = `Nhóm trưởng: ${teamEntry.leader}`;
-          document.getElementById('verdictTotal').textContent = `${teamEntry.score}/100đ`;
-          document.getElementById('vCrit1').textContent = `${teamEntry.crit1}/40đ`;
-          document.getElementById('vCrit2').textContent = `${teamEntry.crit2}/35đ`;
-          document.getElementById('vCrit3').textContent = `${teamEntry.crit3}/25đ`;
-          document.getElementById('vBar1').style.width = `${(teamEntry.crit1 / 40) * 100}%`;
-          document.getElementById('vBar2').style.width = `${(teamEntry.crit2 / 35) * 100}%`;
-          document.getElementById('vBar3').style.width = `${(teamEntry.crit3 / 25) * 100}%`;
-          document.getElementById('vAiComment').textContent = teamEntry.remark;
+          // Cập nhật thẻ kết quả
+          const verdictTeam = document.getElementById('verdictTeamName');
+          const verdictScore = document.getElementById('verdictTotal');
+          const verdictComment = document.getElementById('vAiComment');
+          if (verdictTeam) verdictTeam.textContent = teamEntry.team;
+          if (verdictScore) verdictScore.textContent = `${teamEntry.score}/100đ`;
+          if (verdictComment) verdictComment.textContent = teamEntry.remark;
 
-          this.renderArenaRanking();
-        }, 1200);
+          // Cập nhật bảng xếp hạng
+          this.renderArenaRanking(selectedTeamName);
+
+          // Hiện bảng xếp hạng bên cạnh, ẩn trạng thái chờ
+          const placeholder = document.getElementById('leaderboardPlaceholder');
+          const activeContent = document.getElementById('leaderboardActiveContent');
+          if (placeholder) placeholder.classList.add('hidden');
+          if (activeContent) activeContent.classList.remove('hidden');
+        }, 700);
       });
     }
 
-    // Open Teacher Dossier
-    const btnDossier = document.getElementById('btnOpenTeacherDossier');
-    if (btnDossier) {
-      btnDossier.addEventListener('click', () => {
-        audio.success();
-        this.renderTeacherDossier();
-        this.openModal('dossierModal');
-      });
-    }
-
-    const btnPrint = document.getElementById('btnPrintDossier');
-    if (btnPrint) {
-      btnPrint.addEventListener('click', () => {
-        window.print();
-      });
-    }
-
-    const btnCopySummary = document.getElementById('btnCopyDossierSummary');
-    if (btnCopySummary) {
-      btnCopySummary.addEventListener('click', () => {
+    // Xem câu trả lời của nhóm khác
+    if (btnViewOthers) {
+      btnViewOthers.addEventListener('click', () => {
         audio.click();
-        const top = debateTeams[0];
-        const summary = `📋 BÁO CÁO PHẢN BIỆN LÝ LUẬN HaUI 2026\nĐề tài: Bản chất Dân chủ XHCN ở Việt Nam\nTop 1: ${top.team} (${top.leader}) - Điểm: ${top.score}/100đ\nNhận xét AI: ${top.remark}\n(Đã xác thực điện tử và trích xuất từ hệ thống RED MIND / HaUI)`;
-        navigator.clipboard.writeText(summary).then(() => {
-          alert("✅ Đã sao chép tóm tắt báo cáo! Bạn có thể dán vào nhóm Zalo để gửi Thầy/Cô.");
-        });
+        this.renderOtherTeamsAnswers();
+        this.openModal('otherAnswersModal');
+      });
+    }
+
+    if (btnCloseOthers) {
+      btnCloseOthers.addEventListener('click', () => {
+        this.closeModal('otherAnswersModal');
       });
     }
   }
 
   renderTeacherDossier() {
+    // Retained for academic dossier compatibility
     const tableBody = document.getElementById('dossierTableTbody');
     const detailsContainer = document.getElementById('dossierDetailsContainer');
     const dateEl = document.getElementById('dossierDate');
@@ -3644,7 +3631,7 @@ class AppController {
           <td>${escapeHTML(t.team)}</td>
           <td>${escapeHTML(t.leader)}</td>
           <td><strong>${t.score}/100đ</strong></td>
-          <td><span style="color: #c4161c; font-weight: bold;">${escapeHTML(t.type)}</span></td>
+          <td><span style="color: #c4161c; font-weight: bold;">${escapeHTML(t.type || 'Xuất sắc')}</span></td>
         </tr>
       `).join('');
     }

@@ -109,6 +109,8 @@ async function runTestSuite() {
 
     // 3. TEST SIDEBAR LIBRARY MODAL (P1-6)
     console.log('\n--- 3. Testing Library Modal & Search (P1-6 & P1-10) ---');
+    await page.hover('#sidebarPeekTab');
+    await page.waitForTimeout(300);
     await page.click('#navItemLibrary');
     await page.waitForTimeout(400);
     const libraryData = await page.evaluate(() => {
@@ -199,6 +201,8 @@ async function runTestSuite() {
 
     // 7. TEST XSS SANITIZATION (P0-4)
     console.log('\n--- 7. Testing XSS Sanitization (P0-4) ---');
+    await page.hover('#sidebarPeekTab');
+    await page.waitForTimeout(300);
     await page.click('#navItemReviews');
     await page.waitForTimeout(400);
     const xssTest = await page.evaluate(() => {
