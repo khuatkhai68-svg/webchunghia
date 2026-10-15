@@ -25,17 +25,126 @@ const MIME_TYPES = {
     '.md': 'text/markdown; charset=utf-8'
 };
 
+const DATA_DIR = path.join(__dirname, 'data');
+const ANSWERS_FILE = path.join(DATA_DIR, 'debate_answers.json');
+
+function ensureDataFile() {
+    if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(ANSWERS_FILE)) {
+        fs.writeFileSync(ANSWERS_FILE, '[]', 'utf8');
+    }
+}
+
+function sendJson(res, statusCode, data) {
+    res.writeHead(statusCode, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
+    });
+    res.end(JSON.stringify(data));
+}
+
 const server = http.createServer((req, res) => {
-    // Only allow GET and HEAD requests
-    if (req.method !== 'GET' && req.method !== 'HEAD') {
-        res.writeHead(405, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end('Method Not Allowed');
+    // Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+        res.writeHead(204, {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type'
+        });
+        res.end();
         return;
     }
 
     try {
         const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
         let pathname = decodeURIComponent(parsedUrl.pathname);
+
+        // API ROUTE: /api/debate-answers (Lưu trữ và truy xuất câu trả lời phản biện)
+        if (pathname === '/api/debate-answers') {
+            ensureDataFile();
+
+            if (req.method === 'GET') {
+                try {
+                    const raw = fs.readFileSync(ANSWERS_FILE, 'utf8') || '[]';
+                    const data = JSON.parse(raw);
+                    sendJson(res, 200, { success: true, answers: data });
+                } catch (e) {
+                    sendJson(res, 500, { success: false, message: 'Lỗi đọc file dữ liệu', error: e.message });
+                }
+                return;
+            }
+
+            if (req.method === 'POST') {
+                let body = '';
+                req.on('data', chunk => { body += chunk; });
+                req.on('end', () => {
+                    try {
+                        const item = JSON.parse(body);
+                        if (!item || !item.team || !item.answer) {
+                            sendJson(res, 400, { success: false, message: 'Dữ liệu không hợp lệ. Cần có nhóm và câu trả lời.' });
+                            return;
+                        }
+
+                        const raw = fs.readFileSync(ANSWERS_FILE, 'utf8') || '[]';
+                        let list = JSON.parse(raw);
+
+                        // Tìm xem nhóm này đã có câu trả lời chưa, nếu có thì cập nhật, nếu chưa thì thêm mới
+                        const existingIdx = list.findIndex(a => a.team === item.team);
+                        const record = {
+                            id: item.id || `sub_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+                            team: item.team,
+                            question: item.question || '',
+                            answer: item.answer,
+                            wordCount: item.wordCount || item.answer.trim().split(/\s+/).filter(Boolean).length,
+                            score: item.score || 85,
+                            rubric: item.rubric || null,
+                            keyFindings: item.keyFindings || [],
+                            remark: item.remark || '',
+                            submittedAt: item.submittedAt || new Date().toISOString(),
+                            submittedTimeFormatted: item.submittedTimeFormatted || new Date().toLocaleString('vi-VN')
+                        };
+
+                        if (existingIdx >= 0) {
+                            list[existingIdx] = record;
+                        } else {
+                            list.push(record);
+                        }
+
+                        fs.writeFileSync(ANSWERS_FILE, JSON.stringify(list, null, 2), 'utf8');
+                        sendJson(res, 200, { success: true, record, all: list });
+                    } catch (e) {
+                        sendJson(res, 500, { success: false, message: 'Lỗi ghi dữ liệu', error: e.message });
+                    }
+                });
+                return;
+            }
+
+            if (req.method === 'DELETE') {
+                try {
+                    fs.writeFileSync(ANSWERS_FILE, '[]', 'utf8');
+                    sendJson(res, 200, { success: true, message: 'Đã xóa toàn bộ câu trả lời phản biện.', answers: [] });
+                } catch (e) {
+                    sendJson(res, 500, { success: false, message: 'Lỗi xóa dữ liệu', error: e.message });
+                }
+                return;
+            }
+
+            res.writeHead(405, { 'Content-Type': 'text/plain; charset=utf-8' });
+            res.end('Method Not Allowed');
+            return;
+        }
+
+        // Only allow GET and HEAD requests for static files
+        if (req.method !== 'GET' && req.method !== 'HEAD') {
+            res.writeHead(405, { 'Content-Type': 'text/plain; charset=utf-8' });
+            res.end('Method Not Allowed');
+            return;
+        }
 
         // Normalize path to prevent directory traversal
         let safePath = path.normalize(path.join(PUBLIC_DIR, pathname));

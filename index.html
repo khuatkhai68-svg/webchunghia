@@ -144,12 +144,26 @@
             <span class="text">Hành động</span>
             <span class="badge-new" style="background: #64748B;">Demo</span>
           </button>
-          <button class="nav-item" data-view="debate" id="navItemDebate" title="Đấu trường phản biện học tập (Mô phỏng)">
+          <button class="nav-item" data-view="debate" id="navItemDebate" title="Đấu trường phản biện học tập">
             <span class="nav-active-bar"></span>
             <span class="icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
             </span>
             <span class="text">Phản biện</span>
+          </button>
+          <button class="nav-item" data-view="debate-records" id="navItemDebateRecords" title="Hồ sơ và ngân hàng câu trả lời phản biện thực tế của các nhóm">
+            <span class="nav-active-bar"></span>
+            <span class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </span>
+            <span class="text">Dữ liệu phản biện</span>
+            <span class="badge-tag" id="sidebarDebateCount">0 bài</span>
           </button>
         </nav>
       </div>
@@ -750,6 +764,99 @@
 
           </div>
 
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= VIEW 4: CÂU TRẢ LỜI PHẢN BIỆN CỦA CÁC NHÓM ================= -->
+    <div class="view-panel hidden" id="viewDebateRecords">
+      <!-- Breadcrumb & Actions Bar -->
+      <div class="canvas-controls-bar actions-view-header-bar">
+        <nav class="breadcrumbs" aria-label="Đường dẫn điều hướng dữ liệu phản biện">
+          <button class="bc-link" id="bcHomeFromDebateRec" title="Bấm để quay về toàn cảnh sơ đồ tư duy">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Sơ đồ tư duy</span>
+          </button>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">Câu trả lời phản biện của các nhóm</span>
+        </nav>
+        <div class="controls-right-group">
+          <button class="btn-ctrl-action" id="btnOpenDebateFromRec" title="Mở đấu trường phản biện để nộp bài hoặc tranh luận">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Đấu trường tranh biện</span>
+          </button>
+          <button class="btn-ctrl-action" id="btnExportDebateData" title="Xuất toàn bộ dữ liệu phản biện dạng JSON">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Xuất JSON</span>
+          </button>
+          <button class="btn-ctrl-action btn-danger-action" id="btnResetDebateData" title="Xóa toàn bộ câu trả lời để bắt đầu đợt tranh biện mới">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            <span>Đặt lại</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Scrollable Records Container -->
+      <div class="debate-records-scrollable">
+        <div class="debate-records-hero">
+          <div class="dr-hero-tag">HỆ THỐNG TRUY XUẤT THỰC TẾ • KHÔNG DỮ LIỆU GIẢ LẬP</div>
+          <h2>HỒ SƠ CÂU TRẢ LỜI PHẢN BIỆN CỦA CÁC NHÓM</h2>
+          <p>
+            Lưu trữ nguyên văn câu trả lời, luận cứ và kết quả đánh giá thực tế dựa trên nội dung nộp của 10 nhóm sinh viên Đại học Công nghiệp Hà Nội. Điểm số được tính toán minh bạch từ chính bài làm nộp lên hệ thống.
+          </p>
+
+          <!-- 4 Stats Cards -->
+          <div class="dr-stats-row">
+            <div class="dr-stat-card">
+              <span class="dr-stat-label">Tổng số nhóm</span>
+              <span class="dr-stat-val">10</span>
+            </div>
+            <div class="dr-stat-card">
+              <span class="dr-stat-label">Đã nộp bài</span>
+              <span class="dr-stat-val text-success" id="statSubmittedCount">0 / 10</span>
+            </div>
+            <div class="dr-stat-card">
+              <span class="dr-stat-label">Chưa nộp bài</span>
+              <span class="dr-stat-val text-muted" id="statPendingCount">10</span>
+            </div>
+            <div class="dr-stat-card">
+              <span class="dr-stat-label">Điểm trung bình</span>
+              <span class="dr-stat-val text-primary" id="statAvgScore">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="dr-toolbar">
+          <div class="dr-filter-group">
+            <label for="filterTeamSelect"><strong>Lọc theo nhóm:</strong></label>
+            <select id="filterTeamSelect" class="dr-select">
+              <option value="all">Tất cả các nhóm (Nhóm 1 - 10)</option>
+              <option value="Nhóm 1">Nhóm 1</option>
+              <option value="Nhóm 2">Nhóm 2</option>
+              <option value="Nhóm 3">Nhóm 3</option>
+              <option value="Nhóm 4">Nhóm 4</option>
+              <option value="Nhóm 5">Nhóm 5</option>
+              <option value="Nhóm 6">Nhóm 6</option>
+              <option value="Nhóm 7">Nhóm 7</option>
+              <option value="Nhóm 8">Nhóm 8</option>
+              <option value="Nhóm 9">Nhóm 9</option>
+              <option value="Nhóm 10">Nhóm 10</option>
+            </select>
+          </div>
+          <div class="dr-search-group">
+            <input type="text" id="drSearchInput" placeholder="🔍 Tìm kiếm từ khóa trong câu trả lời...">
+          </div>
+        </div>
+
+        <!-- List of Submitted Records -->
+        <div class="dr-list" id="drSubmissionsList">
+          <!-- Dynamically populated by JS from real data -->
+        </div>
+
+        <!-- Pending Teams List (Các nhóm chưa nộp bài) -->
+        <div class="dr-pending-box" id="drPendingBox">
+          <!-- Populated by JS -->
         </div>
       </div>
     </div>
