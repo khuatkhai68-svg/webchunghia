@@ -1116,10 +1116,17 @@
             </div>
           </div>
 
-          <!-- 3. Dòng trả lời của nhóm (rộng rãi, không giới hạn độ dài) -->
+          <!-- 3. Nội dung câu trả lời của nhóm (hoàn toàn không giới hạn số từ/độ dài) -->
           <div class="arena-answer-box">
-            <label for="modalArgumentText" class="answer-label">✍️ <strong>Dòng trả lời của nhóm (không giới hạn):</strong></label>
-            <textarea id="modalArgumentText" rows="7" class="minimal-textarea" placeholder="Nhập đầy đủ câu trả lời, luận cứ, dẫn chứng thực tiễn phản biện của nhóm vào đây..."></textarea>
+            <div class="answer-header-flex">
+              <label for="modalArgumentText" class="answer-label">✍️ <strong>Nội dung câu trả lời & phản biện của nhóm:</strong></label>
+              <span class="badge-no-limit">✨ Không giới hạn số từ</span>
+            </div>
+            <textarea id="modalArgumentText" rows="7" class="minimal-textarea" placeholder="Nhập câu trả lời, luận cứ, dẫn chứng lý luận & thực tiễn của nhóm tại đây (thoải mái trình bày đầy đủ, không giới hạn số từ)..."></textarea>
+            <div class="arena-word-counter-bar">
+              <span id="arenaWordCountText">📝 Đã nhập: <strong>0</strong> từ (<strong>0</strong> ký tự) • <em>Không giới hạn</em></span>
+              <span class="word-counter-note">💡 Tự do trình bày toàn diện luận điểm, lưu trữ 100% nguyên văn</span>
+            </div>
           </div>
 
           <!-- 4. Hàng nút hành động: Nộp bài & Xem câu trả lời nhóm khác -->
@@ -1149,10 +1156,14 @@
             <div class="verdict-banner-card" id="modalVerdictBox">
               <div class="verdict-header">
                 <div>
-                  <span class="verdict-tag">✨ KẾT QUẢ ĐÃ CHẤM</span>
+                  <span class="verdict-tag">✨ KẾT QUẢ ĐÃ CHẤM TỪ BÀI VIẾT</span>
                   <h4 id="verdictTeamName">Nhóm 1 - Khoa CNTT</h4>
                 </div>
                 <div class="verdict-score" id="verdictTotal">94/100đ</div>
+              </div>
+              <div class="verdict-full-answer-box" id="verdictAnswerBox">
+                <div class="v-ans-label">✍️ Nguyên văn câu trả lời đã nộp:</div>
+                <p class="v-ans-text" id="verdictAnswerFullText">...</p>
               </div>
               <p class="verdict-ai-summary" id="vAiComment">
                 Lập luận sắc bén, luận cứ rõ ràng và phản biện rất thuyết phục!

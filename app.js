@@ -3558,19 +3558,15 @@ class AppController {
     practiceScore = Math.min(35, practiceScore);
 
     // Tiêu chí 3: Lập luận logic & Tính thuyết phục (Tối đa 25đ)
-    let logicScore = 12;
-    if (wordCount >= 35) logicScore += 3;
-    if (wordCount >= 75) logicScore += 4;
-    if (wordCount >= 120) logicScore += 3;
-    if (/khẳng định rằng|bởi vì|do đó|vì vậy|từ đó|ngược lại|mặt khác|thực chất/i.test(raw)) {
+    // Hoàn toàn không ép buộc hay phạt theo số lượng từ - tôn trọng mọi độ dài phản biện
+    let logicScore = 20;
+    if (wordCount > 0) logicScore += 2;
+    if (/khẳng định rằng|bởi vì|do đó|vì vậy|từ đó|ngược lại|mặt khác|thực chất|cho thấy|chứng minh|rõ ràng|quan điểm/i.test(raw)) {
       logicScore += 3;
     }
     logicScore = Math.min(25, logicScore);
 
     const totalScore = theoryScore + practiceScore + logicScore;
-
-    // Trích đoạn thực tế từ chính câu trả lời của nhóm
-    const snippet = raw.length > 95 ? raw.slice(0, 90) + '...' : raw;
 
     let remark = '';
     const points = [];
@@ -3582,9 +3578,9 @@ class AppController {
     }
 
     if (points.length > 0) {
-      remark = `Nhóm đã ${points.join(', ')}. Luận điểm xuất phát từ quan điểm: "${snippet}". `;
+      remark = `Nhóm đã ${points.join(', ')}. Toàn bộ bài làm được chấm trực tiếp trên 100% nội dung thực tế nộp lên. `;
     } else {
-      remark = `Nhóm đã nêu được ý kiến thực tế: "${snippet}". `;
+      remark = `Nhóm đã đưa ra luận điểm phản biện trực tiếp bám sát vấn đề. `;
     }
 
     if (totalScore >= 88) {
@@ -3606,6 +3602,16 @@ class AppController {
       keyFindings: [...theoryFindings, ...practiceFindings],
       remark
     };
+  }
+
+  updateArenaWordCount() {
+    const argInput = document.getElementById('modalArgumentText');
+    const wordCountEl = document.getElementById('arenaWordCountText');
+    if (!argInput || !wordCountEl) return;
+    const val = argInput.value || '';
+    const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+    const chars = val.length;
+    wordCountEl.innerHTML = `📝 Đã nhập: <strong>${words}</strong> từ (<strong>${chars}</strong> ký tự) • <em>Không giới hạn</em>`;
   }
 
   // 5. Mở modal Đấu trường phản biện
@@ -3634,9 +3640,11 @@ class AppController {
         const verdictTeam = document.getElementById('verdictTeamName');
         const verdictScore = document.getElementById('verdictTotal');
         const verdictComment = document.getElementById('vAiComment');
+        const verdictAnsFull = document.getElementById('verdictAnswerFullText');
         if (verdictTeam) verdictTeam.textContent = existing.team;
         if (verdictScore) verdictScore.textContent = `${existing.score}/100đ`;
         if (verdictComment) verdictComment.textContent = existing.remark;
+        if (verdictAnsFull) verdictAnsFull.textContent = existing.answer;
         if (placeholder) placeholder.classList.add('hidden');
         if (activeContent) activeContent.classList.remove('hidden');
       } else {
@@ -3645,7 +3653,10 @@ class AppController {
         if (activeContent) activeContent.classList.add('hidden');
       }
 
+      this.updateArenaWordCount();
       if (argInput) {
+        argInput.style.height = 'auto';
+        argInput.style.height = Math.max(180, argInput.scrollHeight) + 'px';
         setTimeout(() => argInput.focus(), 150);
       }
 
@@ -3768,6 +3779,15 @@ class AppController {
     const btnViewOthers = document.getElementById('btnViewOtherTeamsAnswers');
     const btnCloseOthers = document.getElementById('btnCloseOtherAnswersModal');
 
+    // Lắng nghe gõ phím trực tiếp: Cập nhật số từ/ký tự thời gian thực & tự động giãn khung
+    if (argInput) {
+      argInput.addEventListener('input', () => {
+        this.updateArenaWordCount();
+        argInput.style.height = 'auto';
+        argInput.style.height = Math.max(180, argInput.scrollHeight) + 'px';
+      });
+    }
+
     // Chuyển nhóm: Tự động tải câu trả lời của nhóm đó nếu đã nộp
     if (selectTeam) {
       selectTeam.addEventListener('change', () => {
@@ -3781,15 +3801,22 @@ class AppController {
           const verdictTeam = document.getElementById('verdictTeamName');
           const verdictScore = document.getElementById('verdictTotal');
           const verdictComment = document.getElementById('vAiComment');
+          const verdictAnsFull = document.getElementById('verdictAnswerFullText');
           if (verdictTeam) verdictTeam.textContent = existing.team;
           if (verdictScore) verdictScore.textContent = `${existing.score}/100đ`;
           if (verdictComment) verdictComment.textContent = existing.remark;
+          if (verdictAnsFull) verdictAnsFull.textContent = existing.answer;
           if (placeholder) placeholder.classList.add('hidden');
           if (activeContent) activeContent.classList.remove('hidden');
         } else {
           if (argInput) argInput.value = '';
           if (placeholder) placeholder.classList.remove('hidden');
           if (activeContent) activeContent.classList.add('hidden');
+        }
+        this.updateArenaWordCount();
+        if (argInput) {
+          argInput.style.height = 'auto';
+          argInput.style.height = Math.max(180, argInput.scrollHeight) + 'px';
         }
         this.renderArenaRanking(teamName);
       });
@@ -3852,9 +3879,11 @@ class AppController {
         const verdictTeam = document.getElementById('verdictTeamName');
         const verdictScore = document.getElementById('verdictTotal');
         const verdictComment = document.getElementById('vAiComment');
+        const verdictAnsFull = document.getElementById('verdictAnswerFullText');
         if (verdictTeam) verdictTeam.textContent = submissionRecord.team;
         if (verdictScore) verdictScore.textContent = `${submissionRecord.score}/100đ`;
         if (verdictComment) verdictComment.textContent = submissionRecord.remark;
+        if (verdictAnsFull) verdictAnsFull.textContent = submissionRecord.answer;
 
         // Cập nhật bảng xếp hạng thực tế
         this.renderArenaRanking(selectedTeamName);
