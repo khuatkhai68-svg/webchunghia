@@ -7,6 +7,10 @@
       localStorage.removeItem('REDMIND_CUSTOM_SLIDES');
       localStorage.removeItem('REDMIND_CUSTOM_SCENARIOS_V2');
       localStorage.removeItem('REDMIND_CUSTOM_SCENARIOS');
+      const savedRev = localStorage.getItem('haui_web_reviews');
+      if (savedRev && (savedRev.includes('rev-1') || savedRev.includes('Nguyễn Minh Tuấn') || savedRev.includes('isSample'))) {
+        localStorage.removeItem('haui_web_reviews');
+      }
     } catch(e) {}
   </script>
   <meta charset="UTF-8">
@@ -572,6 +576,9 @@
           <button class="btn btn-outline btn-sm" id="btnBackToOverviewFromReviews">
             ← Quay lại Sơ đồ tư duy
           </button>
+          <button class="btn btn-outline btn-sm" id="btnResetAllReviews" title="Xóa toàn bộ nhận xét đã lưu trên máy">
+            🗑️ Đặt lại nhận xét
+          </button>
           <button class="btn btn-primary btn-sm" id="btnPresentFromReviews">
             ▶ Trình chiếu Slide
           </button>
@@ -587,10 +594,10 @@
             <p>Dự án đổi mới phương pháp giảng dạy môn <strong>Chủ nghĩa xã hội khoa học</strong> — Bộ môn Lý luận chính trị, Trường Đại học Công nghiệp Hà Nội. Ý kiến đánh giá của Thầy/Cô và các bạn sinh viên là căn cứ quan trọng nhất để hoàn thiện nền tảng học liệu mở.</p>
           </div>
           <div class="r-hero-score-card">
-            <div class="big-score" id="heroAverageRating">5.0<span class="max-score">/5.0</span></div>
-            <div class="stars-gold" id="heroStarsDisplay">★★★★★</div>
-            <div class="score-sub"><span id="totalReviewsCount">5</span> lượt đánh giá (Dữ liệu mẫu & người dùng)</div>
-            <div class="score-recommend" id="heroRecommendText">Đánh giá thực tế từ người học</div>
+            <div class="big-score" id="heroAverageRating">--<span class="max-score">/5.0</span></div>
+            <div class="stars-gold" id="heroStarsDisplay">☆☆☆☆☆</div>
+            <div class="score-sub"><span id="totalReviewsCount">0</span> lượt đánh giá (Đang chờ đánh giá thực tế)</div>
+            <div class="score-recommend" id="heroRecommendText">Đang chờ đánh giá thực tế từ người học</div>
           </div>
         </div>
 
@@ -731,30 +738,30 @@
                 <div class="m-prog-row">
                   <div class="m-prog-header">
                     <span class="m-prog-label">1. Chuẩn xác lý luận (Bộ GD&ĐT)</span>
-                    <span class="m-prog-val">4.9 / 5.0</span>
+                    <span class="m-prog-val" id="critScore1">-- / 5.0</span>
                   </div>
-                  <div class="m-bar-wrap"><div class="m-bar-fill" style="width: 98%; background: #e11d48;"></div></div>
+                  <div class="m-bar-wrap"><div class="m-bar-fill" id="critBar1" style="width: 0%; background: #e11d48;"></div></div>
                 </div>
                 <div class="m-prog-row">
                   <div class="m-prog-header">
                     <span class="m-prog-label">2. Sơ đồ tư duy & Đồ họa tương tác</span>
-                    <span class="m-prog-val">5.0 / 5.0</span>
+                    <span class="m-prog-val" id="critScore2">-- / 5.0</span>
                   </div>
-                  <div class="m-bar-wrap"><div class="m-bar-fill" style="width: 100%; background: #d97706;"></div></div>
+                  <div class="m-bar-wrap"><div class="m-bar-fill" id="critBar2" style="width: 0%; background: #d97706;"></div></div>
                 </div>
                 <div class="m-prog-row">
                   <div class="m-prog-header">
                     <span class="m-prog-label">3. Thực tiễn giảng đường & SV HaUI</span>
-                    <span class="m-prog-val">4.9 / 5.0</span>
+                    <span class="m-prog-val" id="critScore3">-- / 5.0</span>
                   </div>
-                  <div class="m-bar-wrap"><div class="m-bar-fill" style="width: 98%; background: #0284c7;"></div></div>
+                  <div class="m-bar-wrap"><div class="m-bar-fill" id="critBar3" style="width: 0%; background: #0284c7;"></div></div>
                 </div>
                 <div class="m-prog-row">
                   <div class="m-prog-header">
                     <span class="m-prog-label">4. Ứng dụng Trợ lý AI & Phản biện</span>
-                    <span class="m-prog-val">4.8 / 5.0</span>
+                    <span class="m-prog-val" id="critScore4">-- / 5.0</span>
                   </div>
-                  <div class="m-bar-wrap"><div class="m-bar-fill" style="width: 96%; background: #059669;"></div></div>
+                  <div class="m-bar-wrap"><div class="m-bar-fill" id="critBar4" style="width: 0%; background: #059669;"></div></div>
                 </div>
               </div>
             </div>
@@ -762,10 +769,10 @@
             <!-- Feed Filter Tabs -->
             <div class="feed-filters-bar">
               <span class="filter-label">Lọc nhận xét:</span>
-              <button class="filter-pill active" data-filter="all">Tất cả (<span id="filterCountAll">5</span>)</button>
-              <button class="filter-pill" data-filter="lecturer">👨‍🏫 Giảng viên</button>
-              <button class="filter-pill" data-filter="student">🎓 Sinh viên HaUI</button>
-              <button class="filter-pill" data-filter="peer">👥 Nhóm phản biện</button>
+              <button class="filter-pill active" data-filter="all">Tất cả (<span id="filterCountAll">0</span>)</button>
+              <button class="filter-pill" data-filter="lecturer">👨‍🏫 Giảng viên (<span id="filterCountLecturer">0</span>)</button>
+              <button class="filter-pill" data-filter="student">🎓 Sinh viên (<span id="filterCountStudent">0</span>)</button>
+              <button class="filter-pill" data-filter="peer">👥 Phản biện (<span id="filterCountPeer">0</span>)</button>
             </div>
 
             <!-- List of Reviews -->

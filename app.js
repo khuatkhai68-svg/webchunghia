@@ -4811,94 +4811,21 @@ class AppController {
   // SPECIALIZED MODULE 6: WEBSITE REVIEWS & EVALUATION SYSTEM
   // ==========================================================================
   bindReviewsModule() {
-    const INITIAL_REVIEWS = [
-      {
-        id: "rev-1",
-        author: "TS. Nguyễn Minh Tuấn",
-        role: "lecturer",
-        roleName: "Giảng viên",
-        unit: "Bộ môn Lý luận Chính trị - HaUI",
-        stars: 5,
-        critScores: [5, 5, 5, 5],
-        tags: ["Lý luận đanh thép", "Thực tiễn HaUI sống động", "Học tập thiết thực"],
-        text: "Sáng kiến số hóa bài thuyết trình rất đột phá và công phu! Điểm sáng nhất là đã gắn kết chặt chẽ vế 'Dân thụ hưởng' với mô hình tự chủ đại học và quy chế 31/NQ-HĐT của trường. Sinh viên không chỉ hiểu lý luận trừu tượng mà biết rõ mình được quyền gì và cần làm gì khi bước vào phòng lab xưởng máy.",
-        time: "2 giờ trước",
-        likes: 24,
-        avatar: "👨‍🏫",
-        isSample: true
-      },
-      {
-        id: "rev-2",
-        author: "ThS. Lê Thu Trang",
-        role: "lecturer",
-        roleName: "Giảng viên",
-        unit: "Khoa Lý luận Chính trị - HaUI",
-        stars: 5,
-        critScores: [5, 5, 5, 4],
-        tags: ["Sơ đồ tư duy trực quan", "Học tập thiết thực", "Slide 16:9 chuyên nghiệp"],
-        text: "Đặc biệt khen ngợi bộ công cụ Trợ lý Học tập và Khung phân tích tình huống thực tế. Việc sử dụng Hiến pháp và Luật Thực hiện dân chủ ở cơ sở 2022 để định hướng nhận thức cho sinh viên trước thông tin đa chiều là phương pháp giáo dục chính trị rất tân tiến, trực quan.",
-        time: "5 giờ trước",
-        likes: 19,
-        avatar: "👩‍🏫",
-        isSample: true
-      },
-      {
-        id: "rev-3",
-        author: "Trần Đức Mạnh",
-        role: "peer",
-        roleName: "Nhóm phản biện",
-        unit: "Trưởng nhóm 2 - Khoa Cơ khí (K18)",
-        stars: 5,
-        critScores: [5, 5, 5, 5],
-        tags: ["Thực tiễn HaUI sống động", "Phản biện sâu sắc", "Slide 16:9 chuyên nghiệp"],
-        text: "Các bạn chuẩn bị bài thuyết trình rất công phu! Phần phân biệt giữa 'Kiểm tra' và 'Giám sát' tại xưởng thực hành CNC rất chuẩn xác, gãi đúng chỗ ngứa của sinh viên kỹ thuật. Nhóm mình đánh giá cao các căn cứ pháp lý của các bạn.",
-        time: "1 ngày trước",
-        likes: 15,
-        avatar: "⚙️",
-        isSample: true
-      },
-      {
-        id: "rev-4",
-        author: "Vũ Hoàng Linh",
-        role: "student",
-        roleName: "Sinh viên",
-        unit: "Lớp trưởng ĐH CNTT 3 - Khóa 18",
-        stars: 5,
-        critScores: [5, 5, 4, 5],
-        tags: ["Sơ đồ tư duy trực quan", "Slide 16:9 chuyên nghiệp"],
-        text: "Giao diện web mượt mà, bấm vào nhánh nào là bung slide 16:9 ngay trước mắt rất ấn tượng. Các nút xuất thẻ cam kết cá nhân SVG nhìn rất chuyên nghiệp. Hy vọng trường nhân rộng mô hình này cho các môn học khác!",
-        time: "1 ngày trước",
-        likes: 31,
-        avatar: "💻",
-        isSample: true
-      },
-      {
-        id: "rev-5",
-        author: "Phạm Thúy Nga",
-        role: "student",
-        roleName: "Sinh viên",
-        unit: "Khoa Quản lý Kinh doanh - HaUI",
-        stars: 5,
-        critScores: [5, 5, 5, 4],
-        tags: ["Lý luận đanh thép", "Phản biện sâu sắc"],
-        text: "Nội dung phân tích 4 điểm nghẽn thực tiễn (bệnh hình thức, sợ trù dập...) và giải pháp pháp quyền theo Nghị định 59/2023/NĐ-CP rất sâu sắc, thể hiện tinh thần dân chủ xây dựng đúng nghĩa.",
-        time: "2 ngày trước",
-        likes: 12,
-        avatar: "📊",
-        isSample: true
-      }
-    ];
+    const INITIAL_REVIEWS = [];
 
-    // 1. Load reviews from localStorage or seed
+    // 1. Load reviews from localStorage (filtering out any old mock seed reviews)
     const saved = localStorage.getItem('haui_web_reviews');
     if (saved) {
       try {
-        this.reviews = JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        this.reviews = Array.isArray(parsed) 
+          ? parsed.filter(r => !r.isSample && !['rev-1', 'rev-2', 'rev-3', 'rev-4', 'rev-5'].includes(r.id)) 
+          : [];
       } catch (e) {
-        this.reviews = [...INITIAL_REVIEWS];
+        this.reviews = [];
       }
     } else {
-      this.reviews = [...INITIAL_REVIEWS];
+      this.reviews = [];
     }
 
     const container = document.getElementById('reviewsListContainer');
@@ -4914,9 +4841,10 @@ class AppController {
 
       if (filtered.length === 0) {
         container.innerHTML = `
-          <div style="text-align: center; padding: 30px; color: #64748b; background: #ffffff; border-radius: 8px;">
-            <span style="font-size: 28px;">📭</span>
-            <p style="margin-top: 6px; font-size: 13px;">Chưa có nhận xét nào trong danh mục này.</p>
+          <div style="text-align: center; padding: 48px 20px; color: #64748b; background: #ffffff; border-radius: 12px; border: 1.5px dashed #cbd5e1; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+            <span style="font-size: 36px; display: block; margin-bottom: 10px;">📭</span>
+            <p style="margin: 0; font-size: 15px; font-weight: 600; color: #1e293b;">Chưa có nhận xét nào trong danh mục này.</p>
+            <p style="margin: 6px 0 0 0; font-size: 13px; color: #64748b;">Hệ thống đang đón nhận các đánh giá thực tế từ Giảng viên và Sinh viên qua biểu mẫu bên cạnh.</p>
           </div>
         `;
         return;
@@ -4947,7 +4875,7 @@ class AppController {
             </div>
           ` : ''}
           <div class="rev-footer">
-            <span>${r.isSample ? '📌 Ý kiến mẫu tham khảo' : '📝 Đánh giá người dùng (Lưu cục bộ)'}</span>
+            <span>📝 Đánh giá người dùng (Lưu cục bộ)</span>
             <button class="btn-rev-like" data-id="${r.id}">
               <span>👍</span> Hữu ích (${r.likes || 0})
             </button>
@@ -4976,18 +4904,78 @@ class AppController {
       if (totalCountEl) totalCountEl.textContent = len;
       if (filterAllEl) filterAllEl.textContent = len;
 
+      const countLecturer = this.reviews.filter(r => r.role === 'lecturer').length;
+      const countStudent = this.reviews.filter(r => r.role === 'student').length;
+      const countPeer = this.reviews.filter(r => r.role === 'peer').length;
+      const elLecturer = document.getElementById('filterCountLecturer');
+      const elStudent = document.getElementById('filterCountStudent');
+      const elPeer = document.getElementById('filterCountPeer');
+      if (elLecturer) elLecturer.textContent = countLecturer;
+      if (elStudent) elStudent.textContent = countStudent;
+      if (elPeer) elPeer.textContent = countPeer;
+
       const totalStars = this.reviews.reduce((acc, r) => acc + (r.stars || 5), 0);
-      const avg = len > 0 ? (totalStars / len).toFixed(1) : "5.0";
-      const roundedStars = Math.round(parseFloat(avg));
+      const avg = len > 0 ? (totalStars / len).toFixed(1) : "--";
+      const roundedStars = len > 0 ? Math.round(parseFloat(avg)) : 0;
 
       const avgEl = document.getElementById('heroAverageRating');
-      if (avgEl) avgEl.innerHTML = `${avg}<span class="max-score">/5.0</span>`;
+      if (avgEl) {
+        avgEl.innerHTML = len > 0 ? `${avg}<span class="max-score">/5.0</span>` : `--<span class="max-score">/5.0</span>`;
+      }
 
       const starsEl = document.getElementById('heroStarsDisplay');
-      if (starsEl) starsEl.textContent = '★'.repeat(roundedStars) + '☆'.repeat(5 - roundedStars);
+      if (starsEl) {
+        starsEl.textContent = len > 0 
+          ? ('★'.repeat(roundedStars) + '☆'.repeat(5 - roundedStars))
+          : '☆☆☆☆☆';
+      }
+
+      const scoreSubEl = document.querySelector('.r-hero-score-card .score-sub');
+      if (scoreSubEl) {
+        scoreSubEl.innerHTML = len > 0 
+          ? `<span id="totalReviewsCount">${len}</span> lượt đánh giá thực tế`
+          : `<span id="totalReviewsCount">0</span> lượt đánh giá (Đang chờ đánh giá)`;
+      }
 
       const sidebarBadge = document.getElementById('sidebarReviewsRating');
-      if (sidebarBadge) sidebarBadge.textContent = `${avg}★ (${len})`;
+      if (sidebarBadge) {
+        sidebarBadge.textContent = len > 0 ? `${avg}★ (${len})` : 'Nhận xét';
+      }
+
+      // Update criteria metric bars dynamically
+      for (let c = 1; c <= 4; c++) {
+        const cValEl = document.getElementById(`critScore${c}`);
+        const cBarEl = document.getElementById(`critBar${c}`);
+        if (cValEl && cBarEl) {
+          if (len > 0) {
+            const sum = this.reviews.reduce((acc, r) => acc + (r.critScores ? (r.critScores[c - 1] || 5) : (r.stars || 5)), 0);
+            const score = (sum / len).toFixed(1);
+            cValEl.textContent = `${score} / 5.0`;
+            cBarEl.style.width = `${Math.min(100, Math.round((parseFloat(score) / 5) * 100))}%`;
+          } else {
+            cValEl.textContent = `-- / 5.0`;
+            cBarEl.style.width = `0%`;
+          }
+        }
+      }
+    };
+
+    // Button to reset/clear all stored reviews if needed
+    const btnResetReviews = document.getElementById('btnResetAllReviews');
+    if (btnResetReviews) {
+      btnResetReviews.addEventListener('click', () => {
+        if (this.reviews.length === 0) {
+          alert('Hiện tại danh sách nhận xét đang trống!');
+          return;
+        }
+        if (confirm('Bạn có chắc chắn muốn xóa toàn bộ nhận xét đã lưu trên máy này?')) {
+          this.reviews = [];
+          localStorage.removeItem('haui_web_reviews');
+          renderList('all');
+          updateCounts();
+          audio.pop();
+        }
+      });
     };
 
     renderList('all');
