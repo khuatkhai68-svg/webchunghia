@@ -1499,11 +1499,24 @@ class AppController {
     const navReviews = document.getElementById('navItemReviews');
     const navDebateRecords = document.getElementById('navItemDebateRecords');
 
-    // Auto-close floating sidebar on view switch if unpinned
+    // Auto-close floating or mobile sidebar on view switch
     const sidebar = document.getElementById('leftSidebar');
-    if (sidebar && !sidebar.classList.contains('pinned')) {
-      sidebar.classList.remove('is-hovered');
+    const mobileBackdrop = document.getElementById('mobileSidebarBackdrop');
+    if (sidebar) {
+      if (!sidebar.classList.contains('pinned')) {
+        sidebar.classList.remove('is-hovered');
+      }
+      sidebar.classList.remove('mobile-open');
     }
+    if (mobileBackdrop) {
+      mobileBackdrop.classList.add('hidden');
+    }
+
+    // Update mobile bottom nav active pills
+    document.querySelectorAll('.mb-nav-item').forEach(btn => {
+      const btnView = btn.getAttribute('data-view');
+      btn.classList.toggle('active', btnView === viewName);
+    });
 
     // Update sidebar navigation pills
     document.querySelectorAll('.sidebar-nav .nav-item').forEach(btn => btn.classList.remove('active'));
@@ -1640,11 +1653,46 @@ class AppController {
       btnUser.addEventListener('click', () => this.openModal('userProfileModal'));
     }
 
-    // Mobile Bottom Navigation Bar Bindings
+    // Mobile Sidebar Drawer & Backdrop Handlers
+    const btnMobileMenu = document.getElementById('btnMobileMenu');
+    const btnCloseMobileSidebar = document.getElementById('btnCloseMobileSidebar');
+    const mobileSidebarBackdrop = document.getElementById('mobileSidebarBackdrop');
+
+    const setMobileSidebar = (open) => {
+      const sb = document.getElementById('leftSidebar');
+      if (!sb) return;
+      sb.classList.toggle('mobile-open', open);
+      if (mobileSidebarBackdrop) {
+        mobileSidebarBackdrop.classList.toggle('hidden', !open);
+      }
+    };
+
+    if (btnMobileMenu) {
+      btnMobileMenu.addEventListener('click', () => {
+        audio.click();
+        setMobileSidebar(true);
+      });
+    }
+
+    if (btnCloseMobileSidebar) {
+      btnCloseMobileSidebar.addEventListener('click', () => {
+        audio.click();
+        setMobileSidebar(false);
+      });
+    }
+
+    if (mobileSidebarBackdrop) {
+      mobileSidebarBackdrop.addEventListener('click', () => {
+        setMobileSidebar(false);
+      });
+    }
+
+    // Mobile Bottom Navigation Bar Bindings (5 Essential Functions)
     const mbMindmap = document.getElementById('mbNavMindmap');
     const mbActions = document.getElementById('mbNavActions');
-    const mbLib = document.getElementById('mbNavLibrary');
-    const mbNotes = document.getElementById('mbNavNotes');
+    const mbDebate = document.getElementById('mbNavDebate');
+    const mbRecords = document.getElementById('mbNavRecords');
+    const mbMenu = document.getElementById('mbNavMenu');
 
     const updateMobileNavPills = (activeId) => {
       document.querySelectorAll('.mb-nav-item').forEach(btn => {
@@ -1664,16 +1712,23 @@ class AppController {
         updateMobileNavPills('mbNavActions');
       });
     }
-    if (mbLib) {
-      mbLib.addEventListener('click', () => {
-        this.openLibraryModal();
-        updateMobileNavPills('mbNavLibrary');
+    if (mbDebate) {
+      mbDebate.addEventListener('click', () => {
+        audio.click();
+        this.openDebateModal();
+        updateMobileNavPills('mbNavDebate');
       });
     }
-    if (mbNotes) {
-      mbNotes.addEventListener('click', () => {
-        this.openModal('notesModal');
-        updateMobileNavPills('mbNavNotes');
+    if (mbRecords) {
+      mbRecords.addEventListener('click', () => {
+        this.switchView('debate-records');
+        updateMobileNavPills('mbNavRecords');
+      });
+    }
+    if (mbMenu) {
+      mbMenu.addEventListener('click', () => {
+        audio.click();
+        setMobileSidebar(true);
       });
     }
 
